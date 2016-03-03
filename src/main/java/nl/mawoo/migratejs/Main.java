@@ -22,9 +22,7 @@ public class Main {
 
             try {
                 scriptHandler.fileReader(path);
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (ScriptException e) {
+            } catch (FileNotFoundException | ScriptException e) {
                 e.printStackTrace();
             }
         } else {
@@ -38,9 +36,7 @@ public class Main {
                     String input = br.readLine();
 
                     scriptHandler.stringReader(input);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (ScriptException e) {
+                } catch (IOException | ScriptException e) {
                     e.printStackTrace();
                 }
             }
