@@ -13,10 +13,7 @@ var TestMessage = function() {
  * @param path path to the file to import.
  */
 function include(path) {
-    var includeClass = Java.type("nl.mawoo.migratejs.extend.Include");
-    var include = new includeClass();
-
-    include.load(path);
+    load(path);
 }
 
 function includeTest(path) {

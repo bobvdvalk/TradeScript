@@ -1,3 +1,1 @@
-var HelloNoob = function() {
-	print("Hello Noob");
-}
+var cal = 12 + 3;
