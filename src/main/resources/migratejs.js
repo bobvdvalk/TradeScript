@@ -4,8 +4,8 @@
  */
 var TestMessage = function() {
     var testClass = Java.type("nl.mawoo.migratejs.extend.Test");
-
-    print(testClass.Message())
+    var test = new testClass();
+    print(test.Message())
 }
 
 /**
