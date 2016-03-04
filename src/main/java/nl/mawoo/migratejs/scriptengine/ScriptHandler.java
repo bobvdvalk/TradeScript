@@ -1,13 +1,10 @@
 package nl.mawoo.migratejs.scriptengine;
 
-import nl.mawoo.migratejs.extend.Include;
-
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.Reader;
 
 /**
  * This class is repsonible for running the nashorn script engine

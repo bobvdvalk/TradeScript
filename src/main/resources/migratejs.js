@@ -2,7 +2,7 @@
  * Return a test message (Hello World);
  * @returns {string}
  */
-var TestMessage = function() {
+function TestMessage() {
     var testClass = Java.type("nl.mawoo.migratejs.extend.Test");
     var test = new testClass();
     print(test.Message())
@@ -14,10 +14,4 @@ var TestMessage = function() {
  */
 function include(path) {
     load(path);
-}
-
-function includeTest(path) {
-    var includeClass = Java.type("nl.mawoo.migratejs.extend.Include");
-
-    print(includeClass.test());
 }
