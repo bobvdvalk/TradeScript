@@ -1,5 +1,6 @@
 package nl.mawoo.migratejs;
 
+import nl.mawoo.migratejs.extend.Importer;
 import nl.mawoo.migratejs.scriptengine.ScriptHandler;
 
 import javax.script.ScriptException;
@@ -15,6 +16,9 @@ public class Main {
     public static void main(String... args) {
 
         ScriptHandler scriptHandler = new ScriptHandler();
+
+        // Load all classes that need the ScriptEngine.
+        new Importer(scriptHandler.getEngine());
 
         if(args.length > 0){
 

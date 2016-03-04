@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.scriptengine;
 
+import nl.mawoo.migratejs.extend.Include;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -14,14 +16,15 @@ import java.io.Reader;
  */
 public class ScriptHandler
 {
-    ScriptEngine engine;
-    ClassLoader classLoader;
+    private ScriptEngine engine;
+    private ClassLoader classLoader;
 
     public ScriptHandler() {
         ScriptEngineManager engineManager = new ScriptEngineManager();
         engine = engineManager.getEngineByName("nashorn");
 
         classLoader = getClass().getClassLoader();
+        Thread.currentThread().setContextClassLoader(classLoader);
 
         try {
             engine.eval(new FileReader(classLoader.getResource("migratejs.js").getFile()));
@@ -49,4 +52,7 @@ public class ScriptHandler
         engine.eval(input);
     }
 
+    public ScriptEngine getEngine() {
+        return engine;
+    }
 }
