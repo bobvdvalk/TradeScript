@@ -1,1 +1,3 @@
-print(TestMessage());
+include("import.js");
+
+HelloWorld();

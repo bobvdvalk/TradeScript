@@ -1,3 +1,3 @@
-function HelloWorld() {
-	print("How are you doing!");
+var HelloNoob = function() {
+	print("Hello Noob");
 }

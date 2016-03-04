@@ -4,8 +4,8 @@
  */
 var TestMessage = function() {
     var testClass = Java.type("nl.mawoo.migratejs.extend.Test");
-
-    print(testClass.Message())
+    var test = new testClass();
+    print(test.Message())
 }
 
 /**
@@ -14,8 +14,9 @@ var TestMessage = function() {
  */
 function include(path) {
     var includeClass = Java.type("nl.mawoo.migratejs.extend.Include");
+    var include = new includeClass();
 
-    includeClass.load(path);
+    include.load(path);
 }
 
 function includeTest(path) {

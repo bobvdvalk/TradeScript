@@ -1,6 +1,7 @@
 package nl.mawoo.migratejs.extend;
 
 import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -16,8 +17,9 @@ public class Include {
      * Set up with the engine to execute functions.
      * @param engine scriptengine
      */
-    public Include(ScriptEngine engine) {
-        engine = engine;
+    public Include() {
+        ScriptEngineManager engineManager = new ScriptEngineManager();
+        engine = engineManager.getEngineByName("nashorn");
     }
 
     /**

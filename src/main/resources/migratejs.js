@@ -14,8 +14,9 @@ var TestMessage = function() {
  */
 function include(path) {
     var includeClass = Java.type("nl.mawoo.migratejs.extend.Include");
+    var include = new includeClass();
 
-    includeClass.load(path);
+    include.load(path);
 }
 
 function includeTest(path) {
