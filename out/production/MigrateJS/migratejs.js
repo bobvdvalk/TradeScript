@@ -15,3 +15,7 @@ function TestMessage() {
 function include(path) {
     load(path);
 }
+
+function use(library) {
+    var useResource = Java.type("nl.mawoo.")
+}
