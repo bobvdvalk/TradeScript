@@ -18,7 +18,7 @@ function include(path) {
 
 var use = function(library) {
     var useResource = Java.type("nl.mawoo.migratejs.resources.Resources");
-var resources = new useResource();
+    var resources = new useResource();
 
-load(resources.use(library));
-}
+    load(resources.use(library));
+};
