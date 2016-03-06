@@ -21,7 +21,6 @@ public class ScriptHandler
         engine = engineManager.getEngineByName("nashorn");
 
         classLoader = getClass().getClassLoader();
-        Thread.currentThread().setContextClassLoader(classLoader);
 
         try {
             engine.eval(new FileReader(classLoader.getResource("migratejs.js").getFile()));

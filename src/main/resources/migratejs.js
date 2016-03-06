@@ -15,3 +15,10 @@ function TestMessage() {
 function include(path) {
     load(path);
 }
+
+var use = function(library) {
+    var useResource = Java.type("nl.mawoo.migratejs.resources.Resources");
+var resources = new useResource();
+
+load(resources.use(library));
+}

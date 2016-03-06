@@ -1,7 +1,3 @@
-var test = include("import.js");
+use("test.js");
 
-var a = 12;
-var b = 24;
-var c = a * b;
-
-print("The calculation is: "+ cal);
+print("Het antwoord is: "+ calculate(12, 13));
