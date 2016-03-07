@@ -8,24 +8,42 @@ import java.net.URL;
 
 /**
  * This class is responsible for web requests
+ *
+ * @author Bob van der Valk
  */
 public class WebRequest {
 
     private final String USER_AGENT = "Mozilla/5.0";
     private int responseCode;
 
+    private String request;
+    private URL obj;
+    private HttpURLConnection con;
 
+    /**
+     * Instance a new web request.
+     * @param request string of url
+     */
+    public WebRequest(String request) {
+        this.request = request;
+
+        try {
+            this.obj = new URL(this.request);
+            con = (HttpURLConnection) this.obj.openConnection();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Execute a get request and the data will return as String
      * @param request url request you want data from
      * @return Content of the request
      */
-    public String getRequestAsString(String request) throws IOException {
-        URL obj = new URL(request);
-        HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    public String getRequestAsString() throws IOException {
 
-        con.setRequestMethod("POST");
+        con.setRequestMethod("GET");
         con.setRequestProperty("User-Agent", USER_AGENT);
 
         responseCode = con.getResponseCode();
