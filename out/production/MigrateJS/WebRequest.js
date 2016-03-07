@@ -1,5 +1,4 @@
-
-webRequest = {
+WebRequest = {
   getRequest: function(request) {
       var webRequestClass = Java.type("nl.mawoo.migratejs.extend.WebRequest");
       var webRequest = new webRequestClass();

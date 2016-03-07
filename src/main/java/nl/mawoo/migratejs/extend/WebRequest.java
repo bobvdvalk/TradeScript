@@ -14,6 +14,8 @@ public class WebRequest {
     private final String USER_AGENT = "Mozilla/5.0";
     private int responseCode;
 
+
+
     /**
      * Execute a get request and the data will return as String
      * @param request url request you want data from
@@ -42,6 +44,8 @@ public class WebRequest {
 
         return response.toString();
     }
+
+
 
     /**
      * @return response code of the current request.
