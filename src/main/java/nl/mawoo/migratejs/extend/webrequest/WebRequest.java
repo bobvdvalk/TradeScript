@@ -1,4 +1,4 @@
-package nl.mawoo.migratejs.extend;
+package nl.mawoo.migratejs.extend.webrequest;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
