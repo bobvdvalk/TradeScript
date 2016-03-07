@@ -48,6 +48,7 @@ public class FilemanagerHandler {
      * @return
      */
     public List<File> listDirectories(String directoryPath) {
+        System.out.println("echooooo222!");
         List<File> output = new ArrayList<>();
         for(File file : new File(directoryPath).listFiles()) {
             if(file.isDirectory())
@@ -98,7 +99,8 @@ public class FilemanagerHandler {
      * @throws IOException
      */
     public void copyFile(String source, String target) throws IOException {
-        if(new File(source).exists())
+        System.out.println("echooooo!");
+
             Files.copy(Paths.get(source), Paths.get(target));
     }
 
@@ -108,7 +110,7 @@ public class FilemanagerHandler {
      * @throws IOException
      */
     public void createDirectory(String target) throws IOException {
-        Files.createDirectory(Paths.get(target));
+        Files.createDirectories(Paths.get(target));
     }
 
 }
