@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.CopyOption;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,10 +13,6 @@ import java.util.List;
  * Created by Joshua on 5-3-2016.
  */
 public class FilemanagerHandler {
-
-    public FilemanagerHandler() {
-
-    }
 
     /**
      * Lists all the files in a directory
@@ -99,9 +94,7 @@ public class FilemanagerHandler {
      * @throws IOException
      */
     public void copyFile(String source, String target) throws IOException {
-        System.out.println("echooooo!");
-
-            Files.copy(Paths.get(source), Paths.get(target));
+        Files.copy(Paths.get(source), Paths.get(target));
     }
 
     /**
