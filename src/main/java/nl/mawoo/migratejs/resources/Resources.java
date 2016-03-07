@@ -1,15 +1,10 @@
 package nl.mawoo.migratejs.resources;
 
-import nl.mawoo.migratejs.exceptions.CantUseFileException;
-import nl.mawoo.migratejs.input.InputHandler;
+import nl.mawoo.migratejs.exceptions.CantFindLibraryException;
 import nl.mawoo.migratejs.scriptengine.ScriptHandler;
 
 import javax.script.ScriptEngine;
-import javax.script.ScriptException;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.InputStreamReader;
 
 /**
  * This class is responsible to load MigrateJS resources into the user system.
@@ -23,8 +18,13 @@ public class Resources {
         ScriptEngine engine = scriptHandler.getEngine();
 
         ClassLoader classLoader = getClass().getClassLoader();
+        File file = null;
 
-        File file = new File(classLoader.getResource(library).getFile());
+        try {
+            file = new File(classLoader.getResource(library).getFile());
+        } catch (NullPointerException e) {
+            throw new CantFindLibraryException("The library you want to use does not exist");
+        }
 
         return file.getAbsolutePath();
     }
