@@ -8,6 +8,12 @@ function TestMessage() {
     print(test.Message())
 }
 
+function test() {
+    var testClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+    var test = new testClass();
+    test.listFiles("F:/Feed The Beast/");
+}
+
 /**
  * Load a js file into the program.
  * @param path path to the file to import.
