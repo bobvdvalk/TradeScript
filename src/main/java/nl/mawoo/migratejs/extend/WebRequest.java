@@ -65,6 +65,11 @@ public class WebRequest {
         return response.toString();
     }
 
+    /**
+     * Place a post web request.
+     * @param parameterString parameters you want to give to the request
+     * @return String of the content returned from the request
+     */
     public String postRequestAsString(String parameterString) {
         try {
             con.setRequestMethod("POST");

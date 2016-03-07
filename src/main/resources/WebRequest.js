@@ -1,4 +1,5 @@
 WebRequest = {
+
     /**
      * This method is responsible for the get web request.
      * @param request url you want to reach
@@ -11,7 +12,10 @@ WebRequest = {
       return webRequest.getRequestAsString();
     },
 
-    postRequest: function(request, headers) {
+    postRequest: function(request, parameters) {
+        var webRequestClass = Java.type("nl.mawoo.migratejs.extend.WebRequest");
+        var webRequest = new webRequestClass(request);
 
+        return webRequest.postRequestAsString(parameters);
     }
 };
