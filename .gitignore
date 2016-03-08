@@ -21,3 +21,10 @@ buildNumber.properties
 *.iml
 .idea/
 migratejs.iml
+build/resources/main/WebRequest.js
+build/resources/main/filemanager.js
+build/resources/main/migratejs.js
+build/resources/main/test.js
+build/tmp/jar/MANIFEST.MF
+migratejs.ipr
+migratejs.iws
