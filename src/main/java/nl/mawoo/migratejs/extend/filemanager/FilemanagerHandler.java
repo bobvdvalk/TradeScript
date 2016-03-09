@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.extend.filemanager;
 
+import nl.mawoo.migratejs.converter.JsonConverter;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.CopyOption;
@@ -20,6 +22,11 @@ public class FilemanagerHandler {
      */
     public List<File> listFiles(String directoryPath) {
         return new ArrayList<File>(Arrays.asList(new File(directoryPath).listFiles()));
+    }
+
+    public String listFilesString(String directoryPath) {
+        JsonConverter jc = new JsonConverter();
+        return jc.listToJson(Arrays.asList(new File(directoryPath).listFiles()));
     }
 
     /**
