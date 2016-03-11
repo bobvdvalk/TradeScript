@@ -1,6 +1,5 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 
 /**
@@ -40,8 +39,8 @@ public class DbConnector {
 
     /**
      * Run a sql query and get results back.
-     * @param sql Your sql query
-     * @return results of the query
+     * @param sql your sql manager
+     * @return resultSet of your query
      */
     public ResultSet query(String sql) {
         try {
@@ -52,5 +51,6 @@ public class DbConnector {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return null;
     }
 }
