@@ -1,5 +1,6 @@
 package nl.mawoo.migratejs.converter;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -8,5 +9,15 @@ import java.util.List;
  * @author Bob van der Valk
  */
 public interface Converter {
-    String listToJson(List<?> list);
+    /**
+     * Convert a list<>
+     * @param list list of items
+     */
+    String listConverter(List<?> list);
+
+    /**
+     * Convert a ResultSet
+     * @param resultSet your ResultSet you want to use
+     */
+    String resultSetConverter(ResultSet resultSet);
 }
