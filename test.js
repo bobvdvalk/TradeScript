@@ -1,5 +1,10 @@
 use("dbconnector.js");
 
-var connectionString = "mysql:host=localhost;dbname=migratejs_test";
+var connString = "jdbc:mysql://localhost/migratejs_test";
 
-print("Joehoe");
+var dbConnector = new DbConnector(connString, "root", "");
+
+var sql = "SELECT * FROM person";
+var data = dbConnector.query(sql);
+
+print(data);
