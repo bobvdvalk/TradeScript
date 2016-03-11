@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
+import nl.mawoo.migratejs.converter.JsonConverter;
+
 import java.sql.*;
 
 /**
@@ -17,7 +19,7 @@ public class DbConnector {
     private String connection, username, password;
 
     /**
-     * Set up the connection.
+     * Set up a database connection with JDBC.
      * @param connection string for your connection
      * @param username user of database
      * @param password password of database
@@ -42,15 +44,20 @@ public class DbConnector {
      * @param sql your sql manager
      * @return resultSet of your query
      */
-    public ResultSet query(String sql) {
+    public String query(String sql) {
         try {
             stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
+            JsonConverter convert = new JsonConverter();
+            String jsonData = convert.resultSetConverter(rs);
+
             rs.close();
-            return rs;
+
+            return jsonData;
         } catch (SQLException e) {
             e.printStackTrace();
         }
+
         return null;
     }
 }

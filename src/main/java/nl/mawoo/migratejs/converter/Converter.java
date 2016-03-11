@@ -1,6 +1,7 @@
 package nl.mawoo.migratejs.converter;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -19,5 +20,5 @@ public interface Converter {
      * Convert a ResultSet
      * @param resultSet your ResultSet you want to use
      */
-    String resultSetConverter(ResultSet resultSet);
+    String resultSetConverter(ResultSet resultSet) throws SQLException;
 }
