@@ -2,6 +2,7 @@ package nl.mawoo.migratejs.converter;
 
 import com.google.gson.Gson;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 /**
@@ -12,7 +13,12 @@ import java.util.List;
 public class JsonConverter implements Converter{
 
     @Override
-    public String listToJson(List<?> file) {
+    public String listConverter(List<?> file) {
         return new Gson().toJson(file);
+    }
+
+    @Override
+    public String resultSetConverter(ResultSet resultSet) {
+
     }
 }
