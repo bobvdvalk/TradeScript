@@ -19,6 +19,6 @@ public class JsonConverter implements Converter{
 
     @Override
     public String resultSetConverter(ResultSet resultSet) {
-
+        return "";
     }
 }
