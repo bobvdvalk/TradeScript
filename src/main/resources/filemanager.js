@@ -17,5 +17,11 @@ FileManager = {
     getPath: function(path) {
         var fileManagerClass = Java.type("java.nio.file.Paths");
         return fileManagerClass.get(path);
+    },
+
+    copyOptions : {
+        REPLACE_EXISTING: Java.type("java.nio.file.StandardCopyOption").REPLACE_EXISTING,
+        COPY_ATTRIBUTES: Java.type("java.nio.file.StandardCopyOption").COPY_ATTRIBUTES,
+        ATOMIC_MOVE: Java.type("java.nio.file.StandardCopyOption").ATOMIC_MOVE
     }
 }

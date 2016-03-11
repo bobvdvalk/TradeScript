@@ -32,14 +32,19 @@ public class FilemanagerHandler {
     /**
      * List all the files in a directory with a certain extension.
      * @param directoryPath Path to the directory.
-     * @param extension The extension of the files listed.
+     * @param extensions The extension of the files listed.
      * @return
      */
-    public List<File> listFiles(String directoryPath, String extension) {
+    public List<File> listFiles(String directoryPath, String extensions) {
         List<File> output = new ArrayList<>();
+        String extensionList[] = extensions.replaceAll("[ .]", "").split(",");
         for(File f : new File(directoryPath).listFiles()) {
-            if(f.getName().endsWith(extension))
-                output.add(f);
+            for(String extension : extensionList) {
+                if (f.getName().endsWith(extension)) {
+                    output.add(f);
+                    continue;
+                }
+            }
         }
         return output;
     }
