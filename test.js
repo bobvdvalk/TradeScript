@@ -1,12 +1,10 @@
-use("WebRequest.js");
+use("dbconnector.js");
 
-var url = "https://btc-e.com/api/3/ticker/btc_usd";
-var get = WebRequest.getRequest(url);
+var connString = "jdbc:mysql://localhost/migratejs_test";
 
-print("Get result: "+ get);
+var dbConnector = new DbConnector(connString, "root", "");
 
-var post = WebRequest.postRequest("https://www.calcatraz.com/calculator/api?", "c=3%2A3");
+var sql = "SELECT * FROM person";
+var data = dbConnector.query(sql);
 
-print("POST result: "+ post);
-
-
+print(data);
