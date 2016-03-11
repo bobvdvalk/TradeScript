@@ -1,25 +1,17 @@
-DBConnector = {
-    DBConnectorClass: "",
-    connection: "",
+/**
+ * Create a connection to a database
+ * @param connString ConnectionString to connect to a database type
+ * @param username login name of the database
+ * @param password login password of the database
+ * @constructor init a database connection
+ */
+var DbConnector = function(connString, username, password) {
+    var DBConnector = Java.type("nl.mawoo.migratejs.extend.dbconnector.DbConnector");
 
-    /**
-     * Set up a connection to the database
-     * @param connection connection string to connect.
-     * @param user user of the database
-     * @param pass password of the database
-     */
-    __construct: function(connection, user, pass) {
-        var klasse = Java.Type("nl.mawoo.migratejs.extend.dbconnector.DbConnector");
+    this.connString = connString;
+    this.connector = new DBConnector(connString, username, password);
+};
 
-        this.connection = connection;
-
-        this.DBConnectorClass = new DBConnectorClass(connection, user, pass);
-     },
-    /**
-     * Run a mysql query
-     * @param sql your sql query
-     */
-    query: function(sql) {
-        this.DBConnectorClass.query(sql);
-    }
+DbConnector.prototype.query = function(sql){
+    return this.connector.query(sql);
 };
