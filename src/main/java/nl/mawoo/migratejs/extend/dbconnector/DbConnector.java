@@ -1,9 +1,7 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
+import javax.xml.transform.Result;
+import java.sql.*;
 
 /**
  * This class is responsible to connect to a database.
@@ -35,6 +33,22 @@ public class DbConnector {
 
         try {
             conn = DriverManager.getConnection(connection, username, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Run a sql query and get results back.
+     * @param sql Your sql query
+     * @return results of the query
+     */
+    public ResultSet query(String sql) {
+        try {
+            stmt = conn.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            rs.close();
+            return rs;
         } catch (SQLException e) {
             e.printStackTrace();
         }
