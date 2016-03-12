@@ -43,5 +43,27 @@ FileManager = {
      */
     getJavaObject: function(object) {
         return Java.type(object);
+    },
+
+    /**
+     * Lists all the directories in a certain parent directory
+     * @param path String path to the parent directory
+     * @returns {*}
+     */
+    listDirectories: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().listDirectories(path);
+    },
+
+    /**
+     * Lists all the files in a certain parent directory (including directories)
+     * @param path String path to the parent directory
+     * @returns {*}
+     */
+    listFiles: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().listFiles(path);
     }
+
+
 }
