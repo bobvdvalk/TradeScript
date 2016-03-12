@@ -77,5 +77,21 @@ public class FilemanagerHandler {
         return null;
     }
 
+    public List<File> getNestedFiles(String path) {
+        List<File> output = new ArrayList<File>();
+        expandDirectory(new File(path), output);
+        return output;
+    }
+
+    private void expandDirectory(File f, List<File> output) {
+        List<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
+        output.addAll(files);
+        for(File file : files) {
+            if(file.isDirectory()) {
+                expandDirectory(file, output);
+            }
+        }
+    }
+
 
 }

@@ -48,7 +48,7 @@ FileManager = {
     /**
      * Lists all the directories in a certain parent directory
      * @param path String path to the parent directory
-     * @returns {*}
+     * @returns {*} Returns a Java List<file> containing all the files.
      */
     listDirectories: function(path) {
         var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
@@ -58,11 +58,21 @@ FileManager = {
     /**
      * Lists all the files in a certain parent directory (including directories)
      * @param path String path to the parent directory
-     * @returns {*}
+     * @returns {*} Returns a Java List<file> containing all the files.
      */
     listFiles: function(path) {
         var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().listFiles(path);
+    },
+
+    /**
+     * Returns all the files that are nested in a parent directory; it will iterate through all subdirectories as well
+     * @param path Path to the parent folder
+     * @returns {*} Returns a Java List<file> containing all the files.
+     */
+    listNestedFiles: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().getNestedFiles(path);
     }
 
 
