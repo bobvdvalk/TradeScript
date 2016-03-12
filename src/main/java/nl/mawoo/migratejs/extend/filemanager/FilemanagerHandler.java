@@ -4,14 +4,12 @@ import nl.mawoo.migratejs.converter.JsonConverter;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * Created by Joshua on 5-3-2016.
@@ -28,7 +26,7 @@ public class FilemanagerHandler {
 
     public String listFilesString(String directoryPath) {
         JsonConverter jc = new JsonConverter();
-        return jc.listToJson(Arrays.asList(new File(directoryPath).listFiles()));
+        return jc.listConverter(Arrays.asList(new File(directoryPath).listFiles()));
     }
 
     /**
