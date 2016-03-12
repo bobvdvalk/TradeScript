@@ -47,17 +47,24 @@ public class DbConnector {
     public String query(String sql) {
         try {
             stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
-            JsonConverter convert = new JsonConverter();
-            String jsonData = convert.resultSetConverter(rs);
+            String[] queryType = sql.split(" ");
 
-            rs.close();
+            if(queryType[0].equals("SELECT")) {
+                ResultSet rs = stmt.executeQuery(sql);
+                JsonConverter convert = new JsonConverter();
+                String jsonData = convert.resultSetConverter(rs);
 
-            return jsonData;
+                rs.close();
+
+                return jsonData;
+            } else {
+                Boolean query = stmt.execute(sql);
+                return "Query is executed";
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return "There went something wrong. Try again.";
     }
 }
