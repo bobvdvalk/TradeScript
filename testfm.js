@@ -1,8 +1,5 @@
 use("filemanager.js");
 var fm = FileManager.getFileManager();
 
-//FileManager.getFileManagerHandler().testScan();
-//FileManager.getFileManagerHandler().createFiles("F:/collection/", 25000);
-print("Start!");
-FileManager.getFileManagerHandler().testFiles();
-print("Done!")
+var test = FileManager.scanFiles("F:/Feed The Beast/");
+print("Size is: " + test.size());

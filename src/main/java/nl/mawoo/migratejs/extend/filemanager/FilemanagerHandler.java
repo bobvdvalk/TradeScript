@@ -97,37 +97,8 @@ public class FilemanagerHandler {
         }
     }
 
-    public void testScan() throws IOException {
-        long m1 = System.currentTimeMillis();
-        List<File> testFiles = getNestedFiles("F:/Feed The Beast");
-        long m2 = System.currentTimeMillis();
-        System.out.println("mapping time: "+(m2-m1));
-        long m3 = System.currentTimeMillis();
-        List<String> data = new ArrayList<>();
-        for(File f : testFiles) {
-            data.add(Files.readAttributes(Paths.get(f.getAbsolutePath()), "*").toString());
-        }
-        long m4 = System.currentTimeMillis();
-        System.out.println("scanning time: "+(m4-m3));
-    }
-
-    public void testFiles() {
-        int threads = 200;
-        System.out.println(threads+" threads: --------------");
-        long m1 = System.currentTimeMillis();
-        HashMap<File,String> output = new Scanner("F:/collection",threads).scan();
-        long m2 = System.currentTimeMillis();
-
-        System.out.println("time: "+(m2-m1));
-        System.out.println("Size: "+output.size());
-
-        List<File> keys = new ArrayList<File>(output.keySet());
-        for(int i = 0; i<100;i++) {
-            Random random = new Random();
-            File randomKey = keys.get( random.nextInt(keys.size()) );
-            String value     = output.get(randomKey);
-            System.out.println(randomKey+" - value: "+value);
-        }
+    public HashMap<File, String> scanFiles(String directory) {
+        return new Scanner(directory).scan();
     }
 
 
