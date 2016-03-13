@@ -97,8 +97,8 @@ public class FilemanagerHandler {
         }
     }
 
-    public HashMap<File, String> scanFiles(String directory) {
-        return new Scanner(directory).scan();
+    public HashMap<File, String> scanFiles(String directory, int threads) {
+        return new Scanner(directory).scan(threads);
     }
 
 

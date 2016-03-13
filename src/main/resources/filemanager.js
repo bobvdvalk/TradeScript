@@ -75,9 +75,9 @@ FileManager = {
         return new fileManagerClass().getNestedFiles(path);
     },
 
-    scanFiles: function(path) {
+    scanFiles: function(path, threads) {
         var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
-        return new fileManagerClass().scanFiles(path);
+        return new fileManagerClass().scanFiles(path, threads);
     }
 
 
