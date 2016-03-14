@@ -29,7 +29,7 @@ public class FileAttributeScanner implements Runnable {
             boolean end = false;
             while (!end) {
                 try {
-                    File f = queue.poll(25, TimeUnit.MILLISECONDS);
+                    File f = queue.poll(100, TimeUnit.MILLISECONDS);
                     try {
                         if(f !=null) {
                             output.put(f, Files.readAttributes(Paths.get(f.getAbsolutePath()), "*").toString());

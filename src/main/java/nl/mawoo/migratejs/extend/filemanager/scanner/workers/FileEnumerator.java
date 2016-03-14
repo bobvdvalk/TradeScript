@@ -21,7 +21,7 @@ public class FileEnumerator implements Runnable{
             boolean run = true;
             while (run) {
                 try {
-                    File f = dirQueue.poll(75, TimeUnit.MILLISECONDS);
+                    File f = dirQueue.poll(100, TimeUnit.MILLISECONDS);
                     if(f == null) {
                         run = false;
                     } else {
