@@ -1,9 +1,10 @@
 package nl.mawoo.migratejs.extend.export;
 
-import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 /**
  * This class is responible to export data to Excel .
@@ -11,19 +12,18 @@ import java.io.FileOutputStream;
  * @author Bob van der Valk
  */
 public class ExcelExport {
-    private FileOutputStream fileOut;
-    private XSSFWorkbook workbook;
-    private XSSFSheet spreadsheet;
 
-    public ExcelExport(String name) {
-        workbook = new XSSFWorkbook();
-        spreadsheet = workbook.createSheet(name);
+    public ExcelExport(String filename) {
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            FileOutputStream fileOut = new FileOutputStream(new File(filename));
+
+            workbook.write(fileOut);
+            fileOut.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
-    }
-
-    public ExcelExport() {
-        workbook = new XSSFWorkbook();
-        spreadsheet = workbook.createSheet();
     }
 }
