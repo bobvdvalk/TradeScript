@@ -2,6 +2,7 @@ package nl.mawoo.migratejs.extend.export;
 
 import nl.mawoo.migratejs.exceptions.CantSaveFileException;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -9,6 +10,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * This class is responible to export data to Excel .
@@ -49,10 +51,40 @@ public class ExcelExport {
 
     /**
      * Add cell with content to sheet
-     * @param input string of information you want to put in the excel sheet
-     * @param cellnum cell number you want to set for the sheet.
+     * @param input string of information you want to put in the excel sheet.
+     * @param cellnum cell number you want to set for the content.
      */
     public void createCell(String input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input Date you want to put in the cell.
+     * @param cellnum cell number you want to set for the content.
+     */
+    public void createCell(Date input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input Boolean you want to put in the cell
+     * @param cellnum cell number you want to set for the content.
+     */
+    public void createCell(Boolean input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input RichTextString you want to put in the cell
+     * @param cellnum cell number you want to set for the content.
+     */
+    public void createCell(RichTextString input, int cellnum) {
         Cell cell = row.createCell(cellnum);
         cell.setCellValue(input);
     }
