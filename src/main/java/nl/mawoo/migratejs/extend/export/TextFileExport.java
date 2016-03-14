@@ -6,5 +6,5 @@ package nl.mawoo.migratejs.extend.export;
  * @author Bob van der Valk
  */
 public class TextFileExport {
-    
+
 }

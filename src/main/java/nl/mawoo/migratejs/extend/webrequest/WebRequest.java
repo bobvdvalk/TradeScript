@@ -5,7 +5,6 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.ProtocolException;
 import java.net.URL;
 
 /**
@@ -40,7 +39,6 @@ public class WebRequest {
 
     /**
      * Execute a get request and the data will return as String
-     * @param request url request you want data from
      * @return Content of the request
      */
     public String getRequestAsString() throws IOException {
