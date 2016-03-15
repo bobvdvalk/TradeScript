@@ -32,7 +32,7 @@ public class DocumentConverter implements Converter<Document> {
     @Override
     public Document resultSetConverter(ResultSet resultSet) throws SQLException {
         JsonConverter json = new JsonConverter();
-        
+
         return this.jsonConverter(json.resultSetConverter(resultSet));
     }
 
@@ -43,6 +43,6 @@ public class DocumentConverter implements Converter<Document> {
      */
     @Override
     public Document jsonConverter(String json) {
-        return null;
+        return Document.parse(json);
     }
 }
