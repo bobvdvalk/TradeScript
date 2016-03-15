@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.converter;
 
+import org.bson.Document;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,14 +13,14 @@ import java.util.List;
  *
  * @author Bob van der Valk
  */
-public class DocumentConverter implements Converter {
+public class DocumentConverter implements Converter<Document> {
     /**
      * Convert a list<>
      * NOT IMPLEMENTED
      * @param list list of items
      */
     @Override
-    public String listConverter(List<?> list) {
+    public Document listConverter(List<?> list) {
         return null;
     }
 
@@ -28,7 +30,7 @@ public class DocumentConverter implements Converter {
      * @param resultSet your ResultSet you want to use
      */
     @Override
-    public String resultSetConverter(ResultSet resultSet) throws SQLException {
+    public Document resultSetConverter(ResultSet resultSet) throws SQLException {
         return null;
     }
 
@@ -38,7 +40,7 @@ public class DocumentConverter implements Converter {
      * @param json input you want to convert
      */
     @Override
-    public String jsonConverter(String json) {
+    public Document jsonConverter(String json) {
         return null;
     }
 }
