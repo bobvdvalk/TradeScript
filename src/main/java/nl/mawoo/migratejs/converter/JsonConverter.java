@@ -37,4 +37,14 @@ public class JsonConverter implements Converter{
         
         return new Gson().toJson(list);
     }
+
+    /**
+     * Convert a json object.
+     * NOT IMPLEMENTED
+     * @param json input you want to convert
+     */
+    @Override
+    public String jsonConverter(String json) {
+        return null;
+    }
 }
