@@ -62,9 +62,7 @@ public class DbConnector {
                 return "Query is executed";
             }
         } catch (SQLException e) {
-            e.printStackTrace();
+            throw new nl.mawoo.migratejs.exceptions.SQLException("A SQL error occurd", e);
         }
-
-        return "There went something wrong. Try again.";
     }
 }
