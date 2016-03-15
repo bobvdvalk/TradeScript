@@ -21,4 +21,10 @@ public interface Converter {
      * @param resultSet your ResultSet you want to use
      */
     String resultSetConverter(ResultSet resultSet) throws SQLException;
+
+    /**
+     * Convert a json object.
+     * @param json input you want to convert
+     */
+    String jsonConverter(String json);
 }
