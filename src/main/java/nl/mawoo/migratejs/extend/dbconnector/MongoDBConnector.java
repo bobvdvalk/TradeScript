@@ -15,11 +15,11 @@ public class MongoDBConnector {
 
     /**
      * Start a MongoDB client
-     * @param collection collection you want to connect.
+     * @param database collection you want to connect.
      */
-    public MongoDBConnector(String collection) {
+    public MongoDBConnector(String database) {
         MongoClient mongoClient = new MongoClient();
-        db = mongoClient.getDatabase(collection);
+        db = mongoClient.getDatabase(database);
     }
 
     /**
