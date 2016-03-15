@@ -31,7 +31,9 @@ public class DocumentConverter implements Converter<Document> {
      */
     @Override
     public Document resultSetConverter(ResultSet resultSet) throws SQLException {
-        return null;
+        JsonConverter json = new JsonConverter();
+        
+        return this.jsonConverter(json.resultSetConverter(resultSet));
     }
 
     /**
