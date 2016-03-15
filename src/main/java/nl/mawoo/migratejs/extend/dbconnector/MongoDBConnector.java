@@ -15,6 +15,7 @@ import java.util.Arrays;
  */
 public class MongoDBConnector {
 
+    private MongoClient mongoClient;
     private MongoDatabase db;
 
     /**
@@ -27,7 +28,8 @@ public class MongoDBConnector {
      */
     public MongoDBConnector(String host, int port, String database, String username, char[] password) {
         MongoCredential credential = MongoCredential.createCredential(username, database, password);
-        MongoClient mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credential));
+        mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credential));
+
         db = mongoClient.getDatabase(database);
     }
 
@@ -39,7 +41,7 @@ public class MongoDBConnector {
      */
     public MongoDBConnector(String database, String username, char[] password) {
         MongoCredential credential = MongoCredential.createCredential(username, database, password);
-        MongoClient mongoClient = new MongoClient(new ServerAddress(), Arrays.asList(credential));
+        mongoClient = new MongoClient(new ServerAddress(), Arrays.asList(credential));
 
         db = mongoClient.getDatabase(database);
     }
@@ -49,18 +51,18 @@ public class MongoDBConnector {
      * @param database Database you want to use
      */
     public MongoDBConnector(String database) {
-        MongoClient mongoClient = new MongoClient();
+        mongoClient = new MongoClient(new ServerAddress());
         db = mongoClient.getDatabase(database);
     }
 
     /**
      * Insert data into collection
-     * @param table collection name
+     * @param collection collection name
      * @param input json/document input
      * TODO: Create method to input json and convert to document
      */
-    public void insert(String table, Document input) {
-        db.getCollection(table).insertOne(input);
+    public void insert(String collection, Document input) {
+        db.getCollection(collection).insertOne(input);
     }
 
 }
