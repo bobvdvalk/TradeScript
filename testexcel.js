@@ -2,16 +2,21 @@ use("exceloutput.js");
 
 print("Creating a excelfile");
 
-var output = new ExcelOutput("testsheet");
+var spreadsheet = new ExcelOutput("testsheet");
 
-var rownum = 0;
+spreadsheet.addRow(0);
+spreadsheet.createCell("Sum: ", 0);
+spreadsheet.createCell("Result: ", 1);
 
+var rownum = 1;
 for(i = 0; i < 10; i++){
-    output.addRow(rownum);
+    spreadsheet.addRow(rownum);
     rownum++;
+    var a = 1;
+    var b = 2;
 
-    output.createCell("Hello", 0);
-    output.createCell("World!", 1);
+    spreadsheet.createCell(a +" + "+ b +"=", 0);
+    spreadsheet.createCell(a + b, 1);
 }
 
-output.save("workbook.xlsx");
+spreadsheet.save("workbook.xlsx");
