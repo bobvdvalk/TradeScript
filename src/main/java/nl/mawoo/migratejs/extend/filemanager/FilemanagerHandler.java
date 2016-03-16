@@ -11,6 +11,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Joshua on 5-3-2016.
@@ -100,7 +101,7 @@ public class FilemanagerHandler {
     }
 
 
-    public HashMap<File, String> scanFiles(String directory, int threads) {
+    public ConcurrentHashMap<File, String> scanFiles(String directory, int threads) {
         return new Scanner(MetadataFileScanner.class).scan(directory);
     }
 
