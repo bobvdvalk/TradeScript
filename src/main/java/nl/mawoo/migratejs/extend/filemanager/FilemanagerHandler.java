@@ -2,6 +2,8 @@ package nl.mawoo.migratejs.extend.filemanager;
 
 import nl.mawoo.migratejs.converter.JsonConverter;
 import nl.mawoo.migratejs.extend.filemanager.scanner.Scanner;
+import nl.mawoo.migratejs.extend.filemanager.scanner.workers.MetadataFileScanner;
+import nl.mawoo.migratejs.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
 
 import java.io.File;
 import java.io.IOException;
@@ -97,9 +99,11 @@ public class FilemanagerHandler {
         }
     }
 
+
     public HashMap<File, String> scanFiles(String directory, int threads) {
-        return new Scanner(directory).scan(threads);
+        return new Scanner(MetadataFileScanner.class).scan(directory);
     }
+
 
 
     public void createFiles(String parentDirectory, int amount) {
