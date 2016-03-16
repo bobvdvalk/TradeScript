@@ -1,9 +1,9 @@
 package nl.mawoo.migratejs.extend.filemanager.scanner;
 
-import nl.mawoo.migratejs.extend.filemanager.scanner.workers.FileAttributeScanner;
-import nl.mawoo.migratejs.extend.filemanager.scanner.workers.FileEnumerator;
+import nl.mawoo.migratejs.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -11,57 +11,38 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 
 /**
- * Created by Joshua on 13-3-2016.
+ * Created by Joshua on 15/03/2016.
  */
 public class Scanner {
-    String directory;
-    String attributes;
 
-    final int QUEUE_SIZE = 10;
-    final int DIR_QUEUE_SIZE = 1000;
-    int SCAN_THREADS = 1;
-    int DIR_SCAN_THREADS = 2000;
-
+    int queueBuffer = 50000;
+    int workerCount = 100;
     BlockingQueue<File> queue;
-    BlockingQueue<File> directoryQueue;
+    Class<FileScannerWorker> scanner;
 
-    public Scanner(String directory) {
-        this.directory = directory;
-        //this.attributes = attributes;
-        queue = new ArrayBlockingQueue<File>(QUEUE_SIZE);
-        directoryQueue = new ArrayBlockingQueue<File>(DIR_QUEUE_SIZE);
-
-    }
-    public Scanner(String directory, int SCAN_THREADS) {
-        this.directory = directory;
-        this.SCAN_THREADS = SCAN_THREADS;
-        //this.attributes = attributes;
-        queue = new ArrayBlockingQueue<File>(QUEUE_SIZE);
-        directoryQueue = new ArrayBlockingQueue<File>(DIR_QUEUE_SIZE);
+    public Scanner(Class<? extends FileScannerWorker> scanner) {
+        queue = new ArrayBlockingQueue<File>(queueBuffer);
+        this.scanner = (Class<FileScannerWorker>) scanner;
     }
 
-    public HashMap<File, String> scan(int threads) {
-        HashMap<File, String> output = new HashMap<>();
-        DIR_SCAN_THREADS = threads;
-        /*
-            Put in the first Directory
-         */
-        try {
-            directoryQueue.put(new File(directory));
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        List<Thread> threadsList = new ArrayList<>();
-        for(int i = 0; i < DIR_SCAN_THREADS; i++) {
-            threadsList.add(new Thread(new FileEnumerator(queue, directoryQueue)));
-        }
-        for(int i = 0; i < SCAN_THREADS; i++) {
-            threadsList.add(new Thread(new FileAttributeScanner(output,queue)));
-        }
-        for(Thread t : threadsList) {
+    public Scanner(Class<FileScannerWorker> scanner, int queueBuffer) {
+        this(scanner);
+        this.queueBuffer=queueBuffer;
+    }
+
+    public Scanner(Class<FileScannerWorker> scanner, int queueBuffer, int workerCount) {
+        this(scanner, queueBuffer);
+        this.workerCount = workerCount;
+    }
+
+    public HashMap<File, String> scan(String directory) {
+        HashMap<File, String> output = new HashMap<File, String>();
+        List<Thread> threads = createThreads(createWorkers(output));
+        initParentDir(directory);
+        for(Thread t : threads) {
             t.start();
         }
-        for(Thread t: threadsList) {
+        for(Thread t : threads) {
             try {
                 t.join();
             } catch (InterruptedException e) {
@@ -69,5 +50,39 @@ public class Scanner {
             }
         }
         return output;
+    }
+
+    private List<FileScannerWorker> createWorkers(HashMap<File, String> fileData) {
+        List<FileScannerWorker> output = new ArrayList<>();
+            try {
+                for(int i = 0; i < workerCount; i++) {
+                    output.add(scanner.getDeclaredConstructor(BlockingQueue.class, HashMap.class).newInstance(queue, fileData));
+                }
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            } catch (InvocationTargetException e) {
+                e.printStackTrace();
+            } catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+        return output;
+    }
+
+    private List<Thread> createThreads(List<FileScannerWorker> workers) {
+        List<Thread> output = new ArrayList<>();
+        for(FileScannerWorker fsw: workers) {
+            output.add(new Thread(fsw));
+        }
+        return output;
+    }
+
+    private void initParentDir(String directory) {
+        try {
+            queue.put(new File(directory));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
