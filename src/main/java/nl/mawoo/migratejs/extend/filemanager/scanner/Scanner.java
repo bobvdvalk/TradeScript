@@ -16,26 +16,46 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class Scanner {
 
-    int queueBuffer = 50000;
+    int queueBuffer = 10000000;
     int workerCount = 10;
     BlockingQueue<File> queue;
     Class<FileScannerWorker> scanner;
 
+    /**
+     * Scanner constructor
+     * @param scanner Class of a scanner worker extending FileScannerWorker
+     */
     public Scanner(Class<? extends FileScannerWorker> scanner) {
         queue = new ArrayBlockingQueue<File>(queueBuffer);
         this.scanner = (Class<FileScannerWorker>) scanner;
     }
 
-    public Scanner(Class<FileScannerWorker> scanner, int queueBuffer) {
+    /**
+     * Scanner constructor
+     * @param scanner Class of a scanner worker extending FileScannerWorker
+     * @param queueBuffer Size of the queue buffer.
+     */
+    public Scanner(Class<? extends FileScannerWorker> scanner, int queueBuffer) {
         this(scanner);
         this.queueBuffer=queueBuffer;
     }
 
-    public Scanner(Class<FileScannerWorker> scanner, int queueBuffer, int workerCount) {
+    /**
+     * Scanner constructor
+     * @param scanner Class of a scanner worker extending FileScannerWorker
+     * @param queueBuffer Size of the queue buffer.
+     * @param workerCount Worker Thread count
+     */
+    public Scanner(Class<? extends FileScannerWorker> scanner, int queueBuffer, int workerCount) {
         this(scanner, queueBuffer);
         this.workerCount = workerCount;
     }
 
+    /**
+     * Scan a parent directory.
+     * @param directory Parent directory.
+     * @return
+     */
     public ConcurrentHashMap<File, String> scan(String directory) {
         ConcurrentHashMap<File, String> output = new ConcurrentHashMap<File, String>();
         List<Thread> threads = createThreads(createWorkers(output));
@@ -53,6 +73,11 @@ public class Scanner {
         return output;
     }
 
+    /**
+     * Creats a list of ListScannerWorker extends
+     * @param fileData
+     * @return
+     */
     private List<FileScannerWorker> createWorkers(ConcurrentHashMap<File, String> fileData) {
         List<FileScannerWorker> output = new ArrayList<>();
             try {

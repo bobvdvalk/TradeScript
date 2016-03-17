@@ -52,4 +52,5 @@ public abstract class FileScannerWorker implements Runnable {
     public void setOutput(ConcurrentHashMap<File, String> output) {
         this.output = output;
     }
+
 }
