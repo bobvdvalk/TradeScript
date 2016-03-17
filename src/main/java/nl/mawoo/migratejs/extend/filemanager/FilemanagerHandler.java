@@ -7,7 +7,9 @@ import nl.mawoo.migratejs.extend.filemanager.scanner.workers.interfaces.FileScan
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.util.*;
@@ -79,8 +81,8 @@ public class FilemanagerHandler {
         return null;
     }
 
-    public List<File> getNestedFiles(String path) {
-        List<File> output = new ArrayList<File>();
+    public HashMap<File, String> getNestedFiles(String path) {
+        HashMap<File, String> output = new HashMap<File, String>();
         expandDirectory(new File(path), output);
         return output;
     }
@@ -90,13 +92,19 @@ public class FilemanagerHandler {
      * @param f parent file
      * @param output list of all files.
      */
-    private void expandDirectory(File f, List<File> output) {
-        List<File> files = new ArrayList<File>(Arrays.asList(f.listFiles()));
-        output.addAll(files);
-        for(File file : files) {
-            if(file.isDirectory()) {
-                expandDirectory(file, output);
+    private void expandDirectory(File f, HashMap<File, String> output) {
+        try {
+        DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(f.getAbsolutePath()));
+            for(Path p : stream) {
+                File file = p.toFile();
+                if(file.isDirectory()) {
+                    expandDirectory(file, output);
+                } else {
+                    output.put(file, String.valueOf(Files.readAttributes(file.toPath(),"*")));
+                }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
