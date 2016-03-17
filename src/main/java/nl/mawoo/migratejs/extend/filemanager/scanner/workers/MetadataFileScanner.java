@@ -5,7 +5,9 @@ import nl.mawoo.migratejs.extend.filemanager.scanner.workers.interfaces.FileScan
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.rmi.server.ExportException;
 import java.util.HashMap;
@@ -33,13 +35,16 @@ public class MetadataFileScanner extends FileScannerWorker {
         boolean run = true;
         while (run) {
             try {
-                File f = this.queue.poll(25, TimeUnit.MILLISECONDS);
+                File f = this.queue.poll(20, TimeUnit.MILLISECONDS);
                 if(f != null) {
                     if(f.isDirectory()) {
-                        File[] files = f.listFiles();
-                        for(File file : files) {
-                            //System.out.println("Adding file: "+file);
-                            this.queue.add(file);
+                        try {
+                            DirectoryStream<Path> inputStream = Files.newDirectoryStream(Paths.get(f.getAbsolutePath()));
+                            for(Path p : inputStream) {
+                                this.queue.add(p.toFile());
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
                         }
                     } else {
                         try {

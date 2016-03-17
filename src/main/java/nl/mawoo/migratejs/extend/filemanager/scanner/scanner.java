@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by Joshua on 15/03/2016.
@@ -16,7 +17,7 @@ import java.util.concurrent.BlockingQueue;
 public class Scanner {
 
     int queueBuffer = 50000;
-    int workerCount = 100;
+    int workerCount = 10;
     BlockingQueue<File> queue;
     Class<FileScannerWorker> scanner;
 
@@ -35,8 +36,8 @@ public class Scanner {
         this.workerCount = workerCount;
     }
 
-    public HashMap<File, String> scan(String directory) {
-        HashMap<File, String> output = new HashMap<File, String>();
+    public ConcurrentHashMap<File, String> scan(String directory) {
+        ConcurrentHashMap<File, String> output = new ConcurrentHashMap<File, String>();
         List<Thread> threads = createThreads(createWorkers(output));
         initParentDir(directory);
         for(Thread t : threads) {
@@ -52,11 +53,11 @@ public class Scanner {
         return output;
     }
 
-    private List<FileScannerWorker> createWorkers(HashMap<File, String> fileData) {
+    private List<FileScannerWorker> createWorkers(ConcurrentHashMap<File, String> fileData) {
         List<FileScannerWorker> output = new ArrayList<>();
             try {
                 for(int i = 0; i < workerCount; i++) {
-                    output.add(scanner.getDeclaredConstructor(BlockingQueue.class, HashMap.class).newInstance(queue, fileData));
+                    output.add(scanner.getDeclaredConstructor(BlockingQueue.class, ConcurrentHashMap.class).newInstance(queue, fileData));
                 }
             } catch (InstantiationException e) {
                 e.printStackTrace();
