@@ -5,20 +5,28 @@ import java.sql.SQLException;
 import java.util.List;
 
 /**
+ * /**
  * This class is responsible to convert various objects to various types
- * TODO: Implement more methods to convert.
+
+ * @param <Type> object type for the implementation
  * @author Bob van der Valk
  */
-public interface Converter {
+public interface Converter<Type> {
     /**
      * Convert a list<>
      * @param list list of items
      */
-    String listConverter(List<?> list);
+    Type listConverter(List<?> list);
 
     /**
      * Convert a ResultSet
      * @param resultSet your ResultSet you want to use
      */
-    String resultSetConverter(ResultSet resultSet) throws SQLException;
+    Type resultSetConverter(ResultSet resultSet) throws SQLException;
+
+    /**
+     * Convert a json object.
+     * @param json input you want to convert
+     */
+    Type jsonConverter(String json);
 }
