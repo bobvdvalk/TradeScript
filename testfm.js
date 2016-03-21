@@ -15,7 +15,7 @@ print("Size is: " + test.size());
 var time1 = new Date().getTime();
 
 //var test = FileManager.scanFiles(FileManager.scanners.METADATA, "F:/collection", 25000, 10);
-var test = FileManager.getFileManagerHandler().getNestedFiles("D:/Programs/");
+var test = FileManager.getFileManagerHandler().getNestedFiles("D:/Games");
 
 var time2 = new Date().getTime();
 print("time1: "+(time2-time1));
@@ -23,7 +23,7 @@ print("Size1 is: " + test.size());
 
 var time1 = new Date().getTime();
 
-var test = FileManager.scanFiles(FileManager.scanners.METADATA, "D:/Programs/", 100000, 10);
+var test = FileManager.scanFiles(FileManager.scanners.METADATA, "D:/Games", 0, 1);
 //var test = FileManager.getFileManagerHandler().getNestedFiles("F:/Feed The Beast/");
 
 var time2 = new Date().getTime();

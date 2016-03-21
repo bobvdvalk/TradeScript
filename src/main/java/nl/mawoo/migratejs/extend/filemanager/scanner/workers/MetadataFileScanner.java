@@ -43,6 +43,7 @@ public class MetadataFileScanner extends FileScannerWorker {
                             for(Path p : inputStream) {
                                 this.queue.add(p.toFile());
                             }
+                            inputStream.close();
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
