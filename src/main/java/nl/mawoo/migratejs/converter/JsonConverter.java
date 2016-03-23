@@ -1,6 +1,7 @@
 package nl.mawoo.migratejs.converter;
 
 import com.google.gson.Gson;
+import org.bson.Document;
 
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -14,7 +15,7 @@ import java.util.List;
  *
  * @author Bob van der Valk
  */
-public class JsonConverter implements Converter{
+public class JsonConverter implements Converter<String>{
 
     @Override
     public String listConverter(List<?> file) {
@@ -36,5 +37,26 @@ public class JsonConverter implements Converter{
         }
         
         return new Gson().toJson(list);
+    }
+
+    /**
+     * Convert a json object.
+     * NOT IMPLEMENTED
+     * @param json input you want to convert
+     */
+    @Override
+    public String jsonConverter(String json) {
+        return null;
+    }
+
+    /**
+     * Convert a document
+     *
+     * @param document input you want to convert
+     * @return
+     */
+    @Override
+    public String documentConverter(Document document) {
+        return new Gson().toJson(document);
     }
 }
