@@ -63,6 +63,7 @@ public class DbConnector {
             }
         } catch (SQLException e) {
             e.printStackTrace();
+            System.out.println("ERRORED SQL: "+sql);
         }
 
         return "There went something wrong. Try again.";

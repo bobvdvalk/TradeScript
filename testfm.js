@@ -1,16 +1,12 @@
 use("filemanager.js");
-var fm = FileManager.getFileManager();
+print("start");
 
-//print(FileManager.getFileManagerHandler().listFiles("F:/test"));
+var time1 = new Date().getTime();
 
-//var list = Java.type("java.util.List");
-var list = FileManager.getFileManagerHandler().listFiles("C:/Coding/test", "dll");
+var test = FileManager.scanFiles(FileManager.scanners.METADATA, "D:/Games", 100000, 10);
+//var test = FileManager.getFileManagerHandler().getNestedFiles("F:/Feed The Beast/");
 
-for(i = 0; i < list.size(); i++) {
-    print("File: "+list.get(i));
-    print("Owner: "+fm.getOwner(FileManager.getPath(list.get(i))));
-    print("Metadata: "+fm.readAttributes(FileManager.getPath(list.get(i)), "*"));
-   // print("Data: " + FileManager.getFileManagerHandler().getBasicFileAttributes(list.get(i)).lastAccessTime());
-}
+var time2 = new Date().getTime();
+print("time2: "+(time2-time1));
+print("Size2 is: " + test.size());
 
-//var data = FileManager.getFileManagerHandler().getBasicFileAttributes();

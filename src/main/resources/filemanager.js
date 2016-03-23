@@ -36,6 +36,13 @@ FileManager = {
         COPY_ATTRIBUTES: Java.type("java.nio.file.StandardCopyOption").COPY_ATTRIBUTES,
         ATOMIC_MOVE: Java.type("java.nio.file.StandardCopyOption").ATOMIC_MOVE
     },
+
+    /**
+     * Scanner workers used by the scanner.
+     */
+    scanners : {
+        METADATA: Java.type("nl.mawoo.migratejs.extend.filemanager.scanner.workers.MetadataFileScanner").class
+    },
     /**
      * Creates and returns a java object.
      * @param object String path to the object E.G: "java.nio.file.Files"
@@ -43,5 +50,50 @@ FileManager = {
      */
     getJavaObject: function(object) {
         return Java.type(object);
+    },
+
+    /**
+     * Lists all the directories in a certain parent directory
+     * @param path String path to the parent directory
+     * @returns {*} Returns a Java List<file> containing all the files.
+     */
+    listDirectories: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().listDirectories(path);
+    },
+
+    /**
+     * Lists all the files in a certain parent directory (including directories)
+     * @param path String path to the parent directory
+     * @returns {*} Returns a Java List<file> containing all the files.
+     */
+    listFiles: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().listFiles(path);
+    },
+
+    /**
+     * Returns all the files that are nested in a parent directory; it will iterate through all subdirectories as well
+     * @param path Path to the parent folder
+     * @returns {*} Returns a Java List<file> containing all the files.
+     */
+    listNestedFiles: function(path) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().getNestedFiles(path);
+    },
+
+    /**
+     * Scans all the folders and files derived from the parent directory.
+     * @param scanner Scanner class file, accessed by using FileManager.scanners (ENUM)
+     * @param path Path to the parent folder
+     * @param bufferSize Size of the queue buffer.
+     * @param threadAmount Amount of the worker (scanner type) threads
+     * @returns {*} A HashMap<File, String> With the String holding all the metadata
+     */
+    scanFiles: function (scanner, path, bufferSize, threadAmount) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().scanFiles(scanner, path, bufferSize, threadAmount);
     }
+
+
 }
