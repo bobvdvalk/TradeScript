@@ -1,6 +1,6 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
-import com.mongodb.client.FindIterable;
+import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
 import nl.mawoo.migratejs.converter.DocumentConverter;
 import org.bson.Document;
@@ -43,6 +43,14 @@ public class MongoCollectionHandler {
     }
 
     /**
+     * count a collection
+     * @return number of documentsz
+     */
+    public long count() {
+        return collection.count();
+    }
+
+    /**
      * Update one document
      * @param input document that has to be updated
      * @param input2 updated document
@@ -67,9 +75,9 @@ public class MongoCollectionHandler {
     }
 
     // TODO: finish this function
-    public FindIterable<Document> find(String input) {
+    public String find(String input) {
         Document document = documentConverter.jsonConverter(input);
-        return collection.find(document);
+        return new Gson().toJson(collection.find(document));
     }
 
     /**
