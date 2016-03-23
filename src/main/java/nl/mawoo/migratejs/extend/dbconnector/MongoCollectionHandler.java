@@ -42,6 +42,30 @@ public class MongoCollectionHandler {
         return collection.count(document);
     }
 
+    /**
+     * Update one document
+     * @param input document that has to be updated
+     * @param input2 updated document
+     */
+    public void updateOne(String input, String input2) {
+        Document document = documentConverter.jsonConverter(input);
+        Document document2 = documentConverter.jsonConverter(input2);
+
+        collection.updateOne(document, document2);
+    }
+
+    /**
+     * Update multiple document
+     * @param input document that has to be updated
+     * @param input2 updated document
+     */
+    public void updateMany(String input, String input2) {
+        Document document = documentConverter.jsonConverter(input);
+        Document document2 = documentConverter.jsonConverter(input2);
+
+        collection.updateMany(document, document2);
+    }
+
     // TODO: finish this function
     public FindIterable<Document> find(String input) {
         Document document = documentConverter.jsonConverter(input);
