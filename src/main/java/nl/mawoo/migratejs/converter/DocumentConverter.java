@@ -45,4 +45,15 @@ public class DocumentConverter implements Converter<Document> {
     public Document jsonConverter(String json) {
         return Document.parse(json);
     }
+
+    /**
+     * Convert a document
+     * Not implemented
+     * @param document input you want to convert
+     * @return
+     */
+    @Override
+    public Document documentConverter(Document document) {
+        return null;
+    }
 }
