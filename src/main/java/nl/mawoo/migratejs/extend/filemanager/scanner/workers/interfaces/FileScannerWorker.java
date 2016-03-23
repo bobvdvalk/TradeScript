@@ -8,7 +8,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * Created by Joshua on 15/03/2016.
+ *  FileScannerWorker which is used in scanning files and retrieving some sort of data from them.
+ *  This class is used to create the actual workers.
  */
 public abstract class FileScannerWorker implements Runnable {
 
@@ -16,9 +17,14 @@ public abstract class FileScannerWorker implements Runnable {
      * Variables inits
      */
     protected BlockingQueue<File> queue;
-    protected ConcurrentHashMap<File, String> output;
+    protected ConcurrentHashMap<String, String> output;
 
-    public FileScannerWorker(BlockingQueue<File> queue, ConcurrentHashMap<File, String> output) {
+    /**
+     * FileScannerWorker constructor
+     * @param queue Listed files queue
+     * @param output Output HashMap
+     */
+    public FileScannerWorker(BlockingQueue<File> queue, ConcurrentHashMap<String, String> output) {
         this.queue = queue;
         this.output = output;
     }
@@ -31,7 +37,7 @@ public abstract class FileScannerWorker implements Runnable {
 
     /**
      * The File Scan buffer
-     * @return
+     * @return Returns the listed files queue
      */
     public BlockingQueue<File> getQueue() {
         return queue;
@@ -43,13 +49,13 @@ public abstract class FileScannerWorker implements Runnable {
 
     /**
      * Output HashMap with file data
-     * @return
+     * @return Returns the HashMap with the file data
      */
-    public ConcurrentHashMap<File, String> getOutput() {
+    public ConcurrentHashMap<String, String> getOutput() {
         return output;
     }
 
-    public void setOutput(ConcurrentHashMap<File, String> output) {
+    public void setOutput(ConcurrentHashMap<String, String> output) {
         this.output = output;
     }
 

@@ -12,34 +12,12 @@ import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by Joshua on 15/03/2016.
- */
 public class Scanner {
 
-    int queueBuffer = 10000000;
-    int workerCount = 10;
+    int queueBuffer;
+    int workerCount;
     BlockingQueue<File> queue;
     Class<FileScannerWorker> scanner;
-
-    /**
-     * Scanner constructor
-     * @param scanner Class of a scanner worker extending FileScannerWorker
-     */
-    public Scanner(Class<? extends FileScannerWorker> scanner) {
-        queue = new ArrayBlockingQueue<File>(queueBuffer);
-        this.scanner = (Class<FileScannerWorker>) scanner;
-    }
-
-    /**
-     * Scanner constructor
-     * @param scanner Class of a scanner worker extending FileScannerWorker
-     * @param queueBuffer Size of the queue buffer.
-     */
-    public Scanner(Class<? extends FileScannerWorker> scanner, int queueBuffer) {
-        this(scanner);
-        this.queueBuffer=queueBuffer;
-    }
 
     /**
      * Scanner constructor
@@ -48,17 +26,19 @@ public class Scanner {
      * @param workerCount Worker Thread count
      */
     public Scanner(Class<? extends FileScannerWorker> scanner, int queueBuffer, int workerCount) {
-        this(scanner, queueBuffer);
+        this.queueBuffer=queueBuffer;
         this.workerCount = workerCount;
+        this.scanner = (Class<FileScannerWorker>) scanner;
+        queue = new ArrayBlockingQueue<>(queueBuffer);
     }
 
     /**
      * Scan a parent directory.
      * @param directory Parent directory.
-     * @return
+     * @return Returns a HashMap containing the File path(e.g : C:/Windows/virus.bat) as the key and the data as the value.
      */
-    public ConcurrentHashMap<File, String> scan(String directory) {
-        ConcurrentHashMap<File, String> output = new ConcurrentHashMap<File, String>();
+    public ConcurrentHashMap<String, String> scan(String directory) {
+        ConcurrentHashMap<String, String> output = new ConcurrentHashMap<>();
         List<Thread> threads = createThreads(createWorkers(output));
         initParentDir(directory);
         for(Thread t : threads) {
@@ -71,7 +51,7 @@ public class Scanner {
                 e.printStackTrace();
             }
         }
-        List<File> keysAsArray = new ArrayList<File>(output.keySet());
+        List<String> keysAsArray = new ArrayList<>(output.keySet());
         for(int i = 0; i < 10; i++) {
             int rand = new Random().nextInt(keysAsArray.size());
             System.out.println("File: " + keysAsArray.get(rand) + " data: " + output.get(keysAsArray.get(rand)));
@@ -81,27 +61,26 @@ public class Scanner {
 
     /**
      * Creats a list of ListScannerWorker extends
-     * @param fileData
-     * @return
+     * @param fileData Output hashmap containing the files and the data
+     * @return Returns a list of FileScannerWorker extended object.
      */
-    private List<FileScannerWorker> createWorkers(ConcurrentHashMap<File, String> fileData) {
+    private List<FileScannerWorker> createWorkers(ConcurrentHashMap<String, String> fileData) {
         List<FileScannerWorker> output = new ArrayList<>();
             try {
                 for(int i = 0; i < workerCount; i++) {
                     output.add(scanner.getDeclaredConstructor(BlockingQueue.class, ConcurrentHashMap.class).newInstance(queue, fileData));
                 }
-            } catch (InstantiationException e) {
-                e.printStackTrace();
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-            } catch (NoSuchMethodException e) {
+            } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 e.printStackTrace();
             }
         return output;
     }
 
+    /**
+     * Create threads based on the workers used by the scanner.
+     * @param workers List of worker objects
+     * @return A list of Threads
+     */
     private List<Thread> createThreads(List<FileScannerWorker> workers) {
         List<Thread> output = new ArrayList<>();
         for(FileScannerWorker fsw: workers) {
@@ -110,10 +89,10 @@ public class Scanner {
         return output;
     }
 
-    private void processResult() {
-
-    }
-
+    /**
+     * Initializes the first directory.
+     * @param directory Path to the parent directory.
+     */
     private void initParentDir(String directory) {
         try {
             queue.put(new File(directory));

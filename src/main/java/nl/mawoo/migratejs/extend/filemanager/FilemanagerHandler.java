@@ -1,23 +1,17 @@
 package nl.mawoo.migratejs.extend.filemanager;
 
-import nl.mawoo.migratejs.converter.JsonConverter;
 import nl.mawoo.migratejs.extend.filemanager.scanner.Scanner;
-import nl.mawoo.migratejs.extend.filemanager.scanner.workers.MetadataFileScanner;
 import nl.mawoo.migratejs.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
-
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.DirectoryStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.attribute.BasicFileAttributes;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by Joshua on 5-3-2016.
- */
 public class FilemanagerHandler {
 
     /**
@@ -25,19 +19,17 @@ public class FilemanagerHandler {
      * @param directoryPath Path to the directory.
      */
     public List<File> listFiles(String directoryPath) {
-        return new ArrayList<File>(Arrays.asList(new File(directoryPath).listFiles()));
-    }
-
-    public String listFilesString(String directoryPath) {
-        JsonConverter jc = new JsonConverter();
-        return jc.listConverter(Arrays.asList(new File(directoryPath).listFiles()));
+        if(new File(directoryPath) != null)
+            return new ArrayList<>(Arrays.asList(new File(directoryPath).listFiles()));
+        else
+            return null;
     }
 
     /**
      * List all the files in a directory with a certain extension.
      * @param directoryPath Path to the directory.
      * @param extensions  The extension of the files listed.
-     * @return
+     * @return Returns a list of files in the parent directory
      */
     public List<File> listFiles(String directoryPath, String extensions) {
         List<File> output = new ArrayList<>();
@@ -56,7 +48,7 @@ public class FilemanagerHandler {
     /**
      * Lists all the directories in a directory.
      * @param directoryPath Path to the directory.
-     * @return
+     * @return Returns a list of Directories which are found in the parent directory
      */
     public List<File> listDirectories(String directoryPath) {
         List<File> output = new ArrayList<>();
@@ -81,44 +73,16 @@ public class FilemanagerHandler {
         return null;
     }
 
-    public HashMap<File, String> getNestedFiles(String path) {
-        HashMap<File, String> output = new HashMap<File, String>();
-        expandDirectory(new File(path), output);
-        return output;
-    }
-
-    /**
-     * Used to enumerate through directories.
-     * @param f parent file
-     * @param output list of all files.
-     */
-    private void expandDirectory(File f, HashMap<File, String> output) {
-        try {
-        DirectoryStream<Path> stream = Files.newDirectoryStream(Paths.get(f.getAbsolutePath()));
-            for(Path p : stream) {
-                File file = p.toFile();
-                if(file.isDirectory()) {
-                    expandDirectory(file, output);
-                } else {
-                    output.put(file, String.valueOf(Files.readAttributes(file.toPath(),"*")));
-                }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     /**
      * Scans all the folders and files derived from the parent directory.
      * @param scanner Scanner class
      * @param directory Path to the parent directory.
      * @param bufferSize Buffer size
      * @param threads Worker thread amount
-     * @return
+     * @return Returns a HashMap containing the File path(e.g : C:/Windows/virus.bat) as the key and the data as the value.
      */
-    public ConcurrentHashMap<File, String> scanFiles(Class<? extends FileScannerWorker> scanner, String directory, int bufferSize, int threads) {
-        return new Scanner(scanner, bufferSize,threads).scan(directory);
+    public ConcurrentHashMap<String, String> scanFiles(Class<? extends FileScannerWorker> scanner, String directory, int bufferSize, int threads) {
+        return new Scanner(scanner, bufferSize, threads).scan(directory);
     }
 
 
