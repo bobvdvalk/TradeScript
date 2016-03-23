@@ -4,6 +4,7 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
+import nl.mawoo.migratejs.converter.DocumentConverter;
 import org.bson.Document;
 
 import java.util.Arrays;
@@ -13,7 +14,7 @@ import java.util.Arrays;
  *
  * @author Bob van der Valk
  */
-public class MongoDBConnector {
+public class MongoDBConnector extends MongoClient {
 
     private MongoClient mongoClient;
     private MongoDatabase db;
@@ -31,6 +32,7 @@ public class MongoDBConnector {
         mongoClient = new MongoClient(new ServerAddress(host, port), Arrays.asList(credential));
 
         db = mongoClient.getDatabase(database);
+
     }
 
     /**
@@ -55,14 +57,21 @@ public class MongoDBConnector {
         db = mongoClient.getDatabase(database);
     }
 
+    public MongoDatabase getDb() {
+        return this.db;
+    }
+
     /**
      * Insert data into collection
      * @param collection collection name
-     * @param input json/document input
-     * TODO: Create method to input json and convert to document
+     * @param input json input
      */
-    public void insert(String collection, Document input) {
-        db.getCollection(collection).insertOne(input);
+    public void insert(String collection, String input) {
+        DocumentConverter converter = new DocumentConverter();
+        Document data = converter.jsonConverter(input);
+
+        db.getCollection(collection).insertOne(data);
     }
+
 
 }
