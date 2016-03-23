@@ -1,5 +1,6 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
+import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import nl.mawoo.migratejs.converter.DocumentConverter;
 import org.bson.Document;
@@ -27,8 +28,8 @@ public class MongoCollectionHandler {
      * @param input string with JSON
      */
     public void insertOne(String input) {
-        Document data = documentConverter.jsonConverter(input);
-        collection.insertOne(data);
+        Document document = documentConverter.jsonConverter(input);
+        collection.insertOne(document);
     }
 
     /**
@@ -37,9 +38,40 @@ public class MongoCollectionHandler {
      * @return number of the count
      */
     public long count(String input) {
-        Document data = documentConverter.jsonConverter(input);
-        return collection.count(data);
+        Document document = documentConverter.jsonConverter(input);
+        return collection.count(document);
     }
 
+    // TODO: finish this function
+    public FindIterable<Document> find(String input) {
+        Document document = documentConverter.jsonConverter(input);
+        return collection.find(document);
+    }
 
+    /**
+     * Delete one record
+     * @param input document in json type
+     */
+    public void deleteOne(String input) {
+        Document document = documentConverter.jsonConverter(input);
+        collection.deleteOne(document);
+    }
+
+    /**
+     * Delete Multiple documents
+     * @param input document in json format.
+     */
+    public void deleteMany(String input) {
+        Document document = documentConverter.jsonConverter(input);
+        collection.deleteMany(document);
+    }
+
+    /**
+     * Find one document and delete
+     * @param input document as string in json format
+     */
+    public void findOneAndDelete(String input) {
+        Document document = documentConverter.jsonConverter(input);
+        collection.findOneAndDelete(document);
+    }
 }
