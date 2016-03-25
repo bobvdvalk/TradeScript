@@ -53,6 +53,11 @@ public class ExcelImport {
         return row.iterator();
     }
 
+    /**
+     * Returns a hashmap containing the cell adresses and their objects from a certain sheet
+     * @param sheet Excel sheet the cells are on
+     * @return A HashMap containing all the adresses as keys, and cells as values respectively.
+     */
     public HashMap<String,Cell> getCells(XSSFSheet sheet) {
         HashMap<String, Cell> output = new HashMap<>();
         Iterator<Row> rows = getRowIterator(sheet);
@@ -66,6 +71,12 @@ public class ExcelImport {
         return output;
     }
 
+    /**
+     * Retrieves a Cell object from a certain adress on a certain sheet
+     * @param sheet Excel sheet the cell is on
+     * @param address Address of the cell E.G: A1
+     * @return Cell which is found on the address
+     */
     public Cell getCell(XSSFSheet sheet, String address) {
         CellReference ref = new CellReference(address);
         Row r = sheet.getRow(ref.getRow());
@@ -76,6 +87,12 @@ public class ExcelImport {
         }
     }
 
+    /**
+     * Retrieves the (calculated) value of a certain cell as a String.
+     * @param sheet Excel sheet the cell is on
+     * @param address Adress of the cell E.G: A1
+     * @return Returns the cell value as a String
+     */
     public String getCellValue(XSSFSheet sheet, String address) {
         CellReference ref = new CellReference(address);
         Row r = sheet.getRow(ref.getRow());
