@@ -10,10 +10,12 @@ function include(path) {
  * @param library file you want to use
  */
 var use = function(library) {
-    var useResource = Java.type("nl.mawoo.migratejs.resources.Resources");
-    var resources = new useResource();
-
-    load(resources.use(library));
+    try {
+        system.loadResource("/" + library );
+    } catch(e) {
+        print("Could not load library [" + library + "]");
+        print("Reason: " + e.message);
+    }
 };
 
 /**
