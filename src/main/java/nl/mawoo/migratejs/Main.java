@@ -21,12 +21,13 @@ public class Main {
             String path = args[0];
 
             try {
+                System.out.println("Mawoo MigrateJS - Migrate data easily with javascript! (c) copyright 2016 \n");
                 scriptHandler.fileReader(path);
             } catch (FileNotFoundException | ScriptException e) {
                 e.printStackTrace();
             }
         } else {
-            System.out.println("Mawoo MigrateJS - Migrate data easily with javascript! (c) copyright 2016 \n");
+
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
