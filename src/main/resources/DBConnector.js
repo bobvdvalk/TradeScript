@@ -6,8 +6,12 @@
  * @constructor init a database connection
  */
 var DbConnector = function(connString, username, password) {
-    var DBConnector = Java.type("nl.mawoo.migratejs.extend.dbconnector.DbConnector");
-    this.connector = new DBConnector(connString, username, password);
+    try {
+        var DBConnector = Java.type("nl.mawoo.migratejs.extend.dbconnector.DbConnector");
+        this.connector = new DBConnector(connString, username, password);
+    } catch(e) {
+        print("Could not connect to the database \n Check your connection settings.");
+    }
 };
 
 /**
@@ -15,5 +19,9 @@ var DbConnector = function(connString, username, password) {
  * @param sql database query.
  */
 DbConnector.prototype.query = function(sql){
-    return this.connector.query(sql);
+    try {
+        return this.connector.query(sql);
+    } catch(e) {
+        print("A SQL error occurred: "+ e);
+    }
 };

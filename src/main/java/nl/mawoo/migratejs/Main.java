@@ -27,10 +27,9 @@ public class Main {
                 e.printStackTrace();
             }
         } else {
-
+            System.out.println("Mawoo MigrateJS - Migrate data easily with javascript! (c) copyright 2016 \n");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
 
             while(true) {
                 try {
