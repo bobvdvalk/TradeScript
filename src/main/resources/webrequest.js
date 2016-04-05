@@ -21,5 +21,4 @@ Request = {
         var req = Java.type("nl.mawoo.migratejs.extend.webrequest.WebRequest");
         return req.Post(request);
     }
-
 };
