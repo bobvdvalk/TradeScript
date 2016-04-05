@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.extend.webrequest;
 
+import org.apache.http.client.fluent.Request;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -36,6 +38,17 @@ public class WebRequest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * GET web request using the apache library
+     * @param request
+     * @return
+     */
+    public static Request get(String request) {
+        return Request.Get(request);
+    }
+
+
 
     /**
      * Execute a get request and the data will return as String
