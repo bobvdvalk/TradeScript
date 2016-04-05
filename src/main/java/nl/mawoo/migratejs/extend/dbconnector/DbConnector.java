@@ -1,7 +1,5 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
-import nl.mawoo.migratejs.converter.JsonConverter;
-
 import java.sql.*;
 
 /**
@@ -44,25 +42,22 @@ public class DbConnector {
      * @param sql your sql manager
      * @return resultSet of your query
      */
-    public String query(String sql) {
+    public ResultSetObject query(String sql) {
         try {
             stmt = conn.createStatement();
             String[] queryType = sql.split(" ");
 
             if(queryType[0].equals("SELECT")) {
                 ResultSet rs = stmt.executeQuery(sql);
-                JsonConverter convert = new JsonConverter();
-                String jsonData = convert.resultSetConverter(rs);
 
-                rs.close();
-
-                return jsonData;
+                return new ResultSetObject(rs);
             } else {
                 Boolean query = stmt.execute(sql);
-                return "Query is executed";
             }
         } catch (SQLException e) {
             throw new nl.mawoo.migratejs.exceptions.SQLException("A SQL error occurd", e);
         }
+
+        return null;
     }
 }

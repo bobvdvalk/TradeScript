@@ -7,4 +7,8 @@ var dbConnector = new DbConnector(connString, "root", "");
 var sql = "SELECT * FROM person";
 var data = dbConnector.query(sql);
 
-print(data);
+while(data.next()) {
+    print(data.get("id"));
+    print(data.get("name"));
+    print(data.get("email"));
+}
