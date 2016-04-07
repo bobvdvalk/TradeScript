@@ -10,8 +10,10 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * Created by Joshua on 24-3-2016.
@@ -31,7 +33,7 @@ public class ExcelImport {
         }
     }
 
-    public XSSFSheet getSheet(String name) {
+    private XSSFSheet getSheet(String name) {
         return workbook.getSheet(name);
     }
 
@@ -40,7 +42,7 @@ public class ExcelImport {
      * @param sheet Sheet which the rows iterator is return from
      * @return Iterator with all the rows from the given sheet
      */
-    public Iterator<Row> getRowIterator(XSSFSheet sheet) {
+    private Iterator<Row> getRowIterator(XSSFSheet sheet) {
         return sheet.iterator();
     }
 
@@ -49,8 +51,17 @@ public class ExcelImport {
      * @param row Row from which the cells iterator is returned
      * @return Iterator with all the cells of the given row
      */
-    public Iterator<Cell> getCellIterator(Row row) {
+    private Iterator<Cell> getCellIterator(Row row) {
         return row.iterator();
+    }
+
+    public List<Row> getRows(XSSFSheet sheet) {
+        List<Row> output = new ArrayList<>();
+        Iterator<Row> rows = getRowIterator(sheet);
+        while(rows.hasNext()) {
+            output.add(rows.next());
+        }
+        return output;
     }
 
     /**
@@ -78,6 +89,7 @@ public class ExcelImport {
      * @return Cell which is found on the address
      */
     public Cell getCell(XSSFSheet sheet, String address) {
+
         CellReference ref = new CellReference(address);
         Row r = sheet.getRow(ref.getRow());
         if (r != null) {

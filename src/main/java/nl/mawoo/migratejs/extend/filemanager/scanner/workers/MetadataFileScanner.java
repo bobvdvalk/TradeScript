@@ -38,8 +38,8 @@ public class MetadataFileScanner extends FileScannerWorker {
                 File f = this.queue.poll(20, TimeUnit.MILLISECONDS);
                 if(f != null) {
                     if(f.isDirectory()) {
-                        try {
-                            DirectoryStream<Path> inputStream = Files.newDirectoryStream(Paths.get(f.getAbsolutePath()));
+                        try (DirectoryStream<Path> inputStream = Files.newDirectoryStream(Paths.get(f.getAbsolutePath()))) {
+
                             for(Path p : inputStream) {
                                 this.queue.add(p.toFile());
                             }
@@ -49,7 +49,7 @@ public class MetadataFileScanner extends FileScannerWorker {
                         }
                     } else {
                         try {
-                            output.put(f.getAbsolutePath(), String.valueOf(Files.readAttributes(Paths.get(f.getAbsolutePath()),"*")));
+                            output.put(f.getAbsolutePath(), String.valueOf(Files.readAttributes(Paths.get(f.getAbsolutePath()),"*")).replaceAll("[{}]",""));
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
