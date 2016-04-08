@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The main class to run WCMScript
+ * The main class to run MigrateJS
  */
 public class WCMScript {
 
@@ -28,7 +28,7 @@ public class WCMScript {
                 log.info("WCMScript - Version 1.0 \n");
                 scriptHandler.fileReader(path);
             } catch (FileNotFoundException e) {
-                log.error("Load file not found.");
+                log.error("Load file not found. The file you want to use cannot be found.");
             } catch (ScriptException e) {
                 log.error("Error in script", e);
             }
@@ -42,9 +42,7 @@ public class WCMScript {
                     String input = br.readLine();
 
                     scriptHandler.stringReader(input);
-                } catch (IOException e) {
-                    log.error("IO error", e);
-                } catch (ScriptException e) {
+                } catch (IOException | ScriptException e) {
                     log.error("Error in script");
                 }
             }
