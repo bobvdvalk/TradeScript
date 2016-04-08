@@ -42,7 +42,9 @@ public class WCMScript {
                     String input = br.readLine();
 
                     scriptHandler.stringReader(input);
-                } catch (IOException | ScriptException e) {
+                } catch (IOException e) {
+                    log.error("IO error", e);
+                } catch (ScriptException e) {
                     log.error("Error in script");
                 }
             }
