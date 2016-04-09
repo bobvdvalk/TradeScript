@@ -29,7 +29,7 @@ public class WCMScript {
                 log.info("WCMScript - Version 1.0 \n");
                 scriptHandler.fileReader(path);
             } catch (FileNotFoundException e) {
-                log.error("Load file not found. The file you want to use cannot be found.");
+                log.error("Load file not found. The file you want to use cannot be found."+ e);
             } catch (ScriptException e) {
                 log.error("Error in script", e);
             }
