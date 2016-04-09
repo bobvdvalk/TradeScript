@@ -83,7 +83,11 @@ public class FilemanagerHandler {
      * @return Returns a HashMap containing the File path(e.g : C:/Windows/virus.bat) as the key and the data as the value.
      */
     public ConcurrentHashMap<String, String> scanFiles(Class<? extends FileScannerWorker> scanner, String directory, int bufferSize, int threads) {
-        return new Scanner(scanner, bufferSize, threads).scan(directory);
+        try {
+            return new Scanner(scanner, bufferSize, threads).scan(directory);
+        } catch (InterruptedException e) {
+            logger.error("Can\'t scan the directory. "+ e);
+        }
     }
 
 
