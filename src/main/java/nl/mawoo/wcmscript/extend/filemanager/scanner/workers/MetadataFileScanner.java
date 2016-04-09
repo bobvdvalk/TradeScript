@@ -1,6 +1,7 @@
 package nl.mawoo.wcmscript.extend.filemanager.scanner.workers;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,6 +20,8 @@ import java.util.concurrent.TimeUnit;
  * and put back into the queue. If they're an actual file, the attributes are read and put into the output HashMap.
  */
 public class MetadataFileScanner extends FileScannerWorker {
+
+    private Logger logger = Logger.getLogger(MetadataFileScanner.class.getName());
 
     /**
      * metadataFileScanner constructor
@@ -45,20 +48,20 @@ public class MetadataFileScanner extends FileScannerWorker {
                             }
                             inputStream.close();
                         } catch (IOException e) {
-                            e.printStackTrace();
+                            logger.error(e);
                         }
                     } else {
                         try {
                             output.put(f.getAbsolutePath(), String.valueOf(Files.readAttributes(Paths.get(f.getAbsolutePath()),"*")).replaceAll("[{}]",""));
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            logger.error(e);
                         }
                     }
                 } else {
                     run = false;
                 }
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
     }
