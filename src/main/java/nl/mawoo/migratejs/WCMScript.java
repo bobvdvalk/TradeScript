@@ -17,7 +17,7 @@ public class WCMScript {
     private static Logger log = Logger.getLogger(WCMScript.class.getName());
 
     private WCMScript() {
-        
+
     }
 
     public static void main(String... args) {

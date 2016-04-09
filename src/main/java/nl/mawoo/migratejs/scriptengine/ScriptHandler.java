@@ -1,7 +1,9 @@
 package nl.mawoo.migratejs.scriptengine;
 
 import nl.mawoo.migratejs.exceptions.CantFindLibraryException;
+import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
+import sun.font.Script;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -16,6 +18,7 @@ import java.io.*;
  */
 public class ScriptHandler {
     private ScriptEngine engine;
+    private Logger logger = Logger.getLogger(ScriptHandler.class.getName());
 
     public ScriptHandler() {
         ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -25,8 +28,10 @@ public class ScriptHandler {
         engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
         try {
             loadResource("/migratejs.js");
-        } catch (ScriptException | IOException e) {
-            e.printStackTrace();
+        } catch (ScriptException e) {
+            logger.error("Error with the script: "+ e);
+        } catch (IOException e) {
+            logger.error("IO exception: "+ e);
         }
     }
 

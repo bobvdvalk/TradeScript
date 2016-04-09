@@ -1,5 +1,7 @@
 package nl.mawoo.migratejs.extend.dbconnector;
 
+import org.apache.log4j.Logger;
+
 import java.sql.*;
 
 /**
@@ -9,6 +11,7 @@ import java.sql.*;
  */
 public class DbConnector {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
+    private Logger logger = Logger.getLogger(DbConnector.class.getName());
 
     private Connection conn = null;
     private Statement stmt = null;
@@ -33,7 +36,7 @@ public class DbConnector {
         try {
             conn = DriverManager.getConnection(connection, username, password);
         } catch (SQLException e) {
-            e.printStackTrace();
+            logger.error("Cannot connect to database: "+ e);
         }
     }
 
@@ -55,7 +58,7 @@ public class DbConnector {
                 Boolean query = stmt.execute(sql);
             }
         } catch (SQLException e) {
-            throw new nl.mawoo.migratejs.exceptions.SQLException("A SQL error occurd", e);
+            logger.error("A SQL exception occurred: "+ e);
         }
 
         return null;
