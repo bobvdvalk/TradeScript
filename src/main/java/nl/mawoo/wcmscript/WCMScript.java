@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
- * The main class to run MigrateJS
+ * The main class to run WCMScript
+ *
+ * @author Bob van der Valk
  */
 public class WCMScript {
 
@@ -37,6 +39,7 @@ public class WCMScript {
                 log.error("Error in script", e);
             }
         } else {
+            log.info("WCMScript - Version 1.0 \n");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
