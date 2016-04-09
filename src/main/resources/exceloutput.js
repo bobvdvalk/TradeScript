@@ -3,7 +3,7 @@
  * @param sheetname name you want to give to the spreadsheet.
  */
 var ExcelOutput = function(sheetname) {
-  var excelClass = Java.type("nl.mawoo.migratejs.extend.export.ExcelExport");
+  var excelClass = Java.type("nl.mawoo.wcmscript.extend.export.ExcelExport");
   this.excelExport = new excelClass(sheetname);
 };
     /**

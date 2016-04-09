@@ -3,7 +3,7 @@
  */
 
 var ExcelImput = function(filename) {
-    var excelClass = Java.type("nl.mawoo.migratejs.extend.importer.ExcelImport");
+    var excelClass = Java.type("nl.mawoo.wcmscript.extend.importer.ExcelImport");
     this.excelImput = new excelClass(filename);
 };
 

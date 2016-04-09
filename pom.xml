@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.mawoo</groupId>
-    <artifactId>migratejs</artifactId>
+    <artifactId>wmcsript</artifactId>
     <version>1.0-SNAPSHOT</version>
 
     <dependencies>
@@ -83,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>nl.mawoo.migratejs.WCMScript</mainClass>
+                            <mainClass>nl.mawoo.wcmscript.WCMScript</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

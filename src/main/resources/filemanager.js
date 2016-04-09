@@ -5,7 +5,7 @@ FileManager = {
      * @returns {FileManagerClass} FileManagerHandler object.
      */
     getFileManagerHandler: function() {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass();
     },
 
@@ -41,7 +41,7 @@ FileManager = {
      * Scanner workers used by the scanner.
      */
     scanners : {
-        METADATA: Java.type("nl.mawoo.migratejs.extend.filemanager.scanner.workers.MetadataFileScanner").class
+        METADATA: Java.type("nl.mawoo.wcmscript.extend.filemanager.scanner.workers.MetadataFileScanner").class
     },
     /**
      * Creates and returns a java object.
@@ -58,7 +58,7 @@ FileManager = {
      * @returns {*} Returns a Java List<file> containing all the files.
      */
     listDirectories: function(path) {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().listDirectories(path);
     },
 
@@ -68,7 +68,7 @@ FileManager = {
      * @returns {*} Returns a Java List<file> containing all the files.
      */
     listFiles: function(path) {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().listFiles(path);
     },
 
@@ -78,7 +78,7 @@ FileManager = {
      * @returns {*} Returns a Java List<file> containing all the files.
      */
     listNestedFiles: function(path) {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().getNestedFiles(path);
     },
 
@@ -91,12 +91,12 @@ FileManager = {
      * @returns {*} A HashMap<File, String> With the String holding all the metadata
      */
     scanFiles: function (scanner, path, bufferSize, threadAmount) {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().scanFiles(scanner, path, bufferSize, threadAmount);
     },
 
     getMetaDataValue: function (metadata, tag) {
-        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        var fileManagerClass = Java.type("nl.mawoo.wcmscript.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().getMetaDataTag(metadata, tag);
     }
 
