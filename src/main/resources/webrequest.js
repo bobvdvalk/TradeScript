@@ -7,7 +7,7 @@ var Request = {
      * @constructor
      */
     Get: function(request) {
-        var req = Java.type("nl.mawoo.migratejs.extend.webrequest.WebRequest");
+        var req = Java.type("nl.mawoo.wcmscript.extend.webrequest.WebRequest");
         return req.Get(request);
     },
     /**
@@ -18,7 +18,7 @@ var Request = {
      * @constructor
      */
     Post: function(request) {
-        var req = Java.type("nl.mawoo.migratejs.extend.webrequest.WebRequest");
+        var req = Java.type("nl.mawoo.wcmscript.extend.webrequest.WebRequest");
         return req.Post(request);
     }
 };

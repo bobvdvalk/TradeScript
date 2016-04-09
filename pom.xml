@@ -83,7 +83,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>nl.mawoo.migratejs.WCMScript</mainClass>
+                            <mainClass>nl.mawoo.wcmscript.WCMScript</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
