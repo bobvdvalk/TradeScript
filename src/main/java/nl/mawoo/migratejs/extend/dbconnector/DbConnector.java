@@ -16,8 +16,6 @@ public class DbConnector {
     private Connection conn = null;
     private Statement stmt = null;
 
-    //example: mysql:host=localhost;dbname=migratejs_test
-    private String connection, username, password;
 
     /**
      * Set up a database connection with JDBC.
@@ -27,10 +25,6 @@ public class DbConnector {
      * @throws ClassNotFoundException
      */
     public DbConnector(String connection, String username, String password) throws ClassNotFoundException {
-        this.connection = connection;
-        this.username = username;
-        this.password = password;
-
         Class.forName("com.mysql.jdbc.Driver");
 
         try {

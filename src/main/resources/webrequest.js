@@ -1,4 +1,4 @@
-Request = {
+var Request = {
     /**
      * Send a GET request to a url.
      * View documentation at: https://hc.apache.org/httpcomponents-client-ga/tutorial/html/fluent.html
