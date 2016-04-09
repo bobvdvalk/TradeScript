@@ -11,10 +11,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Joshua on 24-3-2016.
@@ -71,7 +68,7 @@ public class ExcelImport {
      * @param sheet Excel sheet the cells are on
      * @return A HashMap containing all the adresses as keys, and cells as values respectively.
      */
-    public HashMap<String,Cell> getCells(XSSFSheet sheet) {
+    public Map<String,Cell> getCells(XSSFSheet sheet) {
         HashMap<String, Cell> output = new HashMap<>();
         Iterator<Row> rows = getRowIterator(sheet);
         while(rows.hasNext()) {
@@ -111,7 +108,6 @@ public class ExcelImport {
         CellReference ref = new CellReference(address);
         Row r = sheet.getRow(ref.getRow());
             if (r != null) {
-                DataFormatter df = new DataFormatter();
                 Cell cell = r.getCell(ref.getCol());
                 if(cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
                     switch (cell.getCachedFormulaResultType()) {
@@ -119,6 +115,8 @@ public class ExcelImport {
                             return String.valueOf(cell.getNumericCellValue());
                         case Cell.CELL_TYPE_STRING:
                             return cell.getStringCellValue();
+                        default:
+                            logger.error("Error selecting cells");
                     }
                 } else {
                     return cell.toString();

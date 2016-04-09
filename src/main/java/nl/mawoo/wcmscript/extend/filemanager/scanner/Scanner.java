@@ -18,18 +18,18 @@ public class Scanner {
     int queueBuffer;
     int workerCount;
     BlockingQueue<File> queue;
-    Class<FileScannerWorker> scanner;
+    Class<FileScannerWorker> scan;
 
     /**
      * Scanner constructor
-     * @param scanner Class of a scanner worker extending FileScannerWorker
+     * @param scan Class of a scan worker extending FileScannerWorker
      * @param queueBuffer Size of the queue buffer.
      * @param workerCount Worker Thread count
      */
-    public Scanner(Class<? extends FileScannerWorker> scanner, int queueBuffer, int workerCount) {
+    public Scanner(Class<? extends FileScannerWorker> scan, int queueBuffer, int workerCount) {
         this.queueBuffer=queueBuffer;
         this.workerCount = workerCount;
-        this.scanner = (Class<FileScannerWorker>) scanner;
+        this.scan = (Class<FileScannerWorker>) scan;
         queue = new ArrayBlockingQueue<>(queueBuffer);
     }
 
@@ -62,7 +62,7 @@ public class Scanner {
         List<FileScannerWorker> output = new ArrayList<>();
             try {
                 for(int i = 0; i < workerCount; i++) {
-                    output.add(scanner.getDeclaredConstructor(BlockingQueue.class, ConcurrentHashMap.class).newInstance(queue, fileData));
+                    output.add(scan.getDeclaredConstructor(BlockingQueue.class, ConcurrentHashMap.class).newInstance(queue, fileData));
                 }
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
                 logger.error(e);
@@ -71,7 +71,7 @@ public class Scanner {
     }
 
     /**
-     * Create threads based on the workers used by the scanner.
+     * Create threads based on the workers used by the scan.
      * @param workers List of worker objects
      * @return A list of Threads
      */
