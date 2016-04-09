@@ -1,6 +1,5 @@
 package nl.mawoo.migratejs;
 
-import nl.mawoo.migratejs.exceptions.CustomScriptException;
 import nl.mawoo.migratejs.scriptengine.ScriptHandler;
 
 import org.apache.log4j.Logger;
@@ -16,6 +15,10 @@ import java.io.InputStreamReader;
 public class WCMScript {
 
     private static Logger log = Logger.getLogger(WCMScript.class.getName());
+
+    private WCMScript() {
+        
+    }
 
     public static void main(String... args) {
 
