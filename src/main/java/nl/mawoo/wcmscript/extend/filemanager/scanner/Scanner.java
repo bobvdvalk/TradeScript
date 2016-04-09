@@ -38,7 +38,7 @@ public class Scanner {
      * @param directory Parent directory.
      * @return Returns a HashMap containing the File path(e.g : C:/Windows/virus.bat) as the key and the data as the value.
      */
-    public ConcurrentHashMap<String, String> scan(String directory) {
+    public ConcurrentHashMap<String, String> scan(String directory) throws InterruptedException {
         ConcurrentHashMap<String, String> output = new ConcurrentHashMap<>();
         List<Thread> threads = createThreads(createWorkers(output));
         initParentDir(directory);
@@ -46,11 +46,7 @@ public class Scanner {
             t.start();
         }
         for(Thread t : threads) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                logger.error(e);
-            }
+            t.join();
         }
         List<String> keysAsArray = new ArrayList<>(output.keySet());
 
