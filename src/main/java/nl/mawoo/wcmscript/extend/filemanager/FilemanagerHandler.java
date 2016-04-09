@@ -2,6 +2,8 @@ package nl.mawoo.wcmscript.extend.filemanager;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.Scanner;
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import org.apache.log4j.Logger;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class FilemanagerHandler {
+
+    private Logger logger = Logger.getLogger(FilemanagerHandler.class.getName());
 
     /**
      * Lists all the files in a directory
@@ -65,7 +69,7 @@ public class FilemanagerHandler {
         try {
             return Files.readAttributes(Paths.get(path), BasicFileAttributes.class);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error("Can\'t get BasicFileAttributes. "+ e);
         }
         return null;
     }
@@ -94,7 +98,7 @@ public class FilemanagerHandler {
                     Files.createFile(Paths.get(parentDirectory + i + ".txt"));
                 }
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Can\'t create files. "+ e);
         }
 
     }
