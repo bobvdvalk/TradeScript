@@ -1,5 +1,6 @@
 package nl.mawoo.wcmscript.extend.importer;
 
+import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -20,6 +21,7 @@ import java.util.List;
  */
 public class ExcelImport {
 
+    private Logger logger = Logger.getLogger(ExcelImport.class.getName());
     private XSSFWorkbook workbook;
 
     public ExcelImport(String path) {
@@ -27,9 +29,9 @@ public class ExcelImport {
         try {
             this.workbook = new XSSFWorkbook(f);
         } catch (IOException e) {
-            e.printStackTrace();
+            logger.error(e);
         } catch (InvalidFormatException e) {
-            e.printStackTrace();
+            logger.error("This is not a excel file." + e);
         }
     }
 
