@@ -93,6 +93,11 @@ FileManager = {
     scanFiles: function (scanner, path, bufferSize, threadAmount) {
         var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
         return new fileManagerClass().scanFiles(scanner, path, bufferSize, threadAmount);
+    },
+
+    getMetaDataValue: function (metadata, tag) {
+        var fileManagerClass = Java.type("nl.mawoo.migratejs.extend.filemanager.FilemanagerHandler");
+        return new fileManagerClass().getMetaDataTag(metadata, tag);
     }
 
 

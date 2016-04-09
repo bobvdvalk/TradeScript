@@ -19,10 +19,7 @@ public class FilemanagerHandler {
      * @param directoryPath Path to the directory.
      */
     public List<File> listFiles(String directoryPath) {
-        if(new File(directoryPath) != null)
-            return new ArrayList<>(Arrays.asList(new File(directoryPath).listFiles()));
-        else
-            return null;
+        return new ArrayList<>(Arrays.asList(new File(directoryPath).listFiles()));
     }
 
     /**
@@ -100,5 +97,22 @@ public class FilemanagerHandler {
                 e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Returns the value of a tag found in the metadata
+     * @param data List of metadata retrieved from the Scanner
+     * @param tag The tag of which the value has to be returned
+     * @return The value of the tag
+     */
+    public String getMetaDataTag(String data, String tag) {
+        String[] list = data.split(", ");
+        for(String s : list) {
+            String[] temp = s.split("=");
+            if(temp[0].equalsIgnoreCase(tag)) {
+                return temp[1];
+            }
+        }
+        return "";
     }
 }

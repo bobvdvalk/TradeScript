@@ -52,10 +52,7 @@ public class Scanner {
             }
         }
         List<String> keysAsArray = new ArrayList<>(output.keySet());
-        for(int i = 0; i < 10; i++) {
-            int rand = new Random().nextInt(keysAsArray.size());
-            System.out.println("File: " + keysAsArray.get(rand) + " data: " + output.get(keysAsArray.get(rand)));
-        }
+
         return output;
     }
 
