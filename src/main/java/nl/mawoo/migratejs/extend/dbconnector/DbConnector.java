@@ -44,12 +44,12 @@ public class DbConnector {
             stmt = conn.createStatement();
             String[] queryType = sql.split(" ");
 
-            if(queryType[0].equals("SELECT")) {
+            if("SELECT".equals(queryType[0])) {
                 ResultSet rs = stmt.executeQuery(sql);
 
                 return new ResultSetObject(rs);
             } else {
-                Boolean query = stmt.execute(sql);
+                stmt.execute(sql);
             }
         } catch (SQLException e) {
             logger.error("A SQL exception occurred: "+ e);

@@ -1,9 +1,8 @@
 package nl.mawoo.migratejs.scriptengine;
 
-import nl.mawoo.migratejs.exceptions.CantFindLibraryException;
+import nl.mawoo.migratejs.exceptions.CantFindLibrary;
 import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
-import sun.font.Script;
 
 import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
@@ -91,13 +90,13 @@ public class ScriptHandler {
      * @param resourceName the path to the resource.
      * @throws IOException              if an IO error occurs while reading the resource
      * @throws ScriptException          if an exception occurs in the javascript code
-     * @throws CantFindLibraryException if the requested resource does not exist
+     * @throws CantFindLibrary if the requested resource does not exist
      */
     public void loadResource(String resourceName) throws IOException, ScriptException {
         InputStream stream = getClass().getResourceAsStream(resourceName);
 
         if (stream == null) {
-            throw new CantFindLibraryException("No library called " + resourceName + " was found");
+            throw new CantFindLibrary("No library called " + resourceName + " was found");
         }
 
         eval(stream);
