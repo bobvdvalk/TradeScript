@@ -1,6 +1,7 @@
 package nl.mawoo.wcmscript.extend.filemanager.scanner;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.lang.reflect.InvocationTargetException;
@@ -11,6 +12,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class Scanner {
+
+    private Logger logger = Logger.getLogger(Scanner.class.getName());
 
     int queueBuffer;
     int workerCount;
@@ -46,7 +49,7 @@ public class Scanner {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         }
         List<String> keysAsArray = new ArrayList<>(output.keySet());
@@ -66,7 +69,7 @@ public class Scanner {
                     output.add(scanner.getDeclaredConstructor(BlockingQueue.class, ConcurrentHashMap.class).newInstance(queue, fileData));
                 }
             } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException e) {
-                e.printStackTrace();
+                logger.error(e);
             }
         return output;
     }
@@ -92,7 +95,7 @@ public class Scanner {
         try {
             queue.put(new File(directory));
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error(e);
         }
     }
 }
