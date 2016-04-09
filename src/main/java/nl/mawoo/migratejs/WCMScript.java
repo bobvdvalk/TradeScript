@@ -1,5 +1,6 @@
 package nl.mawoo.migratejs;
 
+import nl.mawoo.migratejs.exceptions.CustomScriptException;
 import nl.mawoo.migratejs.scriptengine.ScriptHandler;
 
 import org.apache.log4j.Logger;
@@ -40,10 +41,9 @@ public class WCMScript {
                 try {
                     System.out.print(">");
                     String input = br.readLine();
-
                     scriptHandler.stringReader(input);
                 } catch (IOException | ScriptException e) {
-                    log.error("Error in script");
+                    log.error("Error in script", e);
                 }
             }
         }
