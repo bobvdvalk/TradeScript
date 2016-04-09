@@ -1,6 +1,6 @@
 package nl.mawoo.migratejs.extend.export;
 
-import nl.mawoo.migratejs.exceptions.CantSaveFileException;
+import nl.mawoo.migratejs.exceptions.CantSaveFile;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -101,7 +101,7 @@ public class ExcelExport {
             outputStream.close();
 
         } catch (IOException e) {
-            throw new CantSaveFileException("Can\'t save the excel file", e);
+            throw new CantSaveFile("Can\'t save the excel file", e);
         }
     }
 }

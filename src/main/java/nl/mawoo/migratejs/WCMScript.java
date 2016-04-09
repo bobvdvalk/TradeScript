@@ -2,6 +2,7 @@ package nl.mawoo.migratejs;
 
 import nl.mawoo.migratejs.scriptengine.ScriptHandler;
 
+import org.apache.log4j.Logger;
 import javax.script.ScriptException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -11,7 +12,14 @@ import java.io.InputStreamReader;
 /**
  * The main class to run MigrateJS
  */
-public class Main {
+public class WCMScript {
+
+    private static Logger log = Logger.getLogger(WCMScript.class.getName());
+
+    private WCMScript() {
+
+    }
+
     public static void main(String... args) {
 
         ScriptHandler scriptHandler = new ScriptHandler();
@@ -21,13 +29,14 @@ public class Main {
             String path = args[0];
 
             try {
-                System.out.println("Mawoo MigrateJS - Migrate data easily with javascript! (c) copyright 2016 \n");
+                log.info("WCMScript - Version 1.0 \n");
                 scriptHandler.fileReader(path);
-            } catch (FileNotFoundException | ScriptException e) {
-                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                log.error("Load file not found. The file you want to use cannot be found."+ e);
+            } catch (ScriptException e) {
+                log.error("Error in script", e);
             }
         } else {
-            System.out.println("Mawoo MigrateJS - Migrate data easily with javascript! (c) copyright 2016 \n");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
@@ -35,10 +44,9 @@ public class Main {
                 try {
                     System.out.print(">");
                     String input = br.readLine();
-
                     scriptHandler.stringReader(input);
                 } catch (IOException | ScriptException e) {
-                    e.printStackTrace();
+                    log.error("Error in script", e);
                 }
             }
         }

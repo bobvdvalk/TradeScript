@@ -5,12 +5,12 @@ package nl.mawoo.migratejs.exceptions;
  *
  * @author Bob van der Valk
  */
-public class CantFindLibraryException extends MigrateJSException {
-    public CantFindLibraryException(String message) {
+public class CantFindLibrary extends WCMScriptException {
+    public CantFindLibrary(String message) {
         super(message);
     }
 
-    public CantFindLibraryException(String message, Throwable cause) {
+    public CantFindLibrary(String message, Throwable cause) {
         super(message, cause);
     }
 }

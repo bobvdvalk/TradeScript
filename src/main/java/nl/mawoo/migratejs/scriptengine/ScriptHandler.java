@@ -1,6 +1,7 @@
 package nl.mawoo.migratejs.scriptengine;
 
-import nl.mawoo.migratejs.exceptions.CantFindLibraryException;
+import nl.mawoo.migratejs.exceptions.CantFindLibrary;
+import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 
 import javax.script.ScriptContext;
@@ -16,6 +17,7 @@ import java.io.*;
  */
 public class ScriptHandler {
     private ScriptEngine engine;
+    private Logger logger = Logger.getLogger(ScriptHandler.class.getName());
 
     public ScriptHandler() {
         ScriptEngineManager engineManager = new ScriptEngineManager();
@@ -25,8 +27,10 @@ public class ScriptHandler {
         engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
         try {
             loadResource("/migratejs.js");
-        } catch (ScriptException | IOException e) {
-            e.printStackTrace();
+        } catch (ScriptException e) {
+            logger.error("Error with the script: "+ e);
+        } catch (IOException e) {
+            logger.error("IO exception: "+ e);
         }
     }
 
@@ -86,13 +90,13 @@ public class ScriptHandler {
      * @param resourceName the path to the resource.
      * @throws IOException              if an IO error occurs while reading the resource
      * @throws ScriptException          if an exception occurs in the javascript code
-     * @throws CantFindLibraryException if the requested resource does not exist
+     * @throws CantFindLibrary if the requested resource does not exist
      */
     public void loadResource(String resourceName) throws IOException, ScriptException {
         InputStream stream = getClass().getResourceAsStream(resourceName);
 
         if (stream == null) {
-            throw new CantFindLibraryException("No library called " + resourceName + " was found");
+            throw new CantFindLibrary("No library called " + resourceName + " was found");
         }
 
         eval(stream);

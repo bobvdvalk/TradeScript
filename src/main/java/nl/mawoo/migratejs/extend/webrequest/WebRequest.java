@@ -8,6 +8,10 @@ import org.apache.http.client.fluent.Request;
  * @author Bob van der Valk
  */
 public class WebRequest {
+
+    private  WebRequest() {
+    }
+
     /**
      * GET web request using the apache library
      *
