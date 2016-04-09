@@ -88,6 +88,8 @@ public class FilemanagerHandler {
         } catch (InterruptedException e) {
             logger.error("Can\'t scan the directory. "+ e);
         }
+
+        return null;
     }
 
 
