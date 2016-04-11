@@ -1,5 +1,5 @@
 var WebCrawler = function(){
-    var crawlerClass = Java.type("nl.mawoo.wcmscript.crawler");
+    var crawlerClass = Java.type("nl.mawoo.wcmscript.extend.crawler.Crawler");
     this.crawler = new crawlerClass();
 };
 
@@ -7,6 +7,6 @@ var WebCrawler = function(){
         return this.crawler.run(url);
     };
 
-    WebCrawler.prototype.getDocument = function() {
+    WebCrawler.prototype.get = function() {
       return this.crawler.getDocument();
     };

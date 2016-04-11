@@ -15,9 +15,6 @@ public class Crawler {
     private Logger logger = Logger.getLogger(Crawler.class.getName());
     private Document document;
 
-    private Crawler() {
-    }
-
     /**
      * Run the crawler.
      * The crawler will store it in a ArrayList with CrawlObjects so the user can retrieve them much more easily
