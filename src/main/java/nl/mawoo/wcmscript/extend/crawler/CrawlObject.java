@@ -1,4 +1,4 @@
-package nl.mawoo.wcmscript.crawler;
+package nl.mawoo.wcmscript.extend.crawler;
 
 import org.jsoup.nodes.Document;
 
