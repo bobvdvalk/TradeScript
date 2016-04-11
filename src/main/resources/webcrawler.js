@@ -6,3 +6,7 @@ var WebCrawler = function(){
     WebCrawler.prototype.run = function(url) {
         return this.crawler.run(url);
     };
+
+    WebCrawler.prototype.getDocument = function() {
+      return this.crawler.getDocument();
+    };
