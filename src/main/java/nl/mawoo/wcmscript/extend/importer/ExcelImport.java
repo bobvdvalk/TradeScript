@@ -31,7 +31,7 @@ public class ExcelImport {
         }
     }
 
-    private XSSFSheet getSheet(String name) {
+    public XSSFSheet getSheet(String name) {
         return workbook.getSheet(name);
     }
 
@@ -40,7 +40,7 @@ public class ExcelImport {
      * @param sheet Sheet which the rows iterator is return from
      * @return Iterator with all the rows from the given sheet
      */
-    private Iterator<Row> getRowIterator(XSSFSheet sheet) {
+    public Iterator<Row> getRowIterator(XSSFSheet sheet) {
         return sheet.iterator();
     }
 
@@ -49,7 +49,7 @@ public class ExcelImport {
      * @param row Row from which the cells iterator is returned
      * @return Iterator with all the cells of the given row
      */
-    private Iterator<Cell> getCellIterator(Row row) {
+    public Iterator<Cell> getCellIterator(Row row) {
         return row.iterator();
     }
 
