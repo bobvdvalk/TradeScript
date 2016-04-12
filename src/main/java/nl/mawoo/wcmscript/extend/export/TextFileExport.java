@@ -33,7 +33,7 @@ public class TextFileExport {
      *
      * @throws IOException When a file can't write or save
      */
-    public void create() {
+    public void save() {
         try {
 
             if(!file.exists()) {
