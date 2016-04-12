@@ -11,9 +11,29 @@ public class MongoConnector {
     private MongoDatabase database;
     private MongoClient client;
 
+    /**
+     * Login with no credentials
+     * @param database collection that you want to use.
+     */
     public MongoConnector(String database) {
         client = new MongoClient(new ServerAddress());
         this.database = client.getDatabase(database);
+    }
+
+    public MongoConnector(MongoDatabase database, String username, String password) {
+        this.database = database;
+    }
+
+    /**
+     * Login using all credentials
+     * @param database
+     * @param username
+     * @param password
+     * @param host
+     * @param password
+     */
+    public MongoConnector(MongoDatabase database, String username, String password, String host, String password) {
+        this.database = database;
     }
 
     /**
