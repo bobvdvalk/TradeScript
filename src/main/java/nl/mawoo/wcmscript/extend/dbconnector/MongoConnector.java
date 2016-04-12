@@ -9,7 +9,7 @@ import com.mongodb.client.MongoDatabase;
  */
 public class MongoConnector {
     private String currentDatabase;
-    private String host = "127.0.0.1";
+    private String host = "localhost";
     private int port = 27017;
     private String username = null;
     private String password = null;
@@ -28,7 +28,7 @@ public class MongoConnector {
      * Make the connection to MongoDB
      */
     public void connect() {
-        MongoClient client = new MongoClient(new ServerAddress());
+        MongoClient client = new MongoClient(new ServerAddress(host, port));
         this.database = client.getDatabase(currentDatabase);
     }
 
