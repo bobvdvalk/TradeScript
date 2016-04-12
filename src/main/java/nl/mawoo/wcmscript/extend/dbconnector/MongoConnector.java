@@ -1,6 +1,7 @@
 package nl.mawoo.wcmscript.extend.dbconnector;
 
 import com.mongodb.MongoClient;
+import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
