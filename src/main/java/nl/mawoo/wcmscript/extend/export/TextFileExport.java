@@ -13,7 +13,7 @@ import java.io.IOException;
  * @author Bob van der Valk
  */
 public class TextFileExport {
-    private String content;
+    private Object content;
     private File file;
 
     private Logger logger = Logger.getLogger(TextFileExport.class.getName());
@@ -23,7 +23,7 @@ public class TextFileExport {
      * @param filename name & location of the file you want.
      * @param content content you want to give to the file
      */
-    public TextFileExport(String filename, String content) {
+    public TextFileExport(String filename, Object content) {
         this.content = content;
         file = new File(filename);
     }
@@ -43,7 +43,7 @@ public class TextFileExport {
             FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
             BufferedWriter bw = new BufferedWriter(fileWriter);
 
-            bw.write(content);
+            bw.write((String) content);
             bw.close();
 
         } catch (IOException e) {
