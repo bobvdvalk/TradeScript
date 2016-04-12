@@ -1,6 +1,11 @@
 package nl.mawoo.wcmscript.extend.export;
 
-import com.sun.istack.internal.logging.Logger;
+import org.apache.log4j.Logger;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 
 /**
  * This class is responsible to export to a file
@@ -8,15 +13,43 @@ import com.sun.istack.internal.logging.Logger;
  * @author Bob van der Valk
  */
 public class TextFileExport {
-    private String filename;
     private String content;
+    private File file;
 
-    private Logger logger = Logger.getLogger(TextFileExport.class);
+    private Logger logger = Logger.getLogger(TextFileExport.class.getName());
 
+    /**
+     * Instance a new file
+     * @param filename name & location of the file you want.
+     * @param content content you want to give to the file
+     */
     public TextFileExport(String filename, String content) {
-        this.filename = filename;
         this.content = content;
+        file = new File(filename);
     }
 
-    
+    /**
+     * Save a new file. With any content you want.
+     *
+     * @throws IOException When a file can't write or save
+     */
+    public void create() {
+        try {
+
+            if(!file.exists()) {
+                file.createNewFile();
+            }
+
+            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
+            BufferedWriter bw = new BufferedWriter(fileWriter);
+
+            bw.write(content);
+            bw.close();
+
+        } catch (IOException e) {
+            logger.error("Cannot creat file "+ e);
+        }
+
+    }
+
 }
