@@ -8,32 +8,28 @@ import com.mongodb.client.MongoDatabase;
  * This class is responsible to manage the connection with MongoDB
  */
 public class MongoConnector {
+    private String currentDatabase;
+    private String host = "127.0.0.1";
+    private int port = 27017;
+    private String username = null;
+    private String password = null;
+
     private MongoDatabase database;
-    private MongoClient client;
 
     /**
      * Login with no credentials
      * @param database collection that you want to use.
      */
     public MongoConnector(String database) {
-        client = new MongoClient(new ServerAddress());
-        this.database = client.getDatabase(database);
-    }
-
-    public MongoConnector(MongoDatabase database, String username, String password) {
-        this.database = database;
+        this.currentDatabase = database;
     }
 
     /**
-     * Login using all credentials
-     * @param database
-     * @param username
-     * @param password
-     * @param host
-     * @param password
+     * Make the connection to MongoDB
      */
-    public MongoConnector(MongoDatabase database, String username, String password, String host, String password) {
-        this.database = database;
+    public void connect() {
+        MongoClient client = new MongoClient(new ServerAddress());
+        this.database = client.getDatabase(currentDatabase);
     }
 
     /**
@@ -45,4 +41,38 @@ public class MongoConnector {
         return new MongoCollectionHandler(database.getCollection(collection));
     }
 
+    /**
+     * Replace default host
+     * Default is: "localhost"
+     * @param host
+     */
+    public void setHost(String host) {
+        this.host = host;
+    }
+
+    /**
+     * Replace default port
+     * Default port is "27017"
+     * @param port MongoDB connection port
+     */
+    public void setPort(int port) {
+        this.port = port;
+    }
+
+    /**
+     * Replace default username
+     * Default username is "null"
+     * @param username String of username
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * Replace default password
+     * @param password String of password
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
