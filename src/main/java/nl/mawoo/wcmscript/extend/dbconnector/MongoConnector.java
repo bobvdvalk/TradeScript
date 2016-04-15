@@ -5,6 +5,8 @@ import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoDatabase;
 
+import java.util.Arrays;
+
 /**
  * This class is responsible to manage the connection with MongoDB
  */
@@ -29,7 +31,8 @@ public class MongoConnector {
      * Make the connection to MongoDB
      */
     public void connect() {
-        MongoClient client = new MongoClient(new ServerAddress(host, port));
+        MongoCredential mongoCredential = MongoCredential.createMongoCRCredential(this.username, this.currentDatabase, this.password.toCharArray());
+        MongoClient client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
         this.database = client.getDatabase(currentDatabase);
     }
 
