@@ -31,8 +31,15 @@ public class MongoConnector {
      * Make the connection to MongoDB
      */
     public void connect() {
-        MongoCredential mongoCredential = MongoCredential.createMongoCRCredential(this.username, this.currentDatabase, this.password.toCharArray());
-        MongoClient client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
+        MongoClient client = null;
+
+        // Check if the credentials are filled in to establish the connection.
+        if(this.username == null || this.password == null) {
+            client = new MongoClient(new ServerAddress(host, port));
+        } else {
+            MongoCredential mongoCredential = MongoCredential.createMongoCRCredential(this.username, this.currentDatabase, this.password.toCharArray());
+            client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
+        }
         this.database = client.getDatabase(currentDatabase);
     }
 
