@@ -26,7 +26,7 @@ public class ScriptHandler {
         // Bind this engine to the system variable.
         engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
         try {
-            loadResource("/migratejs.js");
+            loadResource("/wcmscript.js");
         } catch (ScriptException e) {
             logger.error("Error with the script: "+ e);
         } catch (IOException e) {
