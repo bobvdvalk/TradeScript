@@ -1,19 +1,18 @@
 package nl.mawoo.wcmscript.logger;
 
+import org.apache.log4j.Logger;
+
 /**
- * This logger appends the Log4J logger.
- * And checks if the application is runed localy or on the websit
+ * This class is repsonsible to log items to the console or to the web.
+ *
+ * @author Bob van der Valk
  */
-public interface WCMSLogger {
-    WCMSLogger getLogger(Class clazz);
+public class WCMSLogger {
+    private Logger log4j;
 
-    void error(String message);
+    public WCMSLogger(Class clazz) {
+        log4j = Logger.getLogger(clazz.getClass().getName());
+    }
 
-    void error(String message, Throwable cause);
 
-    void info(String message);
-
-    void info(String message, Throwable cause);
-
-    void warning(String message);
 }
