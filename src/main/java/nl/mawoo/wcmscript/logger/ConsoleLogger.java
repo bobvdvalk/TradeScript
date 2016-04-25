@@ -1,16 +1,18 @@
 package nl.mawoo.wcmscript.logger;
 
+import org.apache.log4j.Logger;
+
 /**
  * This class is responsible to log to the console
  *
  * @author Bob van der Valk
  */
-public class ConsoleLogger implements Logger {
+public class ConsoleLogger implements LoggerInterface {
 
-    private org.apache.log4j.Logger logger;
+    private Logger logger;
 
     public ConsoleLogger(Class clazz) {
-        logger = org.apache.log4j.Logger.getLogger(clazz.getClass().getName());
+        logger = Logger.getLogger(clazz.getClass().getName());
     }
 
     @Override
