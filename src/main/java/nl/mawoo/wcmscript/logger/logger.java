@@ -1,9 +1,9 @@
 package nl.mawoo.wcmscript.logger;
 
 /**
- * This interface defines the methods for the logger implementations
+ * This interface defines the methods for the Logger implementations
  */
-public interface logger {
+public interface Logger {
     void error(String message);
 
     void error(String message, Throwable cause);
@@ -15,5 +15,4 @@ public interface logger {
     void warning(String message);
 
     void warning(String message, Throwable cause);
-
 }
