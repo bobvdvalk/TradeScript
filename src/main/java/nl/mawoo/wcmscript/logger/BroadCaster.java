@@ -8,15 +8,19 @@ package nl.mawoo.wcmscript.logger;
 public class BroadCaster {
     private String url;
 
+    public static final int ERROR = 712;
+    public static final int INFO = 409;
+    public static final int WARNING = 364;
+
     public BroadCaster(String url) {
         this.url = url;
     }
 
-    public void sendMessage(String type, String message) {
+    public void sendMessage(int type, String message) {
 
     }
 
-    public void sendMessage(String type, String message, Throwable cause) {
+    public void sendMessage(int type, String message, Throwable cause) {
 
     }
 }
