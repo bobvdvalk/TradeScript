@@ -19,7 +19,7 @@ public class WebLogger implements LoggerInterface {
      */
     @Override
     public void error(String message) {
-        broadCaster.sendMessage(BroadCaster.ERROR, message);
+        broadCaster.sendMessage(MessageType.ERROR, message);
     }
 
     /**
@@ -29,7 +29,7 @@ public class WebLogger implements LoggerInterface {
      */
     @Override
     public void error(String message, Throwable cause) {
-        broadCaster.sendMessage(BroadCaster.ERROR, message, cause);
+        broadCaster.sendMessage(MessageType.ERROR, message, cause);
     }
 
     /**
@@ -38,21 +38,21 @@ public class WebLogger implements LoggerInterface {
      */
     @Override
     public void info(String message) {
-        broadCaster.sendMessage(BroadCaster.INFO, message);
+        broadCaster.sendMessage(MessageType.INFO, message);
     }
 
     @Override
     public void info(String message, Throwable cause) {
-        broadCaster.sendMessage(BroadCaster.INFO, message, cause);
+        broadCaster.sendMessage(MessageType.INFO, message, cause);
     }
 
     @Override
     public void warning(String message) {
-        broadCaster.sendMessage(BroadCaster.WARNING, message);
+        broadCaster.sendMessage(MessageType.WARNING, message);
     }
 
     @Override
     public void warning(String message, Throwable cause) {
-        broadCaster.sendMessage(BroadCaster.WARNING, message, cause);
+        broadCaster.sendMessage(MessageType.WARNING, message, cause);
     }
 }

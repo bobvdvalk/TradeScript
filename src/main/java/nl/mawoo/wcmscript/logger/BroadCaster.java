@@ -1,5 +1,7 @@
 package nl.mawoo.wcmscript.logger;
 
+import nl.mawoo.wcmscript.extend.webrequest.WebRequest;
+
 /**
  * This class is responible to send messages to the WCMScript manager console.
  *
@@ -7,20 +9,17 @@ package nl.mawoo.wcmscript.logger;
  */
 public class BroadCaster {
     private String url;
+    private WebRequest request;
 
-    public static final int ERROR = 712;
-    public static final int INFO = 409;
-    public static final int WARNING = 364;
-
-    public BroadCaster(String url) {
+    BroadCaster(String url) {
         this.url = url;
     }
 
-    public void sendMessage(int type, String message) {
+    public void sendMessage(MessageType type, String message) {
 
     }
 
-    public void sendMessage(int type, String message, Throwable cause) {
+    public void sendMessage(MessageType type, String message, Throwable cause) {
 
     }
 }
