@@ -3,7 +3,7 @@ package nl.mawoo.wcmscript.logger;
 import org.apache.log4j.Logger;
 
 /**
- * This class is responsible to log to the console
+ * This class is responsible to log to the console with Log4J
  *
  * @author Bob van der Valk
  */
