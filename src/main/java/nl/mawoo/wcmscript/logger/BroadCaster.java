@@ -9,7 +9,6 @@ import org.apache.log4j.Logger;
  * @author Bob van der Valk
  */
 public class BroadCaster {
-    private String url;
     private int sessionId;
 
     private DbConnector mysql;
@@ -20,8 +19,7 @@ public class BroadCaster {
      * @param url the url where the manager is located
      * @param sessionId the current session id of the user
      */
-    BroadCaster(String url, int sessionId) {
-        this.url = url;
+    public BroadCaster(int sessionId) {
         this.sessionId = sessionId;
 
         try {

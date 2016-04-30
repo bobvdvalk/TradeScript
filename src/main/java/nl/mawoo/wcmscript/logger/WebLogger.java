@@ -9,8 +9,8 @@ public class WebLogger implements LoggerInterface {
 
     private BroadCaster broadCaster;
 
-    public WebLogger(String broadcastUrl, int session_id) {
-        broadCaster = new BroadCaster(broadcastUrl, session_id);
+    public WebLogger(int session_id) {
+        broadCaster = new BroadCaster(session_id);
     }
 
     /**
