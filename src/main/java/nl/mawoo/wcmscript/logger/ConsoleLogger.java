@@ -7,41 +7,37 @@ import org.apache.log4j.Logger;
  *
  * @author Bob van der Valk
  */
-public class ConsoleLogger implements LoggerInterface {
+public class ConsoleLogger extends AbstractLogger {
 
-    private Logger logger;
+    private Logger logger = Logger.getLogger(this.getClass().getName());
 
-    public ConsoleLogger(Class clazz) {
-        logger = Logger.getLogger(clazz.getClass().getName());
+    @Override
+    protected void logMessage(MessageType type, String message) {
+        switch (type.toString()) {
+            case "ERROR":
+                logger.error(message);
+                break;
+            case "INFO":
+                logger.info(message);
+                break;
+            case "WARNING":
+                logger.warn(message);
+                break;
+        }
     }
 
     @Override
-    public void error(String message) {
-        logger.error(message);
-    }
-
-    @Override
-    public void error(String message, Throwable cause) {
-        logger.error(message, cause);
-    }
-
-    @Override
-    public void info(String message) {
-        logger.info(message);
-    }
-
-    @Override
-    public void info(String message, Throwable cause) {
-        logger.info(message, cause);
-    }
-
-    @Override
-    public void warning(String message) {
-        logger.warn(message);
-    }
-
-    @Override
-    public void warning(String message, Throwable cause) {
-        logger.warn(message, cause);
+    protected void logMessage(MessageType type, String message, Throwable cause) {
+        switch (type.toString()) {
+            case "ERROR":
+                logger.error(message, cause);
+                break;
+            case "INFO":
+                logger.info(message, cause);
+                break;
+            case "WARNING":
+                logger.warn(message, cause);
+                break;
+        }
     }
 }
