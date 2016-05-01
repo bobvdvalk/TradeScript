@@ -1,58 +1,39 @@
 package nl.mawoo.wcmscript.logger;
 
+import nl.mawoo.wcmscript.extend.dbconnector.DbConnector;
+import org.apache.log4j.Logger;
+
 /**
  * This class is responsible to log stuff to the web
  *
  * @author Bob van der Valk
  */
-public class WebLogger implements LoggerInterface {
+public class WebLogger extends AbstractLogger {
+    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private DbConnector mysql;
+    private int sessionId;
 
-    private BroadCaster broadCaster;
 
-    public WebLogger(int session_id) {
-        broadCaster = new BroadCaster(session_id);
+    public WebLogger(int sessionId) {
+        this.sessionId = sessionId;
+
+        try {
+            mysql = new DbConnector("jdbc:mysql://localhost/wcmsmanager", "root", "");
+        } catch (ClassNotFoundException e) {
+            logger.error("Cannot connect to mysql database", e);
+        }
     }
 
-    /**
-     * Send a error message to the web manager console
-     * @param message String message with the cause
-     */
-    @Override
-    public void error(String message) {
-        broadCaster.sendMessage(MessageType.ERROR, message);
-    }
 
-    /**
-     * * Send a error message to the web manager console
-     * @param message String message with the cause
-     * @param cause throwable cause.
-     */
     @Override
-    public void error(String message, Throwable cause) {
-        broadCaster.sendMessage(MessageType.ERROR, message, cause);
-    }
-
-    /**
-     * Send a info message
-     * @param message String with the message
-     */
-    @Override
-    public void info(String message) {
-        broadCaster.sendMessage(MessageType.INFO, message);
+    protected void logMessage(MessageType type, String message) {
+        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ("+ sessionId +", '"+ message +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
+        mysql.query(query);
     }
 
     @Override
-    public void info(String message, Throwable cause) {
-        broadCaster.sendMessage(MessageType.INFO, message, cause);
-    }
-
-    @Override
-    public void warning(String message) {
-        broadCaster.sendMessage(MessageType.WARNING, message);
-    }
-
-    @Override
-    public void warning(String message, Throwable cause) {
-        broadCaster.sendMessage(MessageType.WARNING, message, cause);
+    protected void logMessage(MessageType type, String message, Throwable cause) {
+        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ("+ sessionId +", '"+ message + "-"+ cause.toString() +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
+        mysql.query(query);
     }
 }
