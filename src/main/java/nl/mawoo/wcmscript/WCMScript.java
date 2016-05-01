@@ -50,6 +50,9 @@ public class WCMScript {
                 log.error("Error in script", e);
             }
         } else {
+            WCMSProperties.create();
+            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
+
             log.info("WCMScript - Version 1.0 \n");
 
             BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
