@@ -25,12 +25,9 @@ public class WCMSLogger {
         if(f.exists()) {
             WCMSProperties.get();
         } else {
-                WCMSProperties.create();
-            }
-
-            return new ConsoleLogger();
+            WCMSProperties.create();
         }
 
-
-
+        return new ConsoleLogger();
+    }
 }
