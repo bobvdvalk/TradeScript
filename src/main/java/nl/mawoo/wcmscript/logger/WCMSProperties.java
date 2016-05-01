@@ -57,6 +57,41 @@ public class WCMSProperties {
             prop.setProperty("mysql_pass", "");
             prop.setProperty("mysql_db", "wcmsmanager");
             prop.setProperty("web", "false");
+            prop.setProperty("session_id", "");
+
+            prop.store(output, null);
+
+            return prop;
+        } catch (IOException e) {
+            logger.error(e);
+        } finally {
+            try {
+                output.close();
+            } catch (IOException e) {
+                logger.error(e);
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Create a new properties file.
+     * @return current properties
+     */
+    public static Properties create(int sessionID) {
+        Logger logger = Logger.getLogger(WCMSProperties.class.getName());
+        Properties prop = new Properties();
+        OutputStream output = null;
+
+        try {
+            output = new FileOutputStream("config.properties");
+
+            prop.setProperty("mysql_host", "localhost");
+            prop.setProperty("mysql_user", "root");
+            prop.setProperty("mysql_pass", "");
+            prop.setProperty("mysql_db", "wcmsmanager");
+            prop.setProperty("web", "false");
+            prop.setProperty("session_id", String.valueOf(sessionID));
 
             prop.store(output, null);
 

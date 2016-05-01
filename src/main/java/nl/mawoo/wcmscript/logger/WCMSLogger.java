@@ -21,13 +21,20 @@ public class WCMSLogger {
         Logger log4j = Logger.getLogger(clazz.getClass().getName());
 
         File f = new File("config.properties");
+        Properties prop = null;
 
-        if(f.exists()) {
-            WCMSProperties.get();
+        if(!f.exists()) {
+            prop = WCMSProperties.create();
         } else {
-            WCMSProperties.create();
+            prop = WCMSProperties.get();
         }
 
-        return new ConsoleLogger();
+        assert prop != null;
+        if(prop.getProperty("web").equals("true")) {
+            return new WebLogger(prop.getProperty("session_id"));
+        } else {
+            return new ConsoleLogger();
+        }
     }
+
 }

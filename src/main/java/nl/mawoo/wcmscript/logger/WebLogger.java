@@ -14,7 +14,7 @@ public class WebLogger extends AbstractLogger {
     private int sessionId;
 
 
-    public WebLogger(int sessionId) {
+    public WebLogger(String sessionId) {
         this.sessionId = sessionId;
 
         try {
