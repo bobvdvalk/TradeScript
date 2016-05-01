@@ -90,7 +90,7 @@ public class WCMSProperties {
             prop.setProperty("mysql_user", "root");
             prop.setProperty("mysql_pass", "");
             prop.setProperty("mysql_db", "wcmsmanager");
-            prop.setProperty("web", "false");
+            prop.setProperty("web", "true");
             prop.setProperty("session_id", sessionID);
 
             prop.store(output, null);
