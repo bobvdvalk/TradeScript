@@ -11,7 +11,7 @@ import org.apache.log4j.Logger;
 public class WebLogger extends AbstractLogger {
     private Logger logger = Logger.getLogger(this.getClass().getName());
     private DbConnector mysql;
-    private int sessionId;
+    private String sessionId;
 
 
     public WebLogger(String sessionId) {
@@ -27,13 +27,13 @@ public class WebLogger extends AbstractLogger {
 
     @Override
     protected void logMessage(MessageType type, String message) {
-        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ("+ sessionId +", '"+ message +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
+        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ('"+ sessionId +"', '"+ message +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
         mysql.query(query);
     }
 
     @Override
     protected void logMessage(MessageType type, String message, Throwable cause) {
-        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ("+ sessionId +", '"+ message + "-"+ cause.toString() +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
+        String query = "INSERT INTO `console` (`session_id`, `message`, `type`, `time`) VALUES ('"+ sessionId +"', '"+ message + "-"+ cause.toString() +"', '"+ type.toString()+"', '2016-05-01 00:05:59');";
         mysql.query(query);
     }
 }
