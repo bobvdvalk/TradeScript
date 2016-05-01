@@ -19,8 +19,6 @@ import java.io.InputStreamReader;
  */
 public class WCMScript {
 
-    private static Logger log = Logger.getLogger(WCMScript.class.getName());
-
     private WCMScript() {
 
     }
