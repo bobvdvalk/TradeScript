@@ -2,21 +2,50 @@ package nl.mawoo.wcmscript.logger;
 
 import org.apache.log4j.Logger;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.util.Properties;
 
 /**
- * {message}
+ * This class is responsible to read and create properties.
  *
  * @author Bob van der Valk
  */
 public class WCMSProperties {
-    private static Logger logger = Logger.getLogger(WCMSProperties.class.getName());
+    /**
+     * Get the properties from a existing file
+     * @return current properties
+     */
+    public static Properties get() {
+        Logger logger = Logger.getLogger(WCMSProperties.class.getName());
+        Properties prop = new Properties();
+        InputStream input = null;
 
-    public void create() {
+        try {
+            input = new FileInputStream("config.properties");
+            prop.load(input);
+
+            return prop;
+        } catch (FileNotFoundException e) {
+            logger.error("Can\'t load the property file", e);
+        } catch (IOException e) {
+            logger.error("Can\'t load the properties", e);
+        } finally {
+            try {
+                input.close();
+            } catch (IOException e) {
+                logger.error("Can\'t close the property file", e);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Create a new properties file.
+     * @return current properties
+     */
+    public static Properties create() {
+        Logger logger = Logger.getLogger(WCMSProperties.class.getName());
         Properties prop = new Properties();
         OutputStream output = null;
 
@@ -30,6 +59,8 @@ public class WCMSProperties {
             prop.setProperty("web", "false");
 
             prop.store(output, null);
+
+            return prop;
         } catch (IOException e) {
             logger.error(e);
         } finally {
@@ -39,5 +70,6 @@ public class WCMSProperties {
                 logger.error(e);
             }
         }
+        return null;
     }
 }
