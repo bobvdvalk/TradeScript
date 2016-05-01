@@ -2,6 +2,9 @@ package nl.mawoo.wcmscript.logger;
 
 import org.apache.log4j.Logger;
 
+import java.io.File;
+import java.util.Properties;
+
 /**
  * This class is repsonsible to log items to the console or to the web.
  *
@@ -10,9 +13,24 @@ import org.apache.log4j.Logger;
 public class WCMSLogger {
     private Logger log4j;
 
-    public WCMSLogger(Class clazz) {
-        log4j = Logger.getLogger(clazz.getClass().getName());
+    private WCMSLogger() {
+
     }
+
+    public static AbstractLogger getLogger(Class clazz) {
+        Logger log4j = Logger.getLogger(clazz.getClass().getName());
+
+        File f = new File("config.properties");
+
+        if(f.exists()) {
+            WCMSProperties.get();
+        } else {
+                WCMSProperties.create();
+            }
+
+            return new ConsoleLogger();
+        }
+
 
 
 }
