@@ -5,7 +5,7 @@ package nl.mawoo.wcmscript.logger;
  *
  * @author Bob van der Valk
  */
-abstract class AbstractLogger implements LoggerInterface {
+public abstract class AbstractLogger implements LoggerInterface {
     /**
      * Log a error
      * @param message string of the message

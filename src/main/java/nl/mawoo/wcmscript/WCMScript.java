@@ -1,5 +1,8 @@
 package nl.mawoo.wcmscript;
 
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
+import nl.mawoo.wcmscript.logger.WCMSProperties;
 import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
 
 import org.apache.log4j.Logger;
@@ -29,6 +32,14 @@ public class WCMScript {
         if(args.length > 0){
 
             String path = args[0];
+
+            if(!args[1].isEmpty()) {
+                WCMSProperties.create(args[1]);
+            } else {
+                WCMSProperties.create();
+            }
+
+            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
 
             try {
                 log.info("WCMScript - Version 1.0 \n");

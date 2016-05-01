@@ -78,7 +78,7 @@ public class WCMSProperties {
      * Create a new properties file.
      * @return current properties
      */
-    public static Properties create(int sessionID) {
+    public static Properties create(String sessionID) {
         Logger logger = Logger.getLogger(WCMSProperties.class.getName());
         Properties prop = new Properties();
         OutputStream output = null;
@@ -91,7 +91,7 @@ public class WCMSProperties {
             prop.setProperty("mysql_pass", "");
             prop.setProperty("mysql_db", "wcmsmanager");
             prop.setProperty("web", "false");
-            prop.setProperty("session_id", String.valueOf(sessionID));
+            prop.setProperty("session_id", sessionID);
 
             prop.store(output, null);
 
