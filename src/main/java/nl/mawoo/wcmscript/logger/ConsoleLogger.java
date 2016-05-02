@@ -1,6 +1,8 @@
 package nl.mawoo.wcmscript.logger;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible to log to the console with Log4J
@@ -9,7 +11,7 @@ import org.apache.log4j.Logger;
  */
 public class ConsoleLogger extends AbstractLogger {
 
-    private Logger logger = Logger.getLogger(this.getClass().getName());
+    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
 
     @Override
     protected void logMessage(MessageType type, String message) {

@@ -5,7 +5,6 @@ import nl.mawoo.wcmscript.logger.WCMSLogger;
 import nl.mawoo.wcmscript.logger.WCMSProperties;
 import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
 
-import org.apache.log4j.Logger;
 import javax.script.ScriptException;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -23,7 +22,7 @@ public class WCMScript {
 
     }
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
 
         ScriptHandler scriptHandler = new ScriptHandler();
 
@@ -31,7 +30,7 @@ public class WCMScript {
 
             String path = args[0];
 
-            if(!args[1].isEmpty()) {
+            if(args[1] != null) {
                 WCMSProperties.create(args[1]);
             } else {
                 WCMSProperties.create();
