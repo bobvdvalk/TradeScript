@@ -23,7 +23,6 @@ public class WCMScript {
     }
 
     public static void main(String[] args) {
-
         ScriptHandler scriptHandler = new ScriptHandler();
 
         if(args.length > 0){
@@ -45,6 +44,8 @@ public class WCMScript {
                 log.error("Load file not found. The file you want to use cannot be found."+ e);
             } catch (ScriptException e) {
                 log.error("Error in script", e);
+            } finally {
+                log.info("WCMScript is done");
             }
         } else {
             WCMSProperties.create();
