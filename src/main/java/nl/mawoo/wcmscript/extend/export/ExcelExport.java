@@ -1,6 +1,8 @@
 package nl.mawoo.wcmscript.extend.export;
 
 import nl.mawoo.wcmscript.exceptions.CantSaveFile;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
@@ -18,7 +20,7 @@ import java.util.Date;
  * @author Bob van der Valk
  */
 public class ExcelExport {
-
+    private AbstractLogger logger = WCMSLogger.getLogger(ExcelExport.class);
     private XSSFWorkbook workbook;
     private XSSFSheet sheet;
     private XSSFRow row;
@@ -101,7 +103,7 @@ public class ExcelExport {
             outputStream.close();
 
         } catch (IOException e) {
-            throw new CantSaveFile("Can\'t save the excel file", e);
+            logger.error("Can\'t save the excel file", e);
         }
     }
 }

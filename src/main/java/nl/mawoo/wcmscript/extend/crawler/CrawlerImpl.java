@@ -1,5 +1,7 @@
 package nl.mawoo.wcmscript.extend.crawler;
 
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -12,7 +14,7 @@ import java.io.IOException;
  * @author Bob van der Valk
  */
 public class CrawlerImpl implements Crawler {
-    private Logger logger = Logger.getLogger(CrawlerImpl.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(CrawlerImpl.class);
     private Document document;
 
     /**

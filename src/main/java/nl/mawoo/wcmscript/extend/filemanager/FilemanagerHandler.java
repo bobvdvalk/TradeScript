@@ -2,6 +2,8 @@ package nl.mawoo.wcmscript.extend.filemanager;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.Scanner;
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -16,7 +18,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class FilemanagerHandler {
 
-    private Logger logger = Logger.getLogger(FilemanagerHandler.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(FilemanagerHandler.class);
 
     /**
      * Lists all the files in a directory

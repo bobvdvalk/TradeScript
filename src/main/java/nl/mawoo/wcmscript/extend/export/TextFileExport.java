@@ -1,5 +1,7 @@
 package nl.mawoo.wcmscript.extend.export;
 
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 
 import java.io.BufferedWriter;
@@ -16,7 +18,7 @@ public class TextFileExport {
     private Object content;
     private File file;
 
-    private Logger logger = Logger.getLogger(TextFileExport.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(TextFileExport.class);
 
     /**
      * Instance a new file

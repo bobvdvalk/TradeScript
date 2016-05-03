@@ -1,6 +1,8 @@
 package nl.mawoo.wcmscript.extend.filemanager.scanner;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -13,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class Scanner {
 
-    private Logger logger = Logger.getLogger(Scanner.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(Scanner.class);
 
     int queueBuffer;
     int workerCount;
