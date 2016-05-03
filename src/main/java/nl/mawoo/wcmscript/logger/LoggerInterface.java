@@ -8,6 +8,8 @@ public interface LoggerInterface {
 
     void error(String message, Throwable cause);
 
+    void error(Throwable cause);
+
     void info(String message);
 
     void info(String message, Throwable cause);
@@ -15,4 +17,6 @@ public interface LoggerInterface {
     void warning(String message);
 
     void warning(String message, Throwable cause);
+
+    void warning(Throwable cause);
 }

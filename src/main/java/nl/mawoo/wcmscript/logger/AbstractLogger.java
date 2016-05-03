@@ -26,6 +26,15 @@ public abstract class AbstractLogger implements LoggerInterface {
     }
 
     /**
+     * Log a error
+     * @param cause throwable
+     */
+    @Override
+    public void error(Throwable cause) {
+        this.logMessage(MessageType.ERROR, cause.toString());
+    }
+
+    /**
      * Log a info message
      * @param message string of the message
      */
@@ -61,6 +70,16 @@ public abstract class AbstractLogger implements LoggerInterface {
     @Override
     public void warning(String message, Throwable cause) {
         this.logMessage(MessageType.WARNING, message, cause);
+    }
+
+    /**
+     * Log a warning message
+     * @param message string of the message
+     * @param cause throwable
+     */
+    @Override
+    public void warning(Throwable cause) {
+        this.logMessage(MessageType.WARNING, cause.toString());
     }
 
     /**
