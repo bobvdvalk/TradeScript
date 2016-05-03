@@ -1,6 +1,8 @@
 package nl.mawoo.wcmscript.scriptengine;
 
 import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 
@@ -17,7 +19,7 @@ import java.io.*;
  */
 public class ScriptHandler {
     private ScriptEngine engine;
-    private Logger logger = Logger.getLogger(ScriptHandler.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(ScriptHandler.class);
 
     public ScriptHandler() {
         ScriptEngineManager engineManager = new ScriptEngineManager();
