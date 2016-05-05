@@ -1,5 +1,6 @@
 package nl.mawoo.wcmscript;
 
+import nl.mawoo.wcmscript.extend.importer.ExcelImport;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
 import nl.mawoo.wcmscript.logger.WCMSProperties;
@@ -44,6 +45,8 @@ public class WCMScript {
                 log.error("Load file not found. The file you want to use cannot be found."+ e);
             } catch (ScriptException e) {
                 log.error("Error in script", e);
+            } catch (Exception e) {
+                log.error("Uncaught exception", e);
             } finally {
                 log.info("WCMScript is done");
             }
