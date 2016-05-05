@@ -19,6 +19,14 @@ var use = function(library) {
 };
 
 /**
+ * Print a message in the console with the logger.
+ * @param message String of input
+ */
+var print = function(message) {
+    system.print(message);
+};
+
+/**
  * Replace all occurences in a string.
  * @param search
  * @param replacement

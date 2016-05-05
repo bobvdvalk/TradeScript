@@ -107,4 +107,8 @@ public class ScriptHandler {
     public ScriptEngine getEngine() {
         return engine;
     }
+
+    public void print(String message) {
+        logger.info(message);
+    }
 }
