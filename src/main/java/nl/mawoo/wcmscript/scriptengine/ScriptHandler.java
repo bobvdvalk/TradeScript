@@ -108,6 +108,10 @@ public class ScriptHandler {
         return engine;
     }
 
+    /**
+     * Print a message to the logger
+     * @param message Message you want to view
+     */
     public void print(String message) {
         logger.info(message);
     }
