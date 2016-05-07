@@ -1,9 +1,7 @@
 package nl.mawoo.wcmscript.logger;
 
-import org.apache.log4j.Logger;
 
-import java.io.File;
-import java.util.Properties;
+import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
 
 /**
  * This class is repsonsible to log items to the console or to the web.
@@ -21,15 +19,13 @@ public class WCMSLogger {
     }
 
     public static AbstractLogger getLogger(Class clazz) {
+        System.out.println("The session id is: "+ ScriptHandler.getSessionId());
 
-        File f = new File("config.properties");
-//        Properties prop = WCMSProperties.get();
-//
-//        if(prop.getProperty("web").equals("true")) {
-//            return new WebLogger(prop.getProperty("session_id"));
-//        } else {
+        if(ScriptHandler.getSessionId().isEmpty()) {
             return new ConsoleLogger();
-//        }
+        } else {
+            return new WebLogger(ScriptHandler.getSessionId());
+        }
     }
 
 }
