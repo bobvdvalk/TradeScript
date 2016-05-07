@@ -2,7 +2,6 @@ package nl.mawoo.wcmscript;
 
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
-import nl.mawoo.wcmscript.logger.WCMSProperties;
 import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
 
 import javax.script.ScriptException;
