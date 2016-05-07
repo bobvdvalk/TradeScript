@@ -3,7 +3,6 @@ package nl.mawoo.wcmscript.scriptengine;
 import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
-import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 
 import javax.script.ScriptContext;
@@ -20,13 +19,37 @@ import java.io.*;
 public class ScriptHandler {
     private ScriptEngine engine;
     private AbstractLogger logger = WCMSLogger.getLogger(ScriptHandler.class);
+    private String session_id = null;
 
     public ScriptHandler() {
+
+    }
+
+    /**
+     * Constructor with the session id
+     * The session id needs to be stored for the logger of the system.
+     *
+     * @param session_id Session id from spring.
+     */
+    public ScriptHandler(String session_id) {
+        this.session_id = session_id;
+    }
+
+
+
+
+    public void run() {
         ScriptEngineManager engineManager = new ScriptEngineManager();
         engine = engineManager.getEngineByName("nashorn");
 
         // Bind this engine to the system variable.
         engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
+
+        // If there is a session id given. Save it in the engine
+        if(session_id != null) {
+            engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("session_id", session_id);
+        }
+
         try {
             loadResource("/wcmscript.js");
         } catch (ScriptException e) {
@@ -34,6 +57,15 @@ public class ScriptHandler {
         } catch (IOException e) {
             logger.error("IO exception: "+ e);
         }
+    }
+
+    public static String getSessionId() {
+        ScriptEngineManager engineManager = new ScriptEngineManager();
+        ScriptEngine engine = engineManager.getEngineByName("nashorn");
+
+        Object sessionId = engine.getContext().getBindings(ScriptContext.ENGINE_SCOPE).get("session_id");
+        System.out.println("Current session id: "+ sessionId);
+        return sessionId.toString();
     }
 
     /**
@@ -98,7 +130,7 @@ public class ScriptHandler {
         InputStream stream = getClass().getResourceAsStream(resourceName);
 
         if (stream == null) {
-            throw new CantFindLibrary("No library called " + resourceName + " was found");
+            logger.error("No library called " + resourceName + " was found");
         }
 
         eval(stream);
@@ -109,7 +141,7 @@ public class ScriptHandler {
     }
 
     /**
-     * Print a message to the logger
+     * Print a message from script into the logger
      * @param message Message you want to view
      */
     public void print(String message) {

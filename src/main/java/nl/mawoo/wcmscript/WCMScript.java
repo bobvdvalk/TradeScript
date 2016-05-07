@@ -1,6 +1,5 @@
 package nl.mawoo.wcmscript;
 
-import nl.mawoo.wcmscript.extend.importer.ExcelImport;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
 import nl.mawoo.wcmscript.logger.WCMSProperties;
@@ -24,19 +23,22 @@ public class WCMScript {
     }
 
     public static void main(String[] args) {
-        ScriptHandler scriptHandler = new ScriptHandler();
-
         if(args.length > 0){
 
             String path = args[0];
-
+            ScriptHandler scriptHandler = null;
+            /**
+             * Set the session id if given
+             */
             if(args[1] != null) {
-                WCMSProperties.create(args[1]);
+                scriptHandler = new ScriptHandler(args[1]);
             } else {
-                WCMSProperties.create();
+                scriptHandler = new ScriptHandler();
             }
 
             AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
+
+            scriptHandler.run();
 
             try {
                 log.info("WCMScript - Version 1.0 \n");
@@ -48,10 +50,10 @@ public class WCMScript {
             } catch (Exception e) {
                 log.error("Uncaught exception", e);
             } finally {
-                log.info("WCMScript is done");
+                log.info("------- DONE -------");
             }
         } else {
-            WCMSProperties.create();
+            ScriptHandler scriptHandler = new ScriptHandler();
             AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
 
             log.info("WCMScript - Version 1.0 \n");
@@ -65,6 +67,10 @@ public class WCMScript {
                     scriptHandler.stringReader(input);
                 } catch (IOException | ScriptException e) {
                     log.error("Error in script", e);
+                } catch (Exception e) {
+                    log.error("Uncaught exception"+ e);
+                } finally {
+                    log.info("------- DONE -------");
                 }
             }
         }
