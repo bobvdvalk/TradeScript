@@ -17,7 +17,9 @@ import java.io.*;
  * @author Bob van der Valk
  */
 public class ScriptHandler {
-    private ScriptEngine engine;
+    private static ScriptEngineManager manager = new ScriptEngineManager();
+    private static ScriptEngine engine = manager.getEngineByName("nashorn");
+
     private AbstractLogger logger = WCMSLogger.getLogger(ScriptHandler.class);
     private String session_id = null;
 
@@ -35,13 +37,7 @@ public class ScriptHandler {
         this.session_id = session_id;
     }
 
-
-
-
     public void run() {
-        ScriptEngineManager engineManager = new ScriptEngineManager();
-        engine = engineManager.getEngineByName("nashorn");
-
         // Bind this engine to the system variable.
         engine.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
 
@@ -59,13 +55,13 @@ public class ScriptHandler {
         }
     }
 
-    public static String getSessionId() {
-        ScriptEngineManager engineManager = new ScriptEngineManager();
-        ScriptEngine engine = engineManager.getEngineByName("nashorn");
-
-        Object sessionId = engine.getContext().getBindings(ScriptContext.ENGINE_SCOPE).get("session_id");
-        System.out.println("Current session id: "+ sessionId);
-        return sessionId.toString();
+    /**
+     * Get the session id if given
+     * TODO: Make it working
+     * @return string with session id from Spring
+     */
+    public static String getSessionIdBinding() {
+        return engine.getContext().getBindings(ScriptContext.GLOBAL_SCOPE).get("session_id").toString();
     }
 
     /**
