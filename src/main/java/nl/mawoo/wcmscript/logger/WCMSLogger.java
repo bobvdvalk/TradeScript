@@ -19,11 +19,12 @@ public class WCMSLogger {
     }
 
     public static AbstractLogger getLogger(Class clazz) {
-
-        if(!ScriptHandler.getSessionIdBinding().isEmpty()) {
+        String sessionId = ScriptHandler.getSessionIdBinding();
+        
+        if(sessionId.isEmpty()) {
             return new ConsoleLogger();
         } else {
-            return new WebLogger(ScriptHandler.getSessionIdBinding());
+            return new WebLogger(sessionId);
         }
     }
 
