@@ -2,6 +2,7 @@ package nl.mawoo.wcmscript.logger;
 
 
 import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
+import nl.mawoo.wcmscript.scriptengine.ScriptHandler2;
 
 /**
  * This class is responsible to log items to the console or to the web.
@@ -19,9 +20,9 @@ public class WCMSLogger {
     }
 
     public static AbstractLogger getLogger(Class clazz) {
-        String sessionId = ScriptHandler.getSessionIdBinding();
-        
-        if(sessionId.equals(null)) {
+        String sessionId = ScriptHandler2.getSessionId();
+
+        if(sessionId != null) {
             return new ConsoleLogger();
         } else {
             return new WebLogger(sessionId);

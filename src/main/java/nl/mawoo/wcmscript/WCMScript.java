@@ -3,6 +3,7 @@ package nl.mawoo.wcmscript;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
 import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
+import nl.mawoo.wcmscript.scriptengine.ScriptHandler2;
 
 import javax.script.ScriptException;
 import java.io.BufferedReader;
@@ -16,29 +17,22 @@ import java.io.InputStreamReader;
  * @author Bob van der Valk
  */
 public class WCMScript {
-
-    private WCMScript() {
+        private WCMScript() {
 
     }
 
     public static void main(String[] args) {
-        if(args.length > 0){
+        if(args.length == 0){
 
             String path = args[0];
-            ScriptHandler scriptHandler = null;
+            ScriptHandler2 scriptHandler;
+            scriptHandler = new ScriptHandler2();
+
+
+            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
             /**
              * Set the session id if given
              */
-            if(args[1] != null) {
-                scriptHandler = new ScriptHandler(args[1]);
-            } else {
-                scriptHandler = new ScriptHandler();
-            }
-
-            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
-
-            scriptHandler.run();
-
             try {
                 log.info("WCMScript - Version 1.0 \n");
                 scriptHandler.fileReader(path);
@@ -52,8 +46,10 @@ public class WCMScript {
                 log.info("------- DONE -------");
             }
         } else {
-            ScriptHandler scriptHandler = new ScriptHandler();
+            ScriptHandler2 scriptHandler = new ScriptHandler2();
             AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
+
+
 
             log.info("WCMScript - Version 1.0 \n");
 
