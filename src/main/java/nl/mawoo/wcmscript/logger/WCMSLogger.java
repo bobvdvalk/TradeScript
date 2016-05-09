@@ -21,7 +21,7 @@ public class WCMSLogger {
     public static AbstractLogger getLogger(Class clazz) {
         String sessionId = ScriptHandler.getSessionIdBinding();
         
-        if(sessionId.isEmpty()) {
+        if(sessionId.equals(null)) {
             return new ConsoleLogger();
         } else {
             return new WebLogger(sessionId);
