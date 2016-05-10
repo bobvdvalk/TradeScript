@@ -4,6 +4,7 @@ import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
 import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 
+import javax.script.ScriptContext;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
 import java.io.IOException;
@@ -22,6 +23,8 @@ public class NashornManager {
 
     public NashornManager(ScriptEngine nashorn) {
         this.nashorn = nashorn;
+        nashorn.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
+
     }
 
     /**
@@ -69,5 +72,13 @@ public class NashornManager {
         }
 
         eval(stream);
+    }
+
+    /**
+     * Print a message from script into the logger
+     * @param message Message you want to view
+     */
+    public void print(String message) {
+        logger.info(message);
     }
 }
