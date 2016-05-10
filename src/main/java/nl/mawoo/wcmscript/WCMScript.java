@@ -2,6 +2,7 @@ package nl.mawoo.wcmscript;
 
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
+import nl.mawoo.wcmscript.scriptengine.NashornManager;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
@@ -26,6 +27,17 @@ public class WCMScript {
     public static void main(String[] args) {
         ScriptEngineManager manager = new ScriptEngineManager();
         ScriptEngine engine = manager.getEngineByName("nashorn");
+        NashornManager nashorn = new NashornManager(engine);
+
+        try {
+            nashorn.loadResource("/wcmscript.js");
+        } catch (IOException e) {
+            logger.error("IO exception: ", e);
+        } catch (ScriptException e) {
+            logger.error("Error in script", e);
+        } catch (Exception e) {
+            logger.error("Uncaught exception: ", e);
+        }
 
         logger.info("WCMScript - Version 1.0.1");
         BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
