@@ -1,16 +1,13 @@
 package nl.mawoo.wcmscript;
 
-import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
 
-import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
