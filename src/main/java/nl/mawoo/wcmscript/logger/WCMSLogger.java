@@ -1,9 +1,5 @@
 package nl.mawoo.wcmscript.logger;
 
-
-import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
-import nl.mawoo.wcmscript.scriptengine.ScriptHandler2;
-
 /**
  * This class is responsible to log items to the console or to the web.
  * In the case the WCMScript is connected to a "manager". The info messages, errors and warnings are stored in a
@@ -19,14 +15,18 @@ public class WCMSLogger {
 
     }
 
+    /**
+     * Initiate a WCMScript logger.
+     * This method makes the difference to log to the console using log4j or if a session id is set
+     * The application will log to a mysql database.
+     *
+     * This is needed to view the console output into the console.
+     * @param clazz class used to send messages to the logger
+     * @return ConsoleLogger or WebLogger
+     * TODO: implement the WebLogger
+     */
     public static AbstractLogger getLogger(Class clazz) {
-        String sessionId = ScriptHandler2.getSessionId();
-
-        if(sessionId != null) {
-            return new ConsoleLogger();
-        } else {
-            return new WebLogger(sessionId);
-        }
+        return new ConsoleLogger(clazz);
     }
 
 }

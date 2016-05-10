@@ -1,14 +1,16 @@
 package nl.mawoo.wcmscript;
 
+import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
 import nl.mawoo.wcmscript.logger.AbstractLogger;
 import nl.mawoo.wcmscript.logger.WCMSLogger;
-import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
-import nl.mawoo.wcmscript.scriptengine.ScriptHandler2;
 
+import javax.script.Invocable;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 
 /**
@@ -17,57 +19,34 @@ import java.io.InputStreamReader;
  * @author Bob van der Valk
  */
 public class WCMScript {
-        private WCMScript() {
+
+    private static AbstractLogger logger = WCMSLogger.getLogger(WCMScript.class);
+
+    private WCMScript() {
 
     }
 
     public static void main(String[] args) {
-        if(args.length == 0){
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("nashorn");
 
-            String path = args[0];
-            ScriptHandler2 scriptHandler;
-            scriptHandler = new ScriptHandler2();
+        logger.info("WCMScript - Version 1.0.1");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-
-            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
-            /**
-             * Set the session id if given
-             */
+        while(true) {
             try {
-                log.info("WCMScript - Version 1.0 \n");
-                scriptHandler.fileReader(path);
-            } catch (FileNotFoundException e) {
-                log.error("Load file not found. The file you want to use cannot be found."+ e);
+                System.out.print(">");
+                engine.eval(bf.readLine());
+            } catch (IOException e) {
+                logger.error("IO exception: ", e);
             } catch (ScriptException e) {
-                log.error("Error in script", e);
+                logger.error("Error in script", e);
             } catch (Exception e) {
-                log.error("Uncaught exception", e);
-            } finally {
-                log.info("------- DONE -------");
-            }
-        } else {
-            ScriptHandler2 scriptHandler = new ScriptHandler2();
-            AbstractLogger log = WCMSLogger.getLogger(WCMScript.class);
-
-
-
-            log.info("WCMScript - Version 1.0 \n");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-            while(true) {
-                try {
-                    System.out.print(">");
-                    String input = br.readLine();
-                    scriptHandler.stringReader(input);
-                } catch (IOException | ScriptException e) {
-                    log.error("Error in script", e);
-                } catch (Exception e) {
-                    log.error("Uncaught exception"+ e);
-                } finally {
-                    log.info("------- DONE -------");
-                }
+                logger.error("Uncaught exception: ", e);
             }
         }
     }
+
+
+
 }
