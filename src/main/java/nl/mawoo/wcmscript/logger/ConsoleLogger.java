@@ -11,7 +11,11 @@ import org.slf4j.LoggerFactory;
  */
 public class ConsoleLogger extends AbstractLogger {
 
-    private Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+    private Logger logger;
+
+    public ConsoleLogger(Class clazz) {
+       logger = LoggerFactory.getLogger(clazz.getClass().getName());
+    }
 
     @Override
     protected void logMessage(MessageType type, String message) {
