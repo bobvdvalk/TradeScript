@@ -1,6 +1,7 @@
 package nl.mawoo.wcmscript.scriptengine;
 
 import nl.mawoo.wcmscript.exceptions.CantFindLibrary;
+import nl.mawoo.wcmscript.extend.crawler.CrawlerImpl;
 import org.apache.log4j.Logger;
 import org.apache.poi.util.IOUtils;
 
@@ -23,8 +24,11 @@ public class NashornManager {
 
     public NashornManager(ScriptEngine nashorn) {
         this.nashorn = nashorn;
-        nashorn.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
 
+        // Put bindings into place
+        // TODO: Create factories of all libraries
+        nashorn.getBindings(ScriptContext.GLOBAL_SCOPE).put("system", this);
+        nashorn.getBindings(ScriptContext.GLOBAL_SCOPE).put("crawler", new CrawlerImpl());
     }
 
     /**
