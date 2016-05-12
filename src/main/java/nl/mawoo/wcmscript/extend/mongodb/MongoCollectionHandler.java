@@ -1,4 +1,4 @@
-package nl.mawoo.wcmscript.extend.dbconnector;
+package nl.mawoo.wcmscript.extend.mongodb;
 
 import com.google.gson.Gson;
 import com.mongodb.client.MongoCollection;
