@@ -1,4 +1,4 @@
-package nl.mawoo.wcmscript.extend.dbconnector;
+package nl.mawoo.wcmscript.extend.mongodb;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;

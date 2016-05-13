@@ -1,6 +1,8 @@
 package nl.mawoo.wcmscript.extend.filemanager.scanner.workers;
 
 import nl.mawoo.wcmscript.extend.filemanager.scanner.workers.interfaces.FileScannerWorker;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 
 import java.io.File;
@@ -21,7 +23,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class MetadataFileScanner extends FileScannerWorker {
 
-    private Logger logger = Logger.getLogger(MetadataFileScanner.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(MetadataFileScanner.class);
 
     /**
      * metadataFileScanner constructor

@@ -1,11 +1,13 @@
 package nl.mawoo.wcmscript;
 
-import nl.mawoo.wcmscript.scriptengine.ScriptHandler;
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
+import nl.mawoo.wcmscript.scriptengine.NashornManager;
 
-import org.apache.log4j.Logger;
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -16,42 +18,44 @@ import java.io.InputStreamReader;
  */
 public class WCMScript {
 
-    private static Logger log = Logger.getLogger(WCMScript.class.getName());
+    private static AbstractLogger logger = WCMSLogger.getLogger(WCMScript.class);
 
     private WCMScript() {
 
     }
 
-    public static void main(String... args) {
+    public static void main(String[] args) {
+        ScriptEngineManager manager = new ScriptEngineManager();
+        ScriptEngine engine = manager.getEngineByName("nashorn");
+        NashornManager nashorn = new NashornManager(engine);
 
-        ScriptHandler scriptHandler = new ScriptHandler();
+        try {
+            nashorn.loadResource("/wcmscript.js");
+        } catch (IOException e) {
+            logger.error("IO exception: ", e);
+        } catch (ScriptException e) {
+            logger.error("Error in script", e);
+        } catch (Exception e) {
+            logger.error("Uncaught exception: ", e);
+        }
 
-        if(args.length > 0){
+        logger.info("WCMScript - Version 1.0.1");
+        BufferedReader bf = new BufferedReader(new InputStreamReader(System.in));
 
-            String path = args[0];
-
+        while(true) {
             try {
-                log.info("WCMScript - Version 1.0 \n");
-                scriptHandler.fileReader(path);
-            } catch (FileNotFoundException e) {
-                log.error("Load file not found. The file you want to use cannot be found."+ e);
+                System.out.print(">");
+                engine.eval(bf.readLine());
+            } catch (IOException e) {
+                logger.error("IO exception: ", e);
             } catch (ScriptException e) {
-                log.error("Error in script", e);
-            }
-        } else {
-            log.info("WCMScript - Version 1.0 \n");
-
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-
-            while(true) {
-                try {
-                    System.out.print(">");
-                    String input = br.readLine();
-                    scriptHandler.stringReader(input);
-                } catch (IOException | ScriptException e) {
-                    log.error("Error in script", e);
-                }
+                logger.error("Error in script", e);
+            } catch (Exception e) {
+                logger.error("Uncaught exception: ", e);
             }
         }
     }
+
+
+
 }

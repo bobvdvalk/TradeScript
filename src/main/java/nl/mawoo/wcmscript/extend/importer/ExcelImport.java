@@ -1,5 +1,7 @@
 package nl.mawoo.wcmscript.extend.importer;
 
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 import org.apache.poi.ss.usermodel.Cell;
@@ -17,7 +19,7 @@ import java.util.*;
  */
 public class ExcelImport {
 
-    private Logger logger = Logger.getLogger(ExcelImport.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(ExcelImport.class);
     private XSSFWorkbook workbook;
 
     public ExcelImport(String path) {

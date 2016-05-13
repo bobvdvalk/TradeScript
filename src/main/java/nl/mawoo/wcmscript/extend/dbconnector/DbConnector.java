@@ -1,5 +1,7 @@
 package nl.mawoo.wcmscript.extend.dbconnector;
 
+import nl.mawoo.wcmscript.logger.AbstractLogger;
+import nl.mawoo.wcmscript.logger.WCMSLogger;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
@@ -11,7 +13,7 @@ import java.sql.*;
  */
 public class DbConnector {
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-    private Logger logger = Logger.getLogger(DbConnector.class.getName());
+    private AbstractLogger logger = WCMSLogger.getLogger(DbConnector.class);
 
     private Connection conn = null;
     private Statement stmt = null;
