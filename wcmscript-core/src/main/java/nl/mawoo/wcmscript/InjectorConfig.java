@@ -2,6 +2,7 @@ package nl.mawoo.wcmscript;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Provides;
+import nl.mawoo.wcmscript.logger.ScriptLogger;
 
 import javax.inject.Named;
 import javax.script.ScriptEngine;
@@ -35,5 +36,10 @@ class InjectorConfig extends AbstractModule {
     @Named("wcms.instanceId")
     UUID instanceId() {
         return instanceId;
+    }
+
+    @Provides
+    ScriptLogger scriptLogger() {
+        return new CLIScriptLogger();
     }
 }

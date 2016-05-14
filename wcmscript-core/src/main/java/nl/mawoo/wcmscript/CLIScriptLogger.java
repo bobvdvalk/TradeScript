@@ -1,4 +1,4 @@
-package nl.mawoo.wcmscript.cli;
+package nl.mawoo.wcmscript;
 
 import nl.mawoo.wcmscript.logger.ScriptLogger;
 import org.slf4j.Logger;
@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
  *
  * @author Thomas Biesaart
  */
-public class CLIScriptLogger implements ScriptLogger {
+class CLIScriptLogger implements ScriptLogger {
     private final static Logger LOGGER = LoggerFactory.getLogger("WCMS");
 
     @Override

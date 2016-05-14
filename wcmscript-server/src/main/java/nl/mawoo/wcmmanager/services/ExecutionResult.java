@@ -90,17 +90,4 @@ public class ExecutionResult {
             return timeStamp;
         }
     }
-
-    public static class ErrorLogMessage extends LogMessage {
-        private final Throwable error;
-
-        public ErrorLogMessage(String message, String level, Throwable error) {
-            super(message, level);
-            this.error = error;
-        }
-
-        public Throwable getError() {
-            return error;
-        }
-    }
 }
