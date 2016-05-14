@@ -20,3 +20,6 @@ buildNumber.properties
 ### JetBrains template
 *.iml
 /.idea
+
+### Bower
+bower_components/
