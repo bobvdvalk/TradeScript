@@ -187,12 +187,17 @@ function run() {
     $.ajax({
         type : "POST",
         url : /*[[@{/fiddle/run}]]*/"http://localhost:8080/fiddle/run",
-        data : "code="+ content,
+        data : {
+            code: content
+        },
         success : function(data) {
-            console.log(JSON.stringify(data, null, 2));
+            console.log("The script finished in " + data.executionTime + " ms");
+            data.logging.forEach(function(entry) {
+                console.log(entry.level + " - " + entry.message);
+            });
         },
         error : function(e) {
-            console.log(e);
+            console.error(e.responseJSON.exception + " - " + e.responseJSON.message);
         }
     });
 }
