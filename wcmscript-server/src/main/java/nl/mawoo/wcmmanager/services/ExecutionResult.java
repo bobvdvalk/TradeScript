@@ -1,5 +1,7 @@
 package nl.mawoo.wcmmanager.services;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
+
 import java.util.*;
 
 /**
@@ -14,6 +16,7 @@ public class ExecutionResult {
     private Date initDone;
     private Date executionDone;
     private final List<LogMessage> logging = new ArrayList<>();
+    private String error;
 
     public ExecutionResult(UUID executionId) {
         this.executionId = executionId;
@@ -45,6 +48,19 @@ public class ExecutionResult {
 
     public void add(LogMessage message) {
         logging.add(message);
+    }
+
+    public boolean getSuccess() {
+        return error == null;
+    }
+
+    @JsonInclude(JsonInclude.Include.NON_NULL)
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 
     public static class LogMessage {

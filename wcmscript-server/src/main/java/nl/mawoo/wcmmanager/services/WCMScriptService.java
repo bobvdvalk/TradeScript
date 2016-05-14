@@ -22,7 +22,11 @@ public class WCMScriptService {
         ExecutionResult result = new ExecutionResult(UUID.randomUUID());
         WCMScript wcmScript = new WCMScript(result.getExecutionId(), new LoggingConfig(new ScriptLoggerImpl(result)));
         result.initDone();
-        wcmScript.eval(content);
+        try {
+            wcmScript.eval(content);
+        } catch (Exception e) {
+            result.setError(e.getLocalizedMessage());
+        }
         result.executionDone();
         return result;
     }

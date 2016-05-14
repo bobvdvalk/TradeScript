@@ -4,14 +4,15 @@
     <meta charset="UTF-8"/>
     <title>Fiddlr - WCMManager</title>
 
-    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap-theme.css}" />
-    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
-    <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap-theme.css}"/>
+    <link rel="stylesheet" type="text/css"
+          href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css"/>
 
-    <link rel="stylesheet" type="text/css" th:href="@{css/AdminLTE.min.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{css/skin-blue-light.css}" />
-    <link rel="stylesheet" type="text/css" th:href="@{css/custom.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/AdminLTE.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/skin-blue-light.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/custom.css}"/>
 
 
     <!--[if lt IE 9]>
@@ -81,7 +82,8 @@
                 <div class="input-group">
                     <input type="text" name="q" class="form-control" placeholder="Search..."/>
               <span class="input-group-btn">
-                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i></button>
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i
+                        class="fa fa-search"></i></button>
               </span>
                 </div>
             </form>
@@ -122,9 +124,11 @@
 
             <div class="box">
                 <div class="box-header with-border">
-                    <h3 class="box-title"><a href="#" onclick="javascript:run();return false;"><i class="fa fa-caret-square-o-right"></i></a> - Last run at: 01:05</h3>
+                    <h3 class="box-title"><a href="#" onclick="javascript:run();return false;"><i
+                            class="fa fa-caret-square-o-right"></i></a> - Last run at: 01:05</h3>
                     <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <div class="box-body" id="editor" style="min-height: 500px!important;"></div>
@@ -134,7 +138,8 @@
                 <div class="box-header with-border">
                     <h3 class="box-title">Console</h3>
                     <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i></button>
+                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
+                            <i class="fa fa-minus"></i></button>
                     </div>
                 </div>
                 <div class="box-body console" style="height: 150px;">
@@ -165,53 +170,57 @@
 <script th:src="@{bower_components/ace-builds/src/ext-language_tools.js}"></script>
 
 <script type="text/javascript" th:inline="javascript">
-var editor = ace.edit("editor")
-editor.setOptions({
-    mode: "ace/mode/javascript",
-    enableBasicAutocompletion: true,
-    enableLiveAutocompletion: true
-});
-editor.completers.push({
-    getCompletions: function(editor, session, pos, prefix, callback) {
-        callback(null, [
-            {value: "print()", score: 1000, meta: "function"},
-            {value: "include()", score: 1000, meta: "function"},
-            {value: "replaceAll()", score: 1000, meta: "function"},
-            {value: "use()", score: 1000, meta: "function"}
-        ]);
-    }
-});
-
-function run() {
-    var content = editor.getValue();
-    $.ajax({
-        type : "POST",
-        url : /*[[@{/fiddle/run}]]*/"http://localhost:8080/fiddle/run",
-        data : {
-            code: content
-        },
-        success : function(data) {
-            console.log("The script finished in " + data.executionTime + " ms");
-            data.logging.forEach(function(entry) {
-                console.log(entry.level + " - " + entry.message);
-            });
-        },
-        error : function(e) {
-            console.error(e.responseJSON.exception + " - " + e.responseJSON.message);
+    var editor = ace.edit("editor")
+    editor.setOptions({
+        mode: "ace/mode/javascript",
+        enableBasicAutocompletion: true,
+        enableLiveAutocompletion: true
+    });
+    editor.completers.push({
+        getCompletions: function (editor, session, pos, prefix, callback) {
+            callback(null, [
+                {value: "print()", score: 1000, meta: "function"},
+                {value: "include()", score: 1000, meta: "function"},
+                {value: "replaceAll()", score: 1000, meta: "function"},
+                {value: "use()", score: 1000, meta: "function"}
+            ]);
         }
     });
-}
 
-var runCommand = {
-    name: "runCommand",
-    exec: run
-};
+    function run() {
+        var content = editor.getValue();
+        $.ajax({
+            type: "POST",
+            url: /*[[@{/fiddle/run}]]*/"http://localhost:8080/fiddle/run",
+            data: {
+                code: content
+            },
+            success: function (data) {
+                console.log("The script finished in " + data.executionTime + " ms");
+                data.logging.forEach(function (entry) {
+                    console.log(entry.level + " - " + entry.message);
+                });
 
-editor.commands.addCommand(runCommand);
-editor.commands.bindKey("Ctrl-r", "runCommand");
-editor.$blockScrolling = Infinity;
+                if (!data.success) {
+                    console.error(data.error);
+                }
+            },
+            error: function (e) {
+                console.error("Execution Failed", e);
+            }
+        });
+    }
 
-$('#console_output').load(/*[[@{/fiddle/console}]]*/"http://localhost:8080/fiddle/console");
+    var runCommand = {
+        name: "runCommand",
+        exec: run
+    };
+
+    editor.commands.addCommand(runCommand);
+    editor.commands.bindKey("Ctrl-r", "runCommand");
+    editor.$blockScrolling = Infinity;
+
+    $('#console_output').load(/*[[@{/fiddle/console}]]*/"http://localhost:8080/fiddle/console");
 </script>
 
 </body>
