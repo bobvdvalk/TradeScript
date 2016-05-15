@@ -22,19 +22,47 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>nl.mawoo</groupId>
-    <artifactId>wcmscript</artifactId>
+    <artifactId>wcmscript-server</artifactId>
     <version>1.1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>war</packaging>
 
-    <modules>
-        <module>wcmscript-core</module>
-        <module>wcmscript-cli</module>
-        <module>wcmscript-server</module>
-    </modules>
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>1.3.3.RELEASE</version>
+    </parent>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-thymeleaf</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>nl.mawoo</groupId>
+            <artifactId>wcmscript-core</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+    <properties>
+        <java.version>1.8</java.version>
+    </properties>
 
     <build>
         <plugins>
-            <!-- This block is also present in wcmscript-server -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
             <plugin>
                 <groupId>com.mycila</groupId>
                 <artifactId>license-maven-plugin</artifactId>
@@ -58,4 +86,20 @@
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+    </repositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
+
 </project>
