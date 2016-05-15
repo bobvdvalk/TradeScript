@@ -49,10 +49,18 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>format-on-compile</id>
                         <goals>
                             <goal>format</goal>
                         </goals>
-                        <phase>process-sources</phase>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>format-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>

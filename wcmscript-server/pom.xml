@@ -30,6 +30,7 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>1.3.3.RELEASE</version>
+        <relativePath></relativePath>
     </parent>
 
     <dependencies>
@@ -77,10 +78,18 @@
                 </configuration>
                 <executions>
                     <execution>
+                        <id>format-on-compile</id>
                         <goals>
                             <goal>format</goal>
                         </goals>
-                        <phase>process-sources</phase>
+                        <phase>clean</phase>
+                    </execution>
+                    <execution>
+                        <id>format-check</id>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>

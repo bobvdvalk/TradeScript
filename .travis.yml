@@ -1,3 +1,17 @@
 language: java
 jdk:
 - oraclejdk8
+script:
+- mvn verify
+before_deploy:
+- mvn clean package
+deploy:
+  provider: releases
+  api_key:
+    secure: jcJU+/Zc9WsEIftmY2+r0+iaJFIFOkrM4vhuPF4D5HzycRBpofU+VmyY364027VNJf1k8sIhyLa7sExJHqO43oLD72De2rjVVLTM0xRZpMZSL8yYlofs7VkdrxQGmuEfAijYiWPbEAOmQU4so2RnJvt+t6r0xFEo8vQcc6XXY2z1X4G6aSc/e63j9S+vBc+aDG4y2IrHQn+BcXfXoAa9mFVaBszWD76b/C24xArviOeNbjeCpCSYxpIO+vJzakNrjs+Bp4CJYK9+kw2KMDLLG5TwtPstPGyUhyg1Fdy9W70tRNPhkmSs0q2wjgp5UufgoqONhqehHnmlINBpYq5sIXReMtdWPlwBplJ7vnAJ4BF56CJCt0oR7IEUoqTD5baHLrSWo0TAW1w57jcWIVCIzOc99iZ9QNYh1cCqnXCzTFHGgVx0aV47Cz7MkHPZjlRRs9sRY9AaI8eXyIQmWbXajhFnLtS3tRhkCmUzY7VXa0OAIVQiUPE1toiW50jAg6K3k24NrlmmCGVnDa5YxcWu1luIbJuPAmHZYCrNdA7JbPf6gHpKiAlmmy9AMlT1d057pocy5mk5RrVOJUJtbKnfjsWQI8u+xX0B0dppXH4U1dCzI9lDNPyayg2LS33tcp6Ah65PqtbGyg6qcbssCqjrUu29F6hs/nPxxdechJ6K6+4=
+  file:
+  - "wcmscript-server/target/*.war"
+  - "wcmscript-cli/target/*-app.zip"
+  on:
+    repo: mawoonl/WCMScript
+    tags: true
