@@ -4,8 +4,6 @@ jdk:
 cache:
   directories:
      - $HOME/.m2
-before_deploy:
-  - mvn clean package
 deploy:
   provider: releases
   file_glob: true
