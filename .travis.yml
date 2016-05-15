@@ -4,8 +4,6 @@ jdk:
 cache:
   directories:
      - $HOME/.m2
-script:
-  - mvn verify
 before_deploy:
   - mvn clean package
 deploy:
