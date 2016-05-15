@@ -33,28 +33,19 @@ import java.util.UUID;
 class InjectorConfig extends AbstractModule {
     private final UUID instanceId;
 
-    public InjectorConfig(UUID instanceId) {
+    InjectorConfig(UUID instanceId) {
         this.instanceId = instanceId;
     }
 
     @Override
     protected void configure() {
-
-    }
-
-    @Provides
-    ScriptEngine scriptEngine() {
-        return new ScriptEngineManager().getEngineByName("nashorn");
+        bind(ScriptLogger.class).toProvider(CLIScriptLogger::new);
+        bind(ScriptEngine.class).toProvider(() -> new ScriptEngineManager().getEngineByName("nashorn"));
     }
 
     @Provides
     @Named("wcms.instanceId")
     UUID instanceId() {
         return instanceId;
-    }
-
-    @Provides
-    ScriptLogger scriptLogger() {
-        return new CLIScriptLogger();
     }
 }

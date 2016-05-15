@@ -27,11 +27,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Manager {
     @RequestMapping("/")
+    @SuppressWarnings("squid:S3400") // This is how to load a template
     public String dashboard() {
         return "dashboard";
     }
 
     @RequestMapping("/")
+    @SuppressWarnings("squid:S3400") // This is how to load a template
     public String login() {
         return "login";
     }

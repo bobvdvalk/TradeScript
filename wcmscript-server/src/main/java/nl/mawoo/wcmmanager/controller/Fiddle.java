@@ -19,7 +19,10 @@ import nl.mawoo.wcmmanager.services.ExecutionResult;
 import nl.mawoo.wcmmanager.services.WCMScriptService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.script.ScriptException;
 
@@ -46,6 +49,7 @@ public class Fiddle {
      * @return editor.html in template folder
      */
     @RequestMapping("")
+    @SuppressWarnings("squid:S3400") // This is how to load a template
     public String editor() {
         return "editor";
     }
@@ -68,6 +72,7 @@ public class Fiddle {
      * @return console output page
      */
     @RequestMapping(value = "/console", method = RequestMethod.GET)
+    @SuppressWarnings("squid:S3400") // This is how to load a template
     public String consoleOutput() {
 
         return "console";

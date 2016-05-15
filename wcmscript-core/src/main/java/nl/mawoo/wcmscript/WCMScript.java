@@ -42,19 +42,16 @@ import java.util.UUID;
  * @author Bob van der Valk
  */
 public class WCMScript {
-    private final static Logger LOGGER = LoggerFactory.getLogger(WCMScript.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(WCMScript.class);
 
     private final ScriptEngine nashorn;
     private final ScriptLogger scriptLogger;
-    private final UUID instanceId;
-    private final Injector injector;
     private final List<ScriptModule> modules = new ArrayList<>();
 
     public WCMScript(UUID instanceId, Module... configuration) {
         // This construction allows the caller of this constructor to override certain configurations of the injector
         this(
                 ServiceLoader.load(ScriptModule.class),
-                instanceId,
                 Guice.createInjector(
                         Modules.override(
                                 new InjectorConfig(instanceId)
@@ -65,8 +62,7 @@ public class WCMScript {
         );
     }
 
-    public WCMScript(ServiceLoader<ScriptModule> serviceLoader, UUID instanceId, Injector parentInjector) {
-        this.instanceId = instanceId;
+    public WCMScript(ServiceLoader<ScriptModule> serviceLoader, Injector parentInjector) {
 
         LOGGER.info("Building WCMScript Engine");
 
@@ -77,12 +73,12 @@ public class WCMScript {
         }
 
         // Create the injector
-        this.injector = parentInjector.createChildInjector(modules);
+        Injector injector = parentInjector.createChildInjector(modules);
         scriptLogger = injector.getInstance(ScriptLogger.class);
         nashorn = injector.getInstance(ScriptEngine.class);
 
         // Inject all members into modules
-        modules.forEach(this.injector::injectMembers);
+        modules.forEach(injector::injectMembers);
 
         // Create standard bindings
         nashorn.getBindings(ScriptContext.ENGINE_SCOPE).put("System", this);

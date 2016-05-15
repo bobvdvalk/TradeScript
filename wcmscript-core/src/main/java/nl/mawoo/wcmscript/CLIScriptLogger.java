@@ -25,7 +25,7 @@ import org.slf4j.LoggerFactory;
  * @author Thomas Biesaart
  */
 class CLIScriptLogger implements ScriptLogger {
-    private final static Logger LOGGER = LoggerFactory.getLogger("WCMS");
+    private static final  Logger LOGGER = LoggerFactory.getLogger("WCMS");
 
     @Override
     public String getName() {

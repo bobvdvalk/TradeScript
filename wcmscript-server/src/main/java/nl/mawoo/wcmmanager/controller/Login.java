@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class Login {
     @RequestMapping("/login")
+    @SuppressWarnings("squid:S3400") // This is how to load a template
     public String loginScreen() {
         return "login";
     }
