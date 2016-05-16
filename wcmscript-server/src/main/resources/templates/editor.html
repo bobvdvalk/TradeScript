@@ -131,7 +131,7 @@
                             <i class="fa fa-minus"></i></button>
                     </div>
                 </div>
-                <div class="box-body" id="editor" style="min-height: 500px!important;"></div>
+                <div class="box-body" id="editor" style="min-height: 400px!important;"></div>
 
             </div>
             <div class="box">
@@ -142,7 +142,7 @@
                             <i class="fa fa-minus"></i></button>
                     </div>
                 </div>
-                <div class="box-body console" style="height: 150px;">
+                <div class="box-body console" style="height: 250px;">
                     <div id="console_output"></div>
                 </div>
             </div>
@@ -188,6 +188,7 @@
     });
 
     function run() {
+        $('#console_output').html("");
         var content = editor.getValue();
         $.ajax({
             type: "POST",
@@ -196,10 +197,14 @@
                 code: content
             },
             success: function (data) {
-                console.log("The script finished in " + data.executionTime + " ms");
+
                 data.logging.forEach(function (entry) {
                     console.log(entry.level + " - " + entry.message);
+
+                    $('#console_output').append("<p><b id="+ entry.level +">"+ entry.level +"</b> - "+ entry.message +"</p>");
                 });
+                console.log("The script finished in " + data.executionTime + " ms");
+                $('#console_output').append("<hr />The script finished in " + data.executionTime + " ms");
 
                 if (!data.success) {
                     console.error(data.error);
@@ -219,8 +224,6 @@
     editor.commands.addCommand(runCommand);
     editor.commands.bindKey("Ctrl-r", "runCommand");
     editor.$blockScrolling = Infinity;
-
-    $('#console_output').load(/*[[@{/fiddle/console}]]*/"http://localhost:8080/fiddle/console");
 </script>
 
 </body>

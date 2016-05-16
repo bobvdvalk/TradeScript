@@ -2,3 +2,15 @@
     color: #777;
     overflow: scroll;
 }
+
+#INFO {
+    color: #0000FF;
+}
+
+#WARN {
+    color: #FFED00;
+}
+
+#ERROR {
+    color: #ff0100;
+}
