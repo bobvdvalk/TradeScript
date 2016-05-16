@@ -23,6 +23,23 @@ import nl.mawoo.wcmscript.logger.ScriptLogger;
  *
  * @author Bob van der Valk
  */
-public class Connector extends AbstractScriptModule{
-    
+public class Mysql extends AbstractScriptModule{
+    private String db = "jdbc:mysql://localhost/";
+    private String dbUser = "root";
+    private String dbPass;
+
+    public Mysql() {
+    }
+
+    public void setDatabase(String db) {
+        this.db = "jdbc:mysql://localhost/" + db;
+    }
+
+    public void setDbUser(String dbUser) {
+        this.dbUser = dbUser;
+    }
+
+    public void setDbPass(String dbPass) {
+        this.dbPass = dbPass;
+    }
 }
