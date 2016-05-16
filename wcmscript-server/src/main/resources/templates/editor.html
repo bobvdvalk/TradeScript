@@ -201,7 +201,7 @@
                 data.logging.forEach(function (entry) {
                     console.log(entry.level + " - " + entry.message);
 
-                    $('#console_output').append("<p><b>"+ entry.level +"</b> - "+ entry.message +"</p>");
+                    $('#console_output').append("<p><b id="+ entry.level +">"+ entry.level +"</b> - "+ entry.message +"</p>");
                 });
                 console.log("The script finished in " + data.executionTime + " ms");
                 $('#console_output').append("<hr />The script finished in " + data.executionTime + " ms");
