@@ -203,17 +203,17 @@
                 data.logging.forEach(function (entry) {
                     console.log(entry.level + " - " + entry.message);
 
-                    $('#console_output').append("<p><b id="+ entry.level +">"+ entry.level +"</b> - "+ entry.message +"</p>");
+                    $('#console_output').append("<p><span id="+ entry.level +">"+ entry.level +"</span> - "+ entry.message +"</p>");
                 });
                 console.log("The script finished in " + data.executionTime + " ms");
                 $('#console_output').append("<hr />The script finished in " + data.executionTime + " ms");
 
                 if (!data.success) {
-                    $('#console_output').append('<p><b id="ERROR">ERROR</b> - '+ data.error +'</p>');
+                    $('#console_output').append('<p><span id="ERROR">ERROR</span> - '+ data.error +'</p>');
                 }
             },
             error: function (e) {
-                $("#console_output").append('<p><b id="ERROR">ERROR</b> - '+ e +'</p>');
+                $("#console_output").append('<p><span id="ERROR">ERROR</span> - '+ e +'</p>');
             }
         });
     }
