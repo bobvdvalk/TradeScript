@@ -71,7 +71,6 @@
                     <licenseHeaderFile>../LICENSE</licenseHeaderFile>
                     <repositoryLayout>flat</repositoryLayout>
                     <repositoryName>app</repositoryName>
-                    <binFolder>.</binFolder>
                 </configuration>
             </plugin>
             <plugin>

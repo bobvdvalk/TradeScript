@@ -58,7 +58,7 @@ public class Application {
                     eval(wcmScript, code);
                 }
             } catch (IOException e) {
-                LOGGER.error("IO exception: ", e);
+                LOGGER.error("IO exception: " + e.getMessage(), e);
             }
         }
     }
@@ -67,9 +67,9 @@ public class Application {
         try {
             wcmScript.eval(code.toString());
         } catch (ScriptException e) {
-            wcmScript.getScriptLogger().error("SCRIPT ERROR", e);
+            wcmScript.getScriptLogger().error("SCRIPT ERROR: " + e.getMessage(), e);
         } catch (Exception e) {
-            LOGGER.error("Uncaught exception: ", e);
+            LOGGER.error("Uncaught exception: " + e.getMessage(), e);
         } finally {
             code.setLength(0);
         }

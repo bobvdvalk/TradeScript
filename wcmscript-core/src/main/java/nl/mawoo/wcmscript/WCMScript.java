@@ -37,7 +37,7 @@ import java.util.ServiceLoader;
 import java.util.UUID;
 
 /**
- * {message}
+ * This class represents an active instance of the script engine.
  *
  * @author Bob van der Valk
  */

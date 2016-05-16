@@ -18,16 +18,25 @@ package nl.mawoo.wcmmanager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.boot.context.web.SpringBootServletInitializer;
 
 /**
- * This class is responsible to run the Manager
- * This is build with the Spring framework
+ * This class is responsible to run the Manager.
+ * This is build with the Spring framework.
  *
  * @author Bob van der Valk
  */
 @SpringBootApplication(exclude = MongoRepositoriesAutoConfiguration.class)
-public class Manager {
-    public static void main(String[] args) {
+public class Manager extends SpringBootServletInitializer {
+
+    @Override
+    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
+        return application.sources(Manager.class);
+    }
+
+    public static void main(String[] args) throws Exception {
         SpringApplication.run(Manager.class, args);
     }
+
 }

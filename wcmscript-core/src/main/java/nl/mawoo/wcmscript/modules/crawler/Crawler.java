@@ -28,11 +28,6 @@ import java.io.IOException;
  */
 public class Crawler extends AbstractScriptModule {
 
-    public Crawler() {
-        super();
-    }
-
-
     /**
      * Run the crawler.
      * The crawler will store it in a ArrayList with CrawlObjects so the user can retrieve them much more easily
