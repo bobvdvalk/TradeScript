@@ -180,6 +180,8 @@
         getCompletions: function (editor, session, pos, prefix, callback) {
             callback(null, [
                 {value: "print()", score: 1000, meta: "function"},
+                {value: "debug()", score: 1000, meta: "function"},
+
                 {value: "include()", score: 1000, meta: "function"},
                 {value: "replaceAll()", score: 1000, meta: "function"},
                 {value: "use()", score: 1000, meta: "function"}
@@ -201,17 +203,17 @@
                 data.logging.forEach(function (entry) {
                     console.log(entry.level + " - " + entry.message);
 
-                    $('#console_output').append("<p><b id="+ entry.level +">"+ entry.level +"</b> - "+ entry.message +"</p>");
+                    $('#console_output').append("<p><span id="+ entry.level +">"+ entry.level +"</span> - "+ entry.message +"</p>");
                 });
                 console.log("The script finished in " + data.executionTime + " ms");
                 $('#console_output').append("<hr />The script finished in " + data.executionTime + " ms");
 
                 if (!data.success) {
-                    console.error(data.error);
+                    $('#console_output').append('<p><span id="ERROR">ERROR</span> - '+ data.error +'</p>');
                 }
             },
             error: function (e) {
-                console.error("Execution Failed", e);
+                $("#console_output").append('<p><span id="ERROR">ERROR</span> - '+ e +'</p>');
             }
         });
     }
