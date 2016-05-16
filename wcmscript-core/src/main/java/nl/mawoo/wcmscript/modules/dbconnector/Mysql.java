@@ -31,59 +31,60 @@ public class Mysql extends AbstractScriptModule{
     private String dbPass;
 
     private Connection connection;
-    private Statement stmt;
 
     public Mysql() {
     }
 
     /**
      * Connect to the database
-     * @return
      */
-    public Connection connect() {
+    public Mysql connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            return  connection = DriverManager.getConnection(db, dbUser, dbPass);
+            connection = DriverManager.getConnection(db, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
             getScriptLogger().error("Cannot connect to MySql database: "+ e.getMessage());
         }
-        return null;
+        return this;
     }
 
     /**
      * Set a database to use
      * @param db
      */
-    public void setDatabase(String db) {
+    public Mysql setDatabase(String db) {
         this.db = "jdbc:mysql://localhost/" + db;
+        return this;
     }
 
     /**
      * Set a database user
      * @param dbUser
      */
-    public void setDbUser(String dbUser) {
+    public Mysql setDbUser(String dbUser) {
         this.dbUser = dbUser;
+        return this;
     }
 
     /**
      * Set a database password
      * @param dbPass
      */
-    public void setDbPass(String dbPass) {
+    public Mysql setDbPass(String dbPass) {
         this.dbPass = dbPass;
+        return this;
     }
 
     /**
-     * run a sql querie into the engine
-     * @param sql String of the query you need
-     * @return ResultSetObject so you can easily retreive data
+     * Run a sql query and get results back.
+     * @param sql your sql manager
+     * @return resultSet of your query
      */
-    public ResultSetObject select(String sql) {
+    public ResultSetObject query(String sql) {
         try {
-            stmt = connection.createStatement();
+            Statement stmt = connection.createStatement();
             String[] queryType = sql.split(" ");
 
             if("SELECT".equals(queryType[0])) {
@@ -94,7 +95,7 @@ public class Mysql extends AbstractScriptModule{
                 stmt.execute(sql);
             }
         } catch (SQLException e) {
-            getScriptLogger().error("A SQL exception occurred: "+ e);
+            getScriptLogger().error("A SQL exception occurred: "+ e.getMessage());
         }
 
         return null;
