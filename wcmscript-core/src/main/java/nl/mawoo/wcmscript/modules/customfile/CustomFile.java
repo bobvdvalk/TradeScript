@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.mawoo.wcmscript.modules.textfile;
+package nl.mawoo.wcmscript.modules.customfile;
 
 import nl.mawoo.wcmscript.AbstractScriptModule;
 
 import java.io.*;
 
-public class TextFile extends AbstractScriptModule{
+public class CustomFile extends AbstractScriptModule{
     private Object content;
     private File file;
 
@@ -29,7 +29,7 @@ public class TextFile extends AbstractScriptModule{
      * @param content
      * @return
      */
-    public TextFile newFile(String fileName, Object content){
+    public CustomFile newFile(String fileName, Object content){
         this.content = content;
 
         file = new File(fileName);
