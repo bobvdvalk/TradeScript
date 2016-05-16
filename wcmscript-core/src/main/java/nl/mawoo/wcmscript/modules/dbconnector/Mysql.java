@@ -18,6 +18,10 @@ package nl.mawoo.wcmscript.modules.dbconnector;
 import nl.mawoo.wcmscript.AbstractScriptModule;
 import nl.mawoo.wcmscript.logger.ScriptLogger;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
 /**
  * This class is responsible to connect to a mysql database
  *
@@ -29,6 +33,18 @@ public class Mysql extends AbstractScriptModule{
     private String dbPass;
 
     public Mysql() {
+    }
+
+    public Connection connect() {
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            return  DriverManager.getConnection(db, dbUser, dbPass);
+        } catch (ClassNotFoundException e) {
+            getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
+        } catch (SQLException e) {
+            getScriptLogger().error("Cannot connect to MySql database: "+ e.getMessage());
+        }
+        return null;
     }
 
     public void setDatabase(String db) {
