@@ -16,11 +16,8 @@
 package nl.mawoo.wcmscript.modules.dbconnector;
 
 import nl.mawoo.wcmscript.AbstractScriptModule;
-import nl.mawoo.wcmscript.logger.ScriptLogger;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 /**
  * This class is responsible to connect to a mysql database
@@ -28,17 +25,25 @@ import java.sql.SQLException;
  * @author Bob van der Valk
  */
 public class Mysql extends AbstractScriptModule{
+
     private String db = "jdbc:mysql://localhost/";
     private String dbUser = "root";
     private String dbPass;
 
+    private Connection connection;
+    private Statement stmt;
+
     public Mysql() {
     }
 
+    /**
+     * Connect to the database
+     * @return
+     */
     public Connection connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            return  DriverManager.getConnection(db, dbUser, dbPass);
+            return  connection = DriverManager.getConnection(db, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
@@ -47,15 +52,51 @@ public class Mysql extends AbstractScriptModule{
         return null;
     }
 
+    /**
+     * Set a database to use
+     * @param db
+     */
     public void setDatabase(String db) {
         this.db = "jdbc:mysql://localhost/" + db;
     }
 
+    /**
+     * Set a database user
+     * @param dbUser
+     */
     public void setDbUser(String dbUser) {
         this.dbUser = dbUser;
     }
 
+    /**
+     * Set a database password
+     * @param dbPass
+     */
     public void setDbPass(String dbPass) {
         this.dbPass = dbPass;
+    }
+
+    /**
+     * run a sql querie into the engine
+     * @param sql String of the query you need
+     * @return ResultSetObject so you can easily retreive data
+     */
+    public ResultSetObject select(String sql) {
+        try {
+            stmt = connection.createStatement();
+            String[] queryType = sql.split(" ");
+
+            if("SELECT".equals(queryType[0])) {
+                ResultSet rs = stmt.executeQuery(sql);
+
+                return new ResultSetObject(rs);
+            } else {
+                stmt.execute(sql);
+            }
+        } catch (SQLException e) {
+            getScriptLogger().error("A SQL exception occurred: "+ e);
+        }
+
+        return null;
     }
 }
