@@ -26,9 +26,13 @@ import java.sql.*;
  */
 public class Mysql extends AbstractScriptModule{
 
-    private String db = "jdbc:mysql://localhost/";
+    private String host = "localhost";
+    private int port = 3306;
+    private String db = "";
     private String dbUser = "root";
     private String dbPass;
+    private String connString = "jdbc:mysql://"+ host +":"+ port +"/"+ db;
+
 
     private Connection connection;
 
@@ -41,7 +45,7 @@ public class Mysql extends AbstractScriptModule{
     public Mysql connect() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(db, dbUser, dbPass);
+            connection = DriverManager.getConnection(connString, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
@@ -56,6 +60,26 @@ public class Mysql extends AbstractScriptModule{
      */
     public Mysql setDatabase(String db) {
         this.db = "jdbc:mysql://localhost/" + db;
+        return this;
+    }
+
+    /**
+     * Set a default host
+     * @param host String host
+     * @return this
+     */
+    public Mysql setHost(String host) {
+        this.host = host;
+        return this;
+    }
+
+    /**
+     * Set a port
+     * @param port
+     * @return
+     */
+    public Mysql setPort(int port) {
+        this.port = port;
         return this;
     }
 
