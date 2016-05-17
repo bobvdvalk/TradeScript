@@ -2,3 +2,4 @@ nl.mawoo.wcmscript.modules.crawler.Crawler
 nl.mawoo.wcmscript.modules.filesystem.FileSystem
 nl.mawoo.wcmscript.modules.dbconnector.Mysql
 nl.mawoo.wcmscript.modules.customfile.CustomFile
+nl.mawoo.wcmscript.modules.excel.ExcelExport

@@ -16,6 +16,8 @@
 package nl.mawoo.wcmscript.modules.excel;
 
 import nl.mawoo.wcmscript.AbstractScriptModule;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -23,6 +25,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 
 /**
  * This class is responsible to output a excel file
@@ -53,6 +56,63 @@ public class ExcelExport extends AbstractScriptModule{
     public ExcelExport create(String name) {
         workbook = new XSSFWorkbook();
         sheet = workbook.createSheet(name);
+
+        return this;
+    }
+
+    /**
+     * Add row to excelsheet
+     * @param rownum row number of sheet
+     */
+    public ExcelExport addRow(int rownum) {
+        row = sheet.createRow(rownum);
+        return this;
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input string of information you want to put in the excel sheet.
+     * @param cellnum cell number you want to set for the content.
+     */
+    public ExcelExport createCell(String input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+
+        return this;
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input Date you want to put in the cell.
+     * @param cellnum cell number you want to set for the content.
+     */
+    public ExcelExport createCell(Date input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+
+        return this;
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input Boolean you want to put in the cell
+     * @param cellnum cell number you want to set for the content.
+     */
+    public ExcelExport createCell(Boolean input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
+
+        return this;
+    }
+
+    /**
+     * Add cell with content to sheet
+     * @param input RichTextString you want to put in the cell
+     * @param cellnum cell number you want to set for the content.
+     */
+    public ExcelExport createCell(RichTextString input, int cellnum) {
+        Cell cell = row.createCell(cellnum);
+        cell.setCellValue(input);
 
         return this;
     }
