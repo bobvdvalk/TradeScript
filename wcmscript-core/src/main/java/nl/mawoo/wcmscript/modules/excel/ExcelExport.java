@@ -121,10 +121,12 @@ public class ExcelExport extends AbstractScriptModule{
      * Save the excel sheet to a file
      * @param filename name you want to give to the document
      */
-    public void save(String filename) throws IOException {
+    public ExcelExport save(String filename) throws IOException {
         FileOutputStream outputStream = new FileOutputStream(new File(filename));
         workbook.write(outputStream);
         outputStream.close();
+
+        return this;
     }
 
 }
