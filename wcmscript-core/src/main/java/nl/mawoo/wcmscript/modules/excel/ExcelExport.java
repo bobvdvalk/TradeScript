@@ -125,6 +125,7 @@ public class ExcelExport extends AbstractScriptModule{
         FileOutputStream outputStream = new FileOutputStream(new File(filename));
         workbook.write(outputStream);
         outputStream.close();
+        workbook.close();
 
         return this;
     }

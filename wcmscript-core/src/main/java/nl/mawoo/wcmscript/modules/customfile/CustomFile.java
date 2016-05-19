@@ -43,17 +43,24 @@ public class CustomFile extends AbstractScriptModule{
      */
     public void open(String fileName){
         File file = new File(fileName);
-
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(file));
+             reader = new BufferedReader(new FileReader(file));
 
             String line = null;
             while ((line = reader.readLine()) != null) {
                 getScriptLogger().info(line);
             }
 
+            reader.close();
         } catch (IOException e){
             getScriptLogger().error(e.getMessage());
+        } finally {
+            try {
+                reader.close();
+            } catch (IOException e) {
+                getScriptLogger().error("Cannot close the file: "+ e.getMessage());
+            }
         }
     }
 

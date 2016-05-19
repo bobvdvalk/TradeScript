@@ -42,7 +42,7 @@ public class Mysql extends AbstractScriptModule{
     /**
      * Connect to the database
      */
-    public Mysql connect() {
+    public Mysql connect() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connection = DriverManager.getConnection(connString, dbUser, dbPass);
@@ -50,6 +50,8 @@ public class Mysql extends AbstractScriptModule{
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
             getScriptLogger().error("Cannot connect to MySql database: "+ e.getMessage());
+        } finally {
+            connection.close();
         }
         return this;
     }
@@ -107,8 +109,9 @@ public class Mysql extends AbstractScriptModule{
      * @return resultSet of your query
      */
     public ResultSetObject query(String sql) {
+        Statement stmt = null;
         try {
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String[] queryType = sql.split(" ");
 
             if("SELECT".equals(queryType[0])) {
@@ -119,7 +122,13 @@ public class Mysql extends AbstractScriptModule{
                 stmt.execute(sql);
             }
         } catch (SQLException e) {
-            getScriptLogger().error("A SQL exception occurred: "+ e.getMessage());
+            getScriptLogger().error("A SQL exception occurred: "+ e.getMessage(), e);
+        } finally {
+            try {
+                stmt.close();
+            } catch (SQLException e) {
+                getScriptLogger().error("Cannot close the sql statement: "+ e.getMessage(), e);
+            }
         }
 
         return null;
