@@ -90,7 +90,7 @@
             <ul class="sidebar-menu">
                 <li class="header">MAIN NAVIGATION</li>
                 <li>
-                    <a th:href="@{/}">
+                    <a href="#" class="active">
                         <i class="fa fa-dashboard"></i> <span>Dashboard</span>
                     </a>
                 </li>
@@ -99,8 +99,8 @@
                         <i class="fa fa-file-code-o"></i> <span>Script manager</span>
                     </a>
                 </li>
-                <li class="active">
-                    <a href="#">
+                <li>
+                    <a th:href="@{/fiddle}">
                         <i class="fa fa-code"></i> <span>WCMSFiddlr</span>
                     </a>
                 </li>
@@ -115,39 +115,67 @@
     <div class="content-wrapper">
         <section class="content-header">
             <h1>
-                WCMSFiddle
-                <small>Testing live</small>
+                Dashboard
+                <small>Control panel</small>
             </h1>
         </section>
 
         <section class="content">
-
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title"><a href="#" onclick="javascript:run();return false;"><i
-                            class="fa fa-caret-square-o-right"></i></a> - Last run at: 01:05</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-aqua">
+                        <div class="inner">
+                            <h3>150</h3>
+                            <p>New Orders</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-bag"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
-                <div class="box-body" id="editor" style="min-height: 400px!important;"></div>
-
-            </div>
-            <div class="box">
-                <div class="box-header with-border">
-                    <h3 class="box-title">Console</h3>
-                    <div class="box-tools pull-right">
-                        <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
-                            <i class="fa fa-minus"></i></button>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-green">
+                        <div class="inner">
+                            <h3>53<sup style="font-size: 20px">%</sup></h3>
+                            <p>Bounce Rate</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-stats-bars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                     </div>
-                </div>
-                <div class="box-body console" style="height: 250px;">
-                    <div id="console_output"></div>
-                </div>
-            </div>
-
-
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-yellow">
+                        <div class="inner">
+                            <h3>44</h3>
+                            <p>User Registrations</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-person-add"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+                <div class="col-lg-3 col-xs-6">
+                    <!-- small box -->
+                    <div class="small-box bg-red">
+                        <div class="inner">
+                            <h3>65</h3>
+                            <p>Unique Visitors</p>
+                        </div>
+                        <div class="icon">
+                            <i class="ion ion-pie-graph"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    </div>
+                </div><!-- ./col -->
+            </div><!-- /.row -->
         </section>
     </div>
 
@@ -165,75 +193,6 @@
 <script th:src="@{js/fastclick/fastclick.min.js}"></script>
 <script th:src="@{js/app.min.js}"></script>
 <script th:src="@{js/demo.js}"></script>
-
-<script type="text/javascript" th:src="@{bower_components/ace-builds/src/ace.js}"></script>
-<script th:src="@{bower_components/ace-builds/src/ext-language_tools.js}"></script>
-
-<script type="text/javascript" th:inline="javascript">
-    var editor = ace.edit("editor")
-    editor.setOptions({
-        mode: "ace/mode/javascript",
-        enableBasicAutocompletion: true,
-        enableLiveAutocompletion: true
-    });
-    editor.completers.push({
-        getCompletions: function (editor, session, pos, prefix, callback) {
-            callback(null, [
-                {value: "print()", score: 1000, meta: "function"},
-                {value: "debug()", score: 1000, meta: "function"},
-                {value: "include()", score: 1000, meta: "function"},
-                {value: "replaceAll()", score: 1000, meta: "function"},
-                {value: "use()", score: 1000, meta: "function"},
-                    {value: "use(\"Crawler\")", score: 900, meta: "function"},
-                    {value: "use(\"Mysql\")", score: 900, meta: "function"},
-                    {value: "use(\"FileSystem\")", score: 900, meta: "function"},
-                    {value: "use(\"ExcelImport\")", score: 900, meta: "function"},
-                    {value: "use(\"ExcelExport\")", score: 900, meta: "function"},
-
-                {value: "Crawler", score: 1000, meta: "method"},
-                    {value: "Crawler.crawl()", score: 900, meta: "method"}
-            ]);
-        }
-    });
-
-    function run() {
-        $('#console_output').html("");
-        var content = editor.getValue();
-        $.ajax({
-            type: "POST",
-            url: /*[[@{/fiddle/run}]]*/"http://localhost:8080/fiddle/run",
-            data: {
-                code: content
-            },
-            success: function (data) {
-
-                data.logging.forEach(function (entry) {
-                    console.log(entry.level + " - " + entry.message);
-
-                    $('#console_output').append("<p><span id="+ entry.level +">"+ entry.level +"</span> - "+ entry.message +"</p>");
-                });
-                console.log("The script finished in " + data.executionTime + " ms");
-                $('#console_output').append("<hr />The script finished in " + data.executionTime + " ms");
-
-                if (!data.success) {
-                    $('#console_output').append('<p><span id="ERROR">ERROR</span> - '+ data.error +'</p>');
-                }
-            },
-            error: function (e) {
-                $("#console_output").append('<p><span id="ERROR">ERROR</span> - '+ e +'</p>');
-            }
-        });
-    }
-
-    var runCommand = {
-        name: "runCommand",
-        exec: run
-    };
-
-    editor.commands.addCommand(runCommand);
-    editor.commands.bindKey("Ctrl-r", "runCommand");
-    editor.$blockScrolling = Infinity;
-</script>
 
 </body>
 </html>
