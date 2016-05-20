@@ -13,8 +13,8 @@ var use = function (library) {
     try {
         System.loadModule(library);
     } catch (e) {
-        print("Could not load library [" + library + "]");
-        print("Reason: " + e.message);
+        error("Could not load library [" + library + "]");
+        error("Reason: " + e.message);
     }
 };
 

@@ -24,7 +24,7 @@ import java.nio.file.attribute.BasicFileAttributes;
 /**
  * This module is responsible for most file system operations.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public class FileSystem extends AbstractScriptModule {
 

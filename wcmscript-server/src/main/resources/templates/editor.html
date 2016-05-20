@@ -181,10 +181,17 @@
             callback(null, [
                 {value: "print()", score: 1000, meta: "function"},
                 {value: "debug()", score: 1000, meta: "function"},
-
                 {value: "include()", score: 1000, meta: "function"},
                 {value: "replaceAll()", score: 1000, meta: "function"},
-                {value: "use()", score: 1000, meta: "function"}
+                {value: "use()", score: 1000, meta: "function"},
+                    {value: "use(\"Crawler\")", score: 900, meta: "function"},
+                    {value: "use(\"Mysql\")", score: 900, meta: "function"},
+                    {value: "use(\"FileSystem\")", score: 900, meta: "function"},
+                    {value: "use(\"ExcelImport\")", score: 900, meta: "function"},
+                    {value: "use(\"ExcelExport\")", score: 900, meta: "function"},
+
+                {value: "Crawler", score: 1000, meta: "method"},
+                    {value: "Crawler.crawl()", score: 900, meta: "method"}
             ]);
         }
     });

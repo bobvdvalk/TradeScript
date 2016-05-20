@@ -26,11 +26,14 @@ import java.sql.*;
  */
 public class Mysql extends AbstractScriptModule{
 
-    private String db = "jdbc:mysql://localhost/";
+    private String host = "localhost";
+    private int port = 3306;
+    private String db;
     private String dbUser = "root";
     private String dbPass;
 
     private Connection connection;
+    private Statement stmt;
 
     public Mysql() {
     }
@@ -38,15 +41,19 @@ public class Mysql extends AbstractScriptModule{
     /**
      * Connect to the database
      */
-    public Mysql connect() {
+    public Mysql connect() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connection = DriverManager.getConnection(db, dbUser, dbPass);
+
+            String connString = "jdbc:mysql://"+ host +":"+ port +"/"+ db;
+
+            connection = DriverManager.getConnection(connString, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
             getScriptLogger().error("Cannot connect to MySql database: "+ e.getMessage());
         }
+
         return this;
     }
 
@@ -55,7 +62,27 @@ public class Mysql extends AbstractScriptModule{
      * @param db
      */
     public Mysql setDatabase(String db) {
-        this.db = "jdbc:mysql://localhost/" + db;
+        this.db = db;
+        return this;
+    }
+
+    /**
+     * Set a default host
+     * @param host String host
+     * @return this
+     */
+    public Mysql setHost(String host) {
+        this.host = host;
+        return this;
+    }
+
+    /**
+     * Set a port
+     * @param port
+     * @return
+     */
+    public Mysql setPort(int port) {
+        this.port = port;
         return this;
     }
 
@@ -63,7 +90,7 @@ public class Mysql extends AbstractScriptModule{
      * Set a database user
      * @param dbUser
      */
-    public Mysql setDbUser(String dbUser) {
+    public Mysql setUser(String dbUser) {
         this.dbUser = dbUser;
         return this;
     }
@@ -72,7 +99,7 @@ public class Mysql extends AbstractScriptModule{
      * Set a database password
      * @param dbPass
      */
-    public Mysql setDbPass(String dbPass) {
+    public Mysql setPass(String dbPass) {
         this.dbPass = dbPass;
         return this;
     }
@@ -83,8 +110,9 @@ public class Mysql extends AbstractScriptModule{
      * @return resultSet of your query
      */
     public ResultSetObject query(String sql) {
+
         try {
-            Statement stmt = connection.createStatement();
+            stmt = connection.createStatement();
             String[] queryType = sql.split(" ");
 
             if("SELECT".equals(queryType[0])) {
@@ -95,9 +123,20 @@ public class Mysql extends AbstractScriptModule{
                 stmt.execute(sql);
             }
         } catch (SQLException e) {
-            getScriptLogger().error("A SQL exception occurred: "+ e.getMessage());
+            getScriptLogger().error("A SQL exception occurred: "+ e.getMessage(), e);
         }
-
         return null;
+    }
+
+    /**
+     * Close the database statement & database connection
+     */
+    public void close() {
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            getScriptLogger().error("Cannot close the sql statement: "+ e.getMessage(), e);
+        }
     }
 }

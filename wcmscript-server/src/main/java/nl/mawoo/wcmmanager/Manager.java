@@ -35,7 +35,7 @@ public class Manager extends SpringBootServletInitializer {
         return application.sources(Manager.class);
     }
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         SpringApplication.run(Manager.class, args);
     }
 
