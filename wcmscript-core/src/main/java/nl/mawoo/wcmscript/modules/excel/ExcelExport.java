@@ -23,6 +23,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
@@ -122,12 +123,26 @@ public class ExcelExport extends AbstractScriptModule{
      * @param filename name you want to give to the document
      */
     public ExcelExport save(String filename) throws IOException {
-        FileOutputStream outputStream = new FileOutputStream(new File(filename));
-        workbook.write(outputStream);
-        outputStream.close();
-        workbook.close();
-
+        FileOutputStream outputStream = null;
+        try {
+            outputStream = new FileOutputStream(new File(filename));
+            workbook.write(outputStream);
+            outputStream.close();
+        } catch (FileNotFoundException e) {
+            getScriptLogger().error("Cannot save the file: "+ e.getMessage(), e);
+        }
         return this;
+    }
+
+    /**
+     * Close the file
+     */
+    public void close() {
+        try {
+            workbook.close();
+        } catch (IOException e) {
+            getScriptLogger().error("Can\'t close file: "+ e.getMessage(), e);
+        }
     }
 
 }
