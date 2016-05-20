@@ -90,7 +90,7 @@ public class Mysql extends AbstractScriptModule{
      * Set a database user
      * @param dbUser
      */
-    public Mysql setDbUser(String dbUser) {
+    public Mysql setUser(String dbUser) {
         this.dbUser = dbUser;
         return this;
     }
@@ -99,7 +99,7 @@ public class Mysql extends AbstractScriptModule{
      * Set a database password
      * @param dbPass
      */
-    public Mysql setDbPass(String dbPass) {
+    public Mysql setPass(String dbPass) {
         this.dbPass = dbPass;
         return this;
     }
