@@ -28,13 +28,12 @@ public class Mysql extends AbstractScriptModule{
 
     private String host = "localhost";
     private int port = 3306;
-    private String db = "";
+    private String db;
     private String dbUser = "root";
     private String dbPass;
-    private String connString = "jdbc:mysql://"+ host +":"+ port +"/"+ db;
-
 
     private Connection connection;
+    private Statement stmt;
 
     public Mysql() {
     }
@@ -45,14 +44,16 @@ public class Mysql extends AbstractScriptModule{
     public Mysql connect() throws SQLException {
         try {
             Class.forName("com.mysql.jdbc.Driver");
+
+            String connString = "jdbc:mysql://"+ host +":"+ port +"/"+ db;
+
             connection = DriverManager.getConnection(connString, dbUser, dbPass);
         } catch (ClassNotFoundException e) {
             getScriptLogger().error("MySql driver class not found: "+ e.getMessage());
         } catch (SQLException e) {
             getScriptLogger().error("Cannot connect to MySql database: "+ e.getMessage());
-        } finally {
-            connection.close();
         }
+
         return this;
     }
 
@@ -61,7 +62,7 @@ public class Mysql extends AbstractScriptModule{
      * @param db
      */
     public Mysql setDatabase(String db) {
-        this.db = "jdbc:mysql://localhost/" + db;
+        this.db = db;
         return this;
     }
 
@@ -109,7 +110,7 @@ public class Mysql extends AbstractScriptModule{
      * @return resultSet of your query
      */
     public ResultSetObject query(String sql) {
-        Statement stmt = null;
+
         try {
             stmt = connection.createStatement();
             String[] queryType = sql.split(" ");
@@ -123,14 +124,19 @@ public class Mysql extends AbstractScriptModule{
             }
         } catch (SQLException e) {
             getScriptLogger().error("A SQL exception occurred: "+ e.getMessage(), e);
-        } finally {
-            try {
-                stmt.close();
-            } catch (SQLException e) {
-                getScriptLogger().error("Cannot close the sql statement: "+ e.getMessage(), e);
-            }
         }
-
         return null;
+    }
+
+    /**
+     * Close the database statement & database connection
+     */
+    public void close() {
+        try {
+            stmt.close();
+            connection.close();
+        } catch (SQLException e) {
+            getScriptLogger().error("Cannot close the sql statement: "+ e.getMessage(), e);
+        }
     }
 }
