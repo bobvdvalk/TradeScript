@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
 <head>
     <meta charset="UTF-8"/>
-    <title>Fiddlr - WCMManager</title>
+    <title>Overview - WCMManager</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap-theme.css}"/>
@@ -13,7 +13,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{css/AdminLTE.min.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{css/skin-blue-light.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{css/custom.css}"/>
-
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -97,6 +96,11 @@
                 <li>
                     <a href="#">
                         <i class="fa fa-file-code-o"></i> <span>Script manager</span>
+                    </a>
+                </li>
+                <li>
+                    <a th:href="@{/}">
+                        <i class="fa fa-clock-o"></i> <span>Timeline</span>
                     </a>
                 </li>
                 <li>
