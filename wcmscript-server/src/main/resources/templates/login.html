@@ -1,18 +1,19 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc">
+<html lang="en" xmlns:th="http://www.springframework.org/schema/mvc"
+        xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <meta charset="UTF-8" />
     <title>Login - WCMManager</title>
 
-    <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" type="text/css" href="../static/bower_components/bootstrap/dist/css/bootstrap-theme.css" />
+    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap-theme.css}" />
     <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
     <link rel="stylesheet" type="text/css" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css" />
 
-    <link rel="stylesheet" type="text/css" href="../static/css/AdminLTE.min.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/skin-blue-light.css" />
-    <link rel="stylesheet" type="text/css" href="../static/css/custom.css" />
-    <link rel="stylesheet" href="../static/plugins/iCheck/square/blue.css"/>
+    <link rel="stylesheet" type="text/css" th:href="@{css/AdminLTE.min.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/skin-blue-light.css}" />
+    <link rel="stylesheet" type="text/css" th:href="@{css/custom.css}" />
+    <link rel="stylesheet" th:href="@{plugins/iCheck/square/blue.css}"/>
 
     <!--[if lt IE 9]>
     <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -23,9 +24,9 @@
 <div class="login-box">
     <div class="login-logo">
         <b>WCMS</b>manager<br />
-        A <b>Mawoo</b> product.
+        a <strong>Mawoo</strong> product
     </div><!-- /.login-logo -->
-    <div class="login-box-body">
+    <div class="login-box-body clearfix">
         <p class="login-box-msg" th:if="${param.error}">
             Invalid username and password.
         </p>
@@ -41,20 +42,22 @@
                 <input type="password" name="password" class="form-control" placeholder="Password"/>
                 <span class="glyphicon glyphicon-lock form-control-feedback"></span>
             </div>
-            <div class="col-xs-4">
-                <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+            <div class="col-xs-12 signincontainer">
+                <div class="signinbutton">
+                    <button type="submit" class="btn btn-primary btn-block btn-flat">Sign In</button>
+                </div>
             </div><!-- /.col -->
         </form>
-    </div><!-- /.login-box-body -->
-</div><!-- /.login-box -->
-<script src="../static/bower_components/jquery/dist/jquery.min.js" type="text/javascript"></script>
-<script src="../static/bower_components/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="../static/js/slimScroll/jquery.slimscroll.min.js"></script>
-<script src="../static/js/fastclick/fastclick.min.js"></script>
-<script src="../static/js/app.min.js"></script>
-<script src="../static/js/demo.js"></script>
+    </div>
+</div>
+<script th:src="@{static/bower_components/jquery/dist/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{static/bower_components/bootstrap/dist/js/bootstrap.min.js}" type="text/javascript"></script>
+<script th:src="@{static/js/slimScroll/jquery.slimscroll.min.js}"></script>
+<script th:src="@{static/js/fastclick/fastclick.min.js}"></script>
+<script th:src="@{static/js/app.min.js}"></script>
+<script th:src="@{static/js/demo.js}"></script>
 
-<script src="../static/plugins/iCheck/icheck.min.js"></script>
+<script th:src="@{static/plugins/iCheck/icheck.min.js}"></script>
 <script>
     $(function () {
         $('input').iCheck({
