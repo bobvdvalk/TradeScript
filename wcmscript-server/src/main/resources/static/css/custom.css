@@ -3,6 +3,15 @@
     overflow: scroll;
 }
 
+.signinbutton {
+    float: right !important;
+    padding: 0;
+}
+
+.signincontainer{
+    padding:0;
+}
+
 #INFO {
     font-weight: bold;
     color: #0000FF;
