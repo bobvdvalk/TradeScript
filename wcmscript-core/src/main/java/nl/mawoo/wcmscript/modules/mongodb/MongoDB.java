@@ -19,6 +19,7 @@ package nl.mawoo.wcmscript.modules.mongodb;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoDatabase;
 import nl.mawoo.wcmscript.AbstractScriptModule;
 
 import java.util.Arrays;
@@ -32,6 +33,8 @@ public class MongoDB extends AbstractScriptModule {
     private String currentDatabase = null;
     private String host = "127.0.0.1";
     private int port = 27017;
+
+    private MongoDatabase database;
 
     public MongoDB() {
 
@@ -81,6 +84,15 @@ public class MongoDB extends AbstractScriptModule {
         MongoClient client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
         client.getDatabase(currentDatabase);
         return this;
+    }
+
+    /**
+     * Get a MongoDB collection and return a MongoCollectionHanlder
+     * @param collection collection you want to use
+     * @return MongoCollectionHandler to CRUD
+     */
+    public MongoCollectionHandler getCollection(String collection) {
+        return new MongoCollectionHandler(database.getCollection(collection));
     }
 }
 
