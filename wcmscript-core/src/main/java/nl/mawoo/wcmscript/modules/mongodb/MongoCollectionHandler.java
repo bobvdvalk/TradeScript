@@ -16,9 +16,7 @@
 
 package nl.mawoo.wcmscript.modules.mongodb;
 
-import com.mongodb.DBObject;
 import com.mongodb.client.MongoCollection;
-import com.mongodb.util.JSON;
 import org.bson.Document;
 
 /**
@@ -46,4 +44,21 @@ public class MongoCollectionHandler {
         collection.insertOne(document);
     }
 
+    /**
+     * Count everything in a collection
+     * @return number of input
+     */
+    public long count() {
+        return collection.count();
+    }
+
+    /**
+     * Count everything you want with the query
+     * @param json query you want to use to find data
+     * @return
+     */
+    public long count(String json) {
+        Document document = Document.parse(json);
+        return collection.count(document);
+    }
 }
