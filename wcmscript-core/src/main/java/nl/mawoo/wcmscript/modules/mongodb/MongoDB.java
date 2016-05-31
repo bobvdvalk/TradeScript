@@ -44,8 +44,9 @@ public class MongoDB extends AbstractScriptModule {
      * Set a database that has to be used
      * @param currentDatabase database you want to use
      */
-    public void setDatabase(String currentDatabase) {
+    public MongoDB setDatabase(String currentDatabase) {
         this.currentDatabase = currentDatabase;
+        return this;
     }
 
     /**
@@ -53,12 +54,14 @@ public class MongoDB extends AbstractScriptModule {
      * default: 127.0.0.1
      * @param host
      */
-    public void setHost(String host) {
+    public MongoDB setHost(String host) {
         this.host = host;
+        return this;
     }
 
-    public void setPort(int port) {
+    public MongoDB setPort(int port) {
         this.port = port;
+        return this;
     }
 
     /**
@@ -89,7 +92,7 @@ public class MongoDB extends AbstractScriptModule {
     /**
      * Get a MongoDB collection and return a MongoCollectionHanlder
      * @param collection collection you want to use
-     * @return MongoCollectionHandler to CRUD
+     * @return MongoCollectionHandler to CRUDd
      */
     public MongoCollectionHandler getCollection(String collection) {
         return new MongoCollectionHandler(database.getCollection(collection));
