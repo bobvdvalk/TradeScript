@@ -30,7 +30,7 @@ import java.util.Arrays;
  * @author Bob van der Valk
  */
 public class MongoDB extends AbstractScriptModule {
-    private String currentDatabase = null;
+    private String currentDatabase;
     private String host = "127.0.0.1";
     private int port = 27017;
 
@@ -71,7 +71,7 @@ public class MongoDB extends AbstractScriptModule {
      */
     public MongoDB connect() {
         MongoClient client = new MongoClient(new ServerAddress(host, port));
-        client.getDatabase(currentDatabase);
+        database = client.getDatabase(currentDatabase);
         return this;
     }
 
@@ -85,7 +85,7 @@ public class MongoDB extends AbstractScriptModule {
     public MongoDB connectAuthenticated(String username, String password) {
         MongoCredential mongoCredential = MongoCredential.createMongoCRCredential(username, this.currentDatabase, password.toCharArray());
         MongoClient client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
-        client.getDatabase(currentDatabase);
+        database = client.getDatabase(currentDatabase);
         return this;
     }
 
