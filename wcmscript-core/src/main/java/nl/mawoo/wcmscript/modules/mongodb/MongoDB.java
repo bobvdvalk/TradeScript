@@ -34,6 +34,7 @@ public class MongoDB extends AbstractScriptModule {
     private String host = "127.0.0.1";
     private int port = 27017;
 
+    private MongoClient client;
     private MongoDatabase database;
 
     public MongoDB() {
@@ -70,7 +71,7 @@ public class MongoDB extends AbstractScriptModule {
      * @return this
      */
     public MongoDB connect() {
-        MongoClient client = new MongoClient(new ServerAddress(host, port));
+        client = new MongoClient(new ServerAddress(host, port));
         database = client.getDatabase(currentDatabase);
         return this;
     }
@@ -84,7 +85,7 @@ public class MongoDB extends AbstractScriptModule {
      */
     public MongoDB connectAuthenticated(String username, String password) {
         MongoCredential mongoCredential = MongoCredential.createMongoCRCredential(username, this.currentDatabase, password.toCharArray());
-        MongoClient client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
+        client = new MongoClient(new ServerAddress(host, port), Arrays.asList(mongoCredential));
         database = client.getDatabase(currentDatabase);
         return this;
     }
@@ -96,6 +97,13 @@ public class MongoDB extends AbstractScriptModule {
      */
     public MongoCollectionHandler getCollection(String collection) {
         return new MongoCollectionHandler(database.getCollection(collection));
+    }
+
+    /**
+     * Close the MongoDB connection
+     */
+    public void close() {
+        client.close();
     }
 }
 
