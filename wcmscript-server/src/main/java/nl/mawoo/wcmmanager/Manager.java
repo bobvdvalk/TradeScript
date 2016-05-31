@@ -17,7 +17,9 @@ package nl.mawoo.wcmmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.mongo.MongoDataAutoConfiguration;
 import org.springframework.boot.autoconfigure.data.mongo.MongoRepositoriesAutoConfiguration;
+import org.springframework.boot.autoconfigure.mongo.MongoAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 
@@ -27,7 +29,7 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
  *
  * @author Bob van der Valk
  */
-@SpringBootApplication(exclude = MongoRepositoriesAutoConfiguration.class)
+@SpringBootApplication(exclude = {MongoRepositoriesAutoConfiguration.class, MongoDataAutoConfiguration.class, MongoAutoConfiguration.class})
 public class Manager extends SpringBootServletInitializer {
 
     @Override
