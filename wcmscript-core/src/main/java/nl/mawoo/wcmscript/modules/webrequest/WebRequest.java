@@ -16,6 +16,7 @@
 
 package nl.mawoo.wcmscript.modules.webrequest;
 
+import nl.mawoo.wcmscript.AbstractScriptModule;
 import org.apache.http.client.fluent.Request;
 
 /**
@@ -23,7 +24,7 @@ import org.apache.http.client.fluent.Request;
  *
  * @author Bob van der Valk
  */
-public class WebRequest {
+public class WebRequest extends AbstractScriptModule {
     public WebRequest() {
     }
 
