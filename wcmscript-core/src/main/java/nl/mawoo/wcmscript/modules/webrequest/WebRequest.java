@@ -25,7 +25,9 @@ import org.apache.http.client.fluent.Request;
  * @author Bob van der Valk
  */
 public class WebRequest extends AbstractScriptModule {
+
     public WebRequest() {
+    
     }
 
     /**
@@ -36,7 +38,7 @@ public class WebRequest extends AbstractScriptModule {
      * @param request url you want to send a get request to
      * @return return REQUEST object
      */
-    public static Request Get(String request) {
+    public Request get(String request) {
         return Request.Get(request);
     }
 
@@ -48,7 +50,7 @@ public class WebRequest extends AbstractScriptModule {
      * @param request url you want to send a get request to
      * @return REQUEST object
      */
-    public static Request Post(String request) {
+    public Request post(String request) {
         return Request.Post(request);
     }
 }
