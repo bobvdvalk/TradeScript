@@ -16,10 +16,9 @@
 
 package nl.mawoo.wcmscript.modules.mongodb;
 
-import com.google.gson.Gson;
-import com.mongodb.BasicDBList;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
+import com.mongodb.client.result.UpdateResult;
 import org.bson.Document;
 
 /**
@@ -38,6 +37,15 @@ public class MongoCollectionHandler {
         this.collection = collection;
     }
 
+    /**
+     * Insert a json object into the database
+     * @param json object  input from the user
+     */
+    public void insert(String json) {
+        Document document = Document.parse(json);
+        collection.insertOne(document);
+    }
+    
     /**
      * Insert a json object into the database
      * @param json object  input from the user
@@ -76,11 +84,53 @@ public class MongoCollectionHandler {
 
     /**
      * Find what you want using input
-     * @param input json string of what you want to get
+     * @param json json string of what you want to get
      * @return String with find output
      */
     public MongoCursor<Document> find(String json) {
         Document input = Document.parse(json);
         return collection.find(input).iterator();
+    }
+
+    /**
+     * Update something in MongoDB
+     * @param json input that has to be changed
+     * @param json2 new input
+     */
+    public Document updateOne(String json, String json2) {
+        Document input = Document.parse(json);
+        Document input2 = Document.parse(json2);
+
+        return collection.findOneAndReplace(input, input2);
+    }
+
+    /**
+     * Update many records in a collection
+     * @param json input that has to be changed
+     * @param json2 new input
+     */
+    public UpdateResult updateMany(String json, String json2) {
+        Document input = Document.parse(json);
+        Document input2 = Document.parse(json2);
+
+        return collection.updateMany(input, input2);
+    }
+
+    /**
+     * Delete 1 record from the collection
+     * @param json input you want to delete
+     */
+    public void deleteOne(String json) {
+        Document input = Document.parse(json);
+        collection.deleteOne(input);
+    }
+
+    /**
+     * Delete multiple records from a collection
+     * @param json information in records you want to delete
+     */
+    public void deleteMany(String json) {
+        Document input = Document.parse(json);
+        collection.deleteMany(input);
     }
 }
