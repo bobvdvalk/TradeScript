@@ -16,7 +16,10 @@
 
 package nl.mawoo.wcmscript.modules.mongodb;
 
+import com.google.gson.Gson;
+import com.mongodb.BasicDBList;
 import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoCursor;
 import org.bson.Document;
 
 /**
@@ -60,5 +63,39 @@ public class MongoCollectionHandler {
     public long count(String json) {
         Document document = Document.parse(json);
         return collection.count(document);
+    }
+
+    /**
+     * Find everything in the collection
+     * @return json String of the collection
+     */
+    public String find() {
+        MongoCursor<Document> output = collection.find().iterator();
+
+        BasicDBList list = new BasicDBList();
+        while(output.hasNext()) {
+            Document doc = output.next();
+            list.add(doc);
+        }
+
+        return new Gson().toJson(list);
+    }
+
+    /**
+     * Find what you want using input
+     * @param input json string of what you want to get
+     * @return String with find output
+     */
+    public String find(String json) {
+       Document input = Document.parse(json);
+       MongoCursor<Document> output = collection.find(input).iterator();
+
+        BasicDBList list = new BasicDBList();
+        while(output.hasNext()) {
+            Document doc = output.next();
+            list.add(doc);
+        }
+
+        return new Gson().toJson(list);
     }
 }
