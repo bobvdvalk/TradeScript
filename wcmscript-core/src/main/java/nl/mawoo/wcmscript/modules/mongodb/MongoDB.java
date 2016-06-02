@@ -60,6 +60,11 @@ public class MongoDB extends AbstractScriptModule {
         return this;
     }
 
+    /**
+     * Set a port other then default
+     * @param port
+     * @return
+     */
     public MongoDB setPort(int port) {
         this.port = port;
         return this;
