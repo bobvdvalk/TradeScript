@@ -70,34 +70,17 @@ public class MongoCollectionHandler {
      * TODO: Fix to a iterable list with example how to use in nashorn
      * @return json String of the collection
      */
-    public String find() {
-        MongoCursor<Document> output = collection.find().iterator();
-
-        BasicDBList list = new BasicDBList();
-        while(output.hasNext()) {
-            Document doc = output.next();
-            list.add(doc);
-        }
-
-        return new Gson().toJson(list);
+    public MongoCursor<Document> find() {
+        return collection.find().iterator();
     }
 
     /**
      * Find what you want using input
-     * TODO: Fix to a iterable list with example how to use in nashorn
      * @param input json string of what you want to get
      * @return String with find output
      */
-    public String find(String json) {
-       Document input = Document.parse(json);
-       MongoCursor<Document> output = collection.find(input).iterator();
-
-        BasicDBList list = new BasicDBList();
-        while(output.hasNext()) {
-            Document doc = output.next();
-            list.add(doc);
-        }
-
-        return new Gson().toJson(list);
+    public MongoCursor<Document> find(String json) {
+        Document input = Document.parse(json);
+        return collection.find(input).iterator();
     }
 }
