@@ -67,6 +67,7 @@ public class MongoCollectionHandler {
 
     /**
      * Find everything in the collection
+     * TODO: Fix to a iterable list with example how to use in nashorn
      * @return json String of the collection
      */
     public String find() {
@@ -83,6 +84,7 @@ public class MongoCollectionHandler {
 
     /**
      * Find what you want using input
+     * TODO: Fix to a iterable list with example how to use in nashorn
      * @param input json string of what you want to get
      * @return String with find output
      */
