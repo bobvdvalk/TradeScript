@@ -101,7 +101,7 @@ public class MongoDB extends AbstractScriptModule {
      * @return MongoCollectionHandler to CRUDd
      */
     public MongoCollectionHandler getCollection(String collection) {
-        return new MongoCollectionHandler(database.getCollection(collection));
+        return new MongoCollectionHandler(database.getCollection(collection), getScriptLogger());
     }
 
     /**

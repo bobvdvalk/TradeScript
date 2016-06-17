@@ -19,6 +19,7 @@ package nl.mawoo.wcmscript.modules.mongodb;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoCursor;
 import com.mongodb.client.result.UpdateResult;
+import nl.mawoo.wcmscript.logger.ScriptLogger;
 import org.bson.Document;
 
 /**
@@ -28,13 +29,16 @@ import org.bson.Document;
  */
 public class MongoCollectionHandler {
     private MongoCollection<Document> collection;
+    private ScriptLogger scriptLogger;
 
     /**
      * This is called by the MongoDB class
      * @param collection collection that is used by the user
+     * @param scriptLogger
      */
-    public MongoCollectionHandler(MongoCollection<Document> collection) {
+    public MongoCollectionHandler(MongoCollection<Document> collection, ScriptLogger scriptLogger) {
         this.collection = collection;
+        this.scriptLogger = scriptLogger;
     }
 
     /**
@@ -103,15 +107,13 @@ public class MongoCollectionHandler {
     }
 
     /**
-     * Update many records in a collection
-     * TODO: fix this
+     * Update many records in a collection (NOT SUPPORTED)
+     * TODO: add update many
      * @param json input that has to be changed
      * @param json2 new input
      */
-    public UpdateResult updateMany(String json, String json2) {
-        Document input = Document.parse(json);
-        Document input2 = Document.parse(json2);
-        return collection.updateMany(input, input2);
+    public void updateMany(String json, String json2) {
+        scriptLogger.error("update many is not supported yet.");
     }
 
     /**
