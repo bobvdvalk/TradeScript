@@ -75,7 +75,6 @@ public class MongoCollectionHandler {
 
     /**
      * Find everything in the collection
-     * TODO: Fix to a iterable list with example how to use in nashorn
      * @return json String of the collection
      */
     public MongoCursor<Document> find() {
@@ -97,22 +96,21 @@ public class MongoCollectionHandler {
      * @param json input that has to be changed
      * @param json2 new input
      */
-    public Document updateOne(String json, String json2) {
+    public UpdateResult updateOne(String json, String json2) {
         Document input = Document.parse(json);
         Document input2 = Document.parse(json2);
-
-        return collection.findOneAndReplace(input, input2);
+        return collection.replaceOne(input, input2);
     }
 
     /**
      * Update many records in a collection
+     * TODO: fix this
      * @param json input that has to be changed
      * @param json2 new input
      */
     public UpdateResult updateMany(String json, String json2) {
         Document input = Document.parse(json);
         Document input2 = Document.parse(json2);
-
         return collection.updateMany(input, input2);
     }
 
