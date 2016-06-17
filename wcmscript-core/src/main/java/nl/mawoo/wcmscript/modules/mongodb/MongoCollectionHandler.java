@@ -113,7 +113,7 @@ public class MongoCollectionHandler {
      * @param json2 new input
      */
     public void updateMany(String json, String json2) {
-        scriptLogger.error("update many is not supported yet.");
+        scriptLogger.error("\"updateMany()\" is not supported yet.");
     }
 
     /**
