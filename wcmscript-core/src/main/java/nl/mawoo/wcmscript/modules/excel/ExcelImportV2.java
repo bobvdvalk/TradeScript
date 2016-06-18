@@ -74,4 +74,16 @@ public class ExcelImportV2 extends AbstractScriptModule {
     public Iterator<Row> rowIterator() {
         return sheet.rowIterator();
     }
+
+    /**
+     * Close everything (workbook & inputStream
+     */
+    public void close() {
+        try {
+            inputStream.close();
+            workbook.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
