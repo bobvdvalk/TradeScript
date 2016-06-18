@@ -30,7 +30,6 @@ import java.util.*;
 /**
  * This class is responsible to read excel files and put it in a object.
  *
- * @author Bob van der Valk
  * @author Joshua Jenster
  */
 public class ExcelImport extends AbstractScriptModule {
