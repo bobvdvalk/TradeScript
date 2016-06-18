@@ -40,7 +40,13 @@ public class WCMScriptService {
         try {
             wcmScript.eval(content);
         } catch (Exception e) {
-            result.setError(e.getLocalizedMessage());
+            String message = e.getLocalizedMessage();
+            
+            if(message == null)  {
+                message = e.getClass().getSimpleName();
+            }
+
+            result.setError(message);
         }
         result.executionDone();
         return result;

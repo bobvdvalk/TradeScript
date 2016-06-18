@@ -4,3 +4,5 @@ nl.mawoo.wcmscript.modules.dbconnector.Mysql
 nl.mawoo.wcmscript.modules.customfile.CustomFile
 nl.mawoo.wcmscript.modules.excel.ExcelExport
 nl.mawoo.wcmscript.modules.excel.ExcelImport
+nl.mawoo.wcmscript.modules.mongodb.MongoDB
+nl.mawoo.wcmscript.modules.webrequest.WebRequest
