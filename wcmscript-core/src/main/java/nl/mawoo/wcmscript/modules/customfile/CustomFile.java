@@ -41,18 +41,20 @@ public class CustomFile extends AbstractScriptModule{
      * opens a file
      * @param fileName
      */
-    public void open(String fileName){
+    public StringBuffer open(String fileName){
         File file = new File(fileName);
         BufferedReader reader = null;
         try {
              reader = new BufferedReader(new FileReader(file));
 
+            StringBuffer output = new StringBuffer();
             String line = null;
             while ((line = reader.readLine()) != null) {
-                getScriptLogger().info(line);
+                output.append(line);
             }
-
             reader.close();
+
+            return output;
         } catch (IOException e){
             getScriptLogger().error(e.getMessage());
         } finally {
@@ -62,6 +64,7 @@ public class CustomFile extends AbstractScriptModule{
                 getScriptLogger().error("Cannot close the file: "+ e.getMessage());
             }
         }
+        return null;
     }
 
     /***
