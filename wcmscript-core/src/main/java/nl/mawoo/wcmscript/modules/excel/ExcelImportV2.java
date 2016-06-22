@@ -16,7 +16,6 @@
 package nl.mawoo.wcmscript.modules.excel;
 
 import nl.mawoo.wcmscript.AbstractScriptModule;
-import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
@@ -29,6 +28,7 @@ import java.util.Iterator;
 
 /**
  * This class is responsible to read/import excel files
+ * TODO: There has to be a way to intergrate this better into WCMScript
  *
  * @author Bob van der Valk
  */
@@ -73,6 +73,14 @@ public class ExcelImportV2 extends AbstractScriptModule {
      */
     public Iterator<Row> rowIterator() {
         return sheet.rowIterator();
+    }
+
+    /**
+     * testing method
+     * TODO: complete this method to show everything to make it easier.
+     */
+    public void showEverything() {
+
     }
 
     /**
