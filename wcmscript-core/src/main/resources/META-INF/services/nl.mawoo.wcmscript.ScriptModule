@@ -7,3 +7,4 @@ nl.mawoo.wcmscript.modules.excel.ExcelImportV1
 nl.mawoo.wcmscript.modules.excel.ExcelImport
 nl.mawoo.wcmscript.modules.mongodb.MongoDB
 nl.mawoo.wcmscript.modules.webrequest.WebRequest
+nl.mawoo.wcmscript.modules.powerpoint.PowerpointImporter
