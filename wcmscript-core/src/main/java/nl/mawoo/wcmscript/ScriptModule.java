@@ -27,7 +27,7 @@ import com.google.inject.Module;
  * Implementations of this interface must have an empty constructor. After the constructor is invoked the members will
  * by injected by the framework. This means only member and method injection can be used.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  * @see AbstractScriptModule
  */
 public interface ScriptModule extends Module {

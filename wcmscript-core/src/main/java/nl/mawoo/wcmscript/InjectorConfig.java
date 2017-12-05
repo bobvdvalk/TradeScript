@@ -26,9 +26,9 @@ import java.util.UUID;
 
 
 /**
- * This class contains the injection configuration for WCMScript.
+ * This class contains the injection startup for WCMScript.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 class InjectorConfig extends AbstractModule {
     private final UUID instanceId;

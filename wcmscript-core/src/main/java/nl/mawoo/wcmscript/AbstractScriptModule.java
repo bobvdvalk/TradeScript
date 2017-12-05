@@ -23,7 +23,7 @@ import nl.mawoo.wcmscript.logger.ScriptLogger;
 /**
  * This class represents an abstract implementation of the {@link ScriptModule}.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public abstract class AbstractScriptModule extends AbstractModule implements ScriptModule {
     private final String codeIdentity;

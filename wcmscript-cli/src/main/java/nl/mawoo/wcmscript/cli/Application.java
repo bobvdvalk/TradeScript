@@ -33,7 +33,7 @@ import java.util.UUID;
  * The command line interface allows you to stream in code over std in that is executed live. If an error occurs
  * execution of the current line will be stopped.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public class Application {
     private static final Logger LOGGER = LoggerFactory.getLogger(Application.class);

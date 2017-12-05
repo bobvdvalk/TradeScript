@@ -19,7 +19,7 @@ package nl.mawoo.wcmscript.logger;
  * This class provides a simpler api for implementations of the {@link ScriptLogger}.
  *
  * @author Bob van der Valk
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public abstract class AbstractScriptLogger implements ScriptLogger {
     private final String name;

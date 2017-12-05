@@ -65,7 +65,6 @@ public class WCMScript {
     public WCMScript(ServiceLoader<ScriptModule> serviceLoader, Injector parentInjector) {
 
         LOGGER.info("Building WCMScript Engine");
-
         // Instantiate all modules
         for (ScriptModule module : serviceLoader) {
             modules.add(module);

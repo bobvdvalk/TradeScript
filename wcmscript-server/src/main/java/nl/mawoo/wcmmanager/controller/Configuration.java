@@ -19,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- * This is the controller for the configuration page
+ * This is the controller for the startup page
  *
  * @author Bob van der Valk
  */
@@ -29,6 +29,6 @@ public class Configuration {
 
     @RequestMapping("")
     public String config() {
-        return "configuration";
+        return "startup";
     }
 }

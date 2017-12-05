@@ -23,7 +23,7 @@ import java.util.*;
  * This class represents the result of the execution of a script.
  * It contains information about how the script was executed and what logging output was found.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public class ExecutionResult {
     private final Date start = new Date();

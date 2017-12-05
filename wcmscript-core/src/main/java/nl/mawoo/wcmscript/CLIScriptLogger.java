@@ -22,7 +22,7 @@ import org.slf4j.LoggerFactory;
 /**
  * This logger will output all messages to the console using slf4j.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 class CLIScriptLogger implements ScriptLogger {
     private static final  Logger LOGGER = LoggerFactory.getLogger("WCMS");

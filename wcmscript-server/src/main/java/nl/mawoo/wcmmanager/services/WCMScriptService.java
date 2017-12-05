@@ -28,7 +28,7 @@ import java.util.UUID;
 /**
  * This service is responsible for the execution of WCMScript scripts.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 @Service
 public class WCMScriptService {

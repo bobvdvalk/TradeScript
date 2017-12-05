@@ -19,7 +19,7 @@ package nl.mawoo.wcmscript.logger;
  * This interface represents a logger that will log messages for a specific script execution.
  * The code for this interface is a minimal version of {@link org.slf4j.Logger}.
  *
- * @author Thomas Biesaart
+ * @author Bob van der Valk
  */
 public interface ScriptLogger {
 
