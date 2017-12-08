@@ -23,3 +23,6 @@ buildNumber.properties
 
 ### Bower
 bower_components/
+yarn.lock
+yarn.error
+wcmscript-server/yarn-error.log
