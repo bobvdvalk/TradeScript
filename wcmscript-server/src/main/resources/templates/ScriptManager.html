@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.springframework.org/schema/mvc" lang="en">
 <head>
     <meta charset="UTF-8"/>
-    <title>Configuration - WCMManager</title>
+    <title>Manager - TradeScript Manager</title>
 
     <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap.css}"/>
     <link rel="stylesheet" type="text/css" th:href="@{bower_components/bootstrap/dist/css/bootstrap-theme.css}"/>
@@ -26,7 +26,7 @@
     <section class="content-header">
         <h1>
             Script Manager
-            <small>Save scripts here</small>
+            <small>Manage scripts here</small>
         </h1>
     </section>
 
@@ -35,56 +35,20 @@
             <div class="col-md-10">
                 <div class="box">
                     <div class="box-header with-border">
-                        <h3 class="box-title">Projects</h3>
+                        <h3 class="box-title">Scripts</h3>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <table class="table table-bordered">
                             <tr>
                                 <th style="width: 10px">#</th>
-                                <th>Name</th>
-                                <th>Description</th>
+                                <th>filename: </th>
+                                <th>Creation date</th>
                                 <th style="width: 40px"></th>
                             </tr>
-                            <tr>
-                                <td>1.</td>
-                                <td>Update software</td>
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-danger" style="width: 55%"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-red">55%</span></td>
-                            </tr>
-                            <tr>
-                                <td>2.</td>
-                                <td>Clean database</td>
-                                <td>
-                                    <div class="progress progress-xs">
-                                        <div class="progress-bar progress-bar-yellow" style="width: 70%"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-yellow">70%</span></td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>Cron job running</td>
-                                <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                        <div class="progress-bar progress-bar-primary" style="width: 30%"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-light-blue">30%</span></td>
-                            </tr>
-                            <tr>
-                                <td>4.</td>
-                                <td>Fix and squish bugs</td>
-                                <td>
-                                    <div class="progress progress-xs progress-striped active">
-                                        <div class="progress-bar progress-bar-success" style="width: 90%"></div>
-                                    </div>
-                                </td>
-                                <td><span class="badge bg-green">90%</span></td>
+                            <tr th:each="script : ${scripts}">
+                                <td th:text="${script.Name}"></td>
+                                <td th:text="${script.CreationDate}"></td>
                             </tr>
                         </table>
                     </div>
@@ -93,7 +57,6 @@
         </div>
     </section>
 </div>
-
 <div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

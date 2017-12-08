@@ -21,6 +21,8 @@ public class ScriptController {
     @RequestMapping("")
     public String index(Model model) {
         model.addAttribute("projects", projectDao.findAll());
+        model.addAttribute("folders", folderDao.findAll());
+        model.addAttribute("scripts", scriptDao.findAll());
         return "ScriptManager";
     }
 }
