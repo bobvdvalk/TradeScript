@@ -26,11 +26,9 @@ public class Bitstamp extends AbstractScriptModule implements Exchange {
     private String privateKey = "";
 
     public String currentPrice(String product) {
-        getScriptLogger().debug("Bitstamp - Getting current price of: " + product);
         String url = "https://www.bitstamp.net/api/v2/ticker/" + product + "/";
         WebRequest request = new WebRequest();
         try {
-            //String output = request.get(url).execute().returnContent().asString();
             return request.get(url).execute().returnContent().asString();
         } catch (IOException e) {
             getScriptLogger().error("Something went wrong with the request", e);

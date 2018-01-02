@@ -20,6 +20,8 @@ import com.google.inject.AbstractModule;
 import com.google.inject.Inject;
 import nl.mawoo.wcmscript.logger.ScriptLogger;
 
+import java.util.Properties;
+
 /**
  * This class represents an abstract implementation of the {@link ScriptModule}.
  *

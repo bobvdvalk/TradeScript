@@ -29,6 +29,11 @@
     <artifactId>wcmscript-core</artifactId>
 
     <dependencies>
+        <dependency>
+            <groupId>com.github.bunq</groupId>
+            <artifactId>sdk_java</artifactId>
+            <version>0.12.0</version>
+        </dependency>
         <!-- COMPILE DEPENDENCIES -->
         <dependency>
             <groupId>org.reflections</groupId>

@@ -17,6 +17,8 @@ package nl.mawoo.wcmmanager.controller;
 
 import nl.mawoo.wcmmanager.services.ExecutionResult;
 import nl.mawoo.wcmmanager.services.WCMScriptService;
+import nl.mawoo.wcmmanager.storage.Script;
+import nl.mawoo.wcmmanager.storage.ScriptDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.script.ScriptException;
+import java.sql.Date;
 
 /**
  * WCMS Fiddle
@@ -37,6 +40,9 @@ import javax.script.ScriptException;
 @RequestMapping("/fiddle")
 public class Fiddle {
     private final WCMScriptService scriptService;
+
+    @Autowired
+    private ScriptDao scriptDao;
 
     @Autowired
     public Fiddle(WCMScriptService scriptService) {
@@ -66,6 +72,13 @@ public class Fiddle {
         return scriptService.run(content);
     }
 
+    @RequestMapping(value = "save", method = RequestMethod.POST)
+    @ResponseBody
+    public String save(@RequestParam("code") String content, @RequestParam("name") String name) {
+        scriptDao.save(new Script(name, content, new Date(new java.util.Date().getTime())));
+        return "succes";
+    }
+
     /**
      * Responsible to show the console output
      *
@@ -74,7 +87,6 @@ public class Fiddle {
     @RequestMapping(value = "/console", method = RequestMethod.GET)
     @SuppressWarnings("squid:S3400") // This is how to load a template
     public String consoleOutput() {
-
         return "console";
     }
 }

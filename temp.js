@@ -1,4 +1,4 @@
-/**
+/*
  * Copyright 2016 Mawoo Nederland
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,17 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package nl.mawoo.wcmscript.modules.trader;
+use("Bitstamp");
 
-import nl.mawoo.wcmscript.AbstractScriptModule;
-
-public class Management extends AbstractScriptModule {
-
-    public Trade trade() {
-        return new Trade();
-    }
-
-    public Bunq bankAccount() {
-        return new Bunq();
-    }
-}
+var product = "XRPEUR";
+var raw_data = Bitstamp.currentPrice(product);
+var data = JSON.parse(raw_data);
+info(raw_data)
+info("Current portfolio:");
+var xrp = 134.10108;
+info(xrp +" XRP");
+info("ask price: "+ data.ask);
+var cal = data.ask * xrp;
+info("Total value: "+ cal);

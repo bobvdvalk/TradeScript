@@ -24,7 +24,6 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import java.util.UUID;
 
-
 /**
  * This class contains the injection startup for WCMScript.
  *
