@@ -21,6 +21,7 @@ import com.bunq.sdk.http.BunqResponse;
 import com.bunq.sdk.model.generated.endpoint.MonetaryAccount;
 import com.bunq.sdk.model.generated.endpoint.MonetaryAccountBank;
 import com.bunq.sdk.model.generated.endpoint.Payment;
+import com.google.gson.Gson;
 import nl.mawoo.wcmscript.AbstractScriptModule;
 
 import java.util.List;
@@ -43,9 +44,11 @@ public class Bunq extends AbstractScriptModule {
      *
      * @return
      */
-    public MonetaryAccountBank account() {
+    public String account() {
         MonetaryAccount account = MonetaryAccount.get(this.apiContext, 197309, 648539).getValue();
-        return account.getMonetaryAccountBank();
+        MonetaryAccountBank bank = account.getMonetaryAccountBank();
+        AccountInfo accountInfo = new AccountInfo(bank.getId(), bank.getDescription(), bank.getUserId(), bank.getBalance());
+        return new Gson().toJson(accountInfo);
     }
 
     public List<Payment> getPayments() {

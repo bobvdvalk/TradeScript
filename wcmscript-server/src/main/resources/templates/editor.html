@@ -36,11 +36,10 @@
                     <h3 class="box-title">
                         <a href="#" onclick="javascript:run();return false;">
                         <i class="fa fa-caret-square-o-right"></i></a>
-                        <form action="#" method="post">
-                            <input type="text" name="filename" />
+                        <form action="#" id="savescriptform" method="post" onsubmit="javascript:save();return false;">
+                            <input type="text" id="filename" name="filename" />
                             <button type="submit">save</button>
                         </form>
-                        <small id="save-success" class="label-success">saved</small>
                     </h3>
                     <div class="box-tools pull-right">
                         <button class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -72,7 +71,7 @@
 <script th:src="@{bower_components/ace-builds/src/ext-language_tools.js}"></script>
 
 <script type="text/javascript" th:inline="javascript">
-    var editor = ace.edit("editor")
+    var editor = ace.edit("editor");
     editor.setOptions({
         mode: "ace/mode/javascript",
         enableBasicAutocompletion: true,
@@ -91,30 +90,34 @@
                     {value: "use(\"FileSystem\")", score: 900, meta: "function"},
                     {value: "use(\"ExcelImport\")", score: 900, meta: "function"},
                     {value: "use(\"ExcelExport\")", score: 900, meta: "function"},
+                    {value: "use(\"Bitstamp\")", score: 900, meta: "function"},
 
                 {value: "Crawler", score: 1000, meta: "method"},
-                    {value: "Crawler.crawl()", score: 900, meta: "method"}
+                    {value: "Crawler.crawl()", score: 900, meta: "method"},
+                {value: "Bitstamp", score: 1000, meta: "method"},
+                    {value: "Bitstamp.currentPrice()", score: 1000, meta: "method"}
             ]);
         }
     });
 
     function save() {
-        var name = $("filename").find().val();
+        console.log("Save button pressed");
+        var name = $("#filename").find().val();
         var content = editor.getValue();
         $.ajax({
            type: "POST",
            url: "http://localhost:8080/fiddle/save",
-           data: {
-             name: filename,
-             content: content
-           },
+           data: "{'name':'"+ name +"', 'code': '"+ content +"'}",
            success: function(data) {
                if(data === "success") {
-                   console.log(filename +" is saved to the database");
+                   console.log(name +" is saved to the database");
                } else {
                    console.log("Something went wrong with saving the file");
                }
-           }
+           },
+            error: function(msg) {
+               console.log("Something went wrong", msg);
+            }
         });
     }
 

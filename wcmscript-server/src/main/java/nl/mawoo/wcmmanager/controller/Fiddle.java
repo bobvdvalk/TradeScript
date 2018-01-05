@@ -19,6 +19,8 @@ import nl.mawoo.wcmmanager.services.ExecutionResult;
 import nl.mawoo.wcmmanager.services.WCMScriptService;
 import nl.mawoo.wcmmanager.storage.Script;
 import nl.mawoo.wcmmanager.storage.ScriptDao;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -39,6 +41,8 @@ import java.sql.Date;
 @Controller
 @RequestMapping("/fiddle")
 public class Fiddle {
+    private final Logger logger = LoggerFactory.getLogger(Fiddle.class);
+
     private final WCMScriptService scriptService;
 
     @Autowired
@@ -74,9 +78,11 @@ public class Fiddle {
 
     @RequestMapping(value = "save", method = RequestMethod.POST)
     @ResponseBody
-    public String save(@RequestParam("code") String content, @RequestParam("name") String name) {
-        scriptDao.save(new Script(name, content, new Date(new java.util.Date().getTime())));
-        return "succes";
+    public String save(@RequestParam("name") String name, @RequestParam("code") String code) {
+        logger.info(name);
+        logger.info(code);
+        scriptDao.save(new Script(name, code, new Date(new java.util.Date().getTime())));
+        return "success";
     }
 
     /**
