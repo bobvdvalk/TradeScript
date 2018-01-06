@@ -22,8 +22,8 @@ import nl.mawoo.wcmscript.modules.webrequest.WebRequest;
 import java.io.IOException;
 
 public class Bitstamp extends AbstractScriptModule implements Exchange {
-    private String publicKey = "";
-    private String privateKey = "";
+    private String publicKey;
+    private String privateKey;
 
     public String currentPrice(String product) {
         String url = "https://www.bitstamp.net/api/v2/ticker/" + product + "/";
