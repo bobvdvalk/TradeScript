@@ -16,14 +16,17 @@
 package nl.mawoo.wcmscript.modules.exchanges.bitstamp;
 
 import nl.mawoo.wcmscript.AbstractScriptModule;
+import nl.mawoo.wcmscript.PropertyConfig;
 import nl.mawoo.wcmscript.modules.exchanges.Exchange;
 import nl.mawoo.wcmscript.modules.webrequest.WebRequest;
 
 import java.io.IOException;
+import java.util.Properties;
 
 public class Bitstamp extends AbstractScriptModule implements Exchange {
-    private String publicKey;
-    private String privateKey;
+    private Properties properties = new PropertyConfig().load();
+    private String publicKey = properties.getProperty("bitstamp-public");
+    private String privateKey = properties.getProperty("bitstamp-secret");
 
     public String currentPrice(String product) {
         String url = "https://www.bitstamp.net/api/v2/ticker/" + product + "/";

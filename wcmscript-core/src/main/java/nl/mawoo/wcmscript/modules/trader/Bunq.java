@@ -1,12 +1,12 @@
 /**
  * Copyright 2016 Mawoo Nederland
- * <p>
+ *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -23,12 +23,14 @@ import com.bunq.sdk.model.generated.endpoint.MonetaryAccountBank;
 import com.bunq.sdk.model.generated.endpoint.Payment;
 import com.google.gson.Gson;
 import nl.mawoo.wcmscript.AbstractScriptModule;
+import nl.mawoo.wcmscript.PropertyConfig;
 
 import java.util.List;
+import java.util.Properties;
 
 public class Bunq extends AbstractScriptModule {
-    //todo: put this in property file
-    private static final String API_KEY = "";
+    private final Properties config = new PropertyConfig().load();
+    private final String API_KEY = this.config.getProperty("bunq");
     private static final String DEVICE_DESCRIPTION = "TradeScript";
     private static final String API_CONTEXT_FILE_PATH = "bunq.conf";
 
