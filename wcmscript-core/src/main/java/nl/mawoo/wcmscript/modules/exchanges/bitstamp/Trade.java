@@ -19,7 +19,7 @@ public class Trade {
     }
 
     public String balance(String product) {
-        String data;
+        String data = "";
         try {
             Response request = Request.Post("https://www.bitstamp.net/api/v2/balance/")
                     .addHeader("key", this.publicKey)
