@@ -30,6 +30,7 @@
         <module>wcmscript-core</module>
         <module>wcmscript-cli</module>
         <module>wcmscript-server</module>
+        <module>missioncontrol</module>
     </modules>
 
     <build>
