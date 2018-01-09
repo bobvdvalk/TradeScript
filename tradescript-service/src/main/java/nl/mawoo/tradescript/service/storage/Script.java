@@ -1,4 +1,4 @@
-package nl.mawoo.missioncontrol.storage;
+package nl.mawoo.tradescript.service.storage;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -6,7 +6,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table
+@Table(name = "scripts")
 public class Script {
     @Id
     private Integer id;

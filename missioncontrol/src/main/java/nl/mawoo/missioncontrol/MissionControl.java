@@ -1,6 +1,5 @@
 package nl.mawoo.missioncontrol;
 
-import nl.mawoo.missioncontrol.services.Workspace;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.boot.Banner;
@@ -18,7 +17,6 @@ public class MissionControl implements CommandLineRunner {
 
     @Override
     public void run(String... strings) throws Exception {
-        Workspace workspace = Workspace.init();
-        LOGGER.info("Confirmed: "+ workspace.getFolder());
+        LOGGER.info("Hello World!");
     }
 }

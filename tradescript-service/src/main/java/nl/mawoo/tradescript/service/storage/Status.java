@@ -1,4 +1,4 @@
-package nl.mawoo.missioncontrol.storage;
+package nl.mawoo.tradescript.service.storage;
 
 public enum Status {
     SEEN,
