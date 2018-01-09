@@ -19,17 +19,16 @@ import java.util.stream.Collectors;
 
 import static java.lang.System.exit;
 
-@Component
 public class Workspace {
     private static final Logger LOGGER = LoggerFactory.getLogger(Workspace.class);
 
-    @Autowired
-    private ScriptDao scriptDao;
+    private final ScriptDao scriptDao;
 
     private String folder;
     private List<Script> scripts = new ArrayList<>();
 
-    public Workspace(String folder) {
+    public Workspace(ScriptDao scriptDao, String folder) {
+        this.scriptDao = scriptDao;
         this.folder = folder;
     }
 
@@ -67,6 +66,10 @@ public class Workspace {
 
     public String getFolder() {
         return folder;
+    }
+
+    public List<Script> getScripts() {
+        return scripts;
     }
 
     private String getFileExtension(File file) {

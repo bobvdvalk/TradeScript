@@ -1,14 +1,12 @@
 package nl.mawoo.tradescript.service.storage;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "scripts")
 public class Script {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @Column
     private String filename;
@@ -16,6 +14,9 @@ public class Script {
     private String path;
     @Column
     private Status status;
+
+    public Script() {
+    }
 
     public Script(String filename, String path, Status status) {
         this.filename = filename;

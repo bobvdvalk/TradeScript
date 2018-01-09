@@ -5,29 +5,26 @@ import nl.mawoo.tradescript.service.storage.Script;
 import nl.mawoo.tradescript.service.storage.ScriptDao;
 import nl.mawoo.tradescript.service.storage.Status;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/")
 public class Monitor {
 
     @Autowired
     private ScriptDao scriptDao;
 
-    @RequestMapping(method = RequestMethod.GET, path = "/overview")
+    @RequestMapping("/overview")
     @ResponseBody
-    public String show() {
-        Iterable<Script> scripts = scriptDao.findAll();
-        return new Gson().toJson(scripts);
+    public Iterable<Script> show() {
+        return scriptDao.findAll();
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.GET, path = "/overview")
-    public String show(@RequestParam String status) {
+    public String showFiltered(@RequestParam String status) {
         Status st = Status.valueOf(status);
         Iterable<Script> scripts = scriptDao.findAllByStatus(st);
         return new Gson().toJson(scripts);
