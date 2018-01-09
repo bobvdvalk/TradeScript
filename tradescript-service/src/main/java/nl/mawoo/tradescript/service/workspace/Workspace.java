@@ -1,12 +1,10 @@
-package nl.mawoo.tradescript.service.services;
+package nl.mawoo.tradescript.service.workspace;
 
 import nl.mawoo.tradescript.service.storage.Script;
 import nl.mawoo.tradescript.service.storage.ScriptDao;
 import nl.mawoo.tradescript.service.storage.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.IOException;
@@ -32,12 +30,13 @@ public class Workspace {
         this.folder = folder;
     }
 
-    public void scanWorkspace() {
+    public List<Script> scanWorkspace() {
         this.getScriptsFromFolder();
         LOGGER.info("I found these scripts:");
         for (Script script : scripts) {
             LOGGER.info(script.getFilename() + " - " + script.getStatus().toString());
         }
+        return scripts;
     }
 
     /**
@@ -54,7 +53,6 @@ public class Workspace {
                 if (this.getFileExtension(file).equals("trd")) {
                     Script script = new Script(file.getName(), file.getPath(), Status.SEEN);
                     scripts.add(script);
-                    scriptDao.save(script);
                 }
             }
         } catch (IOException e) {
@@ -64,12 +62,12 @@ public class Workspace {
         }
     }
 
-    public String getFolder() {
-        return folder;
+    public void save() {
+        scriptDao.save(this.scripts);
     }
 
-    public List<Script> getScripts() {
-        return scripts;
+    public String getFolder() {
+        return folder;
     }
 
     private String getFileExtension(File file) {
