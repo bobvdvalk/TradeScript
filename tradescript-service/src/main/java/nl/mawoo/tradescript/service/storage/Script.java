@@ -28,15 +28,31 @@ public class Script {
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public String getFilename() {
         return filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
     }
 
     public String getPath() {
         return path;
     }
 
+    public void setPath(String path) {
+        this.path = path;
+    }
+
     public Status getStatus() {
         return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

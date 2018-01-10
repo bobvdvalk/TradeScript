@@ -1,6 +1,5 @@
 package nl.mawoo.tradescript.service.controllers;
 
-import com.google.gson.Gson;
 import nl.mawoo.tradescript.service.storage.Script;
 import nl.mawoo.tradescript.service.storage.ScriptDao;
 import nl.mawoo.tradescript.service.storage.Status;
@@ -23,10 +22,10 @@ public class Monitor {
         return scriptDao.findAll();
     }
 
+    @RequestMapping("/overview/filter")
     @ResponseBody
-    public String showFiltered(@RequestParam String status) {
-        Status st = Status.valueOf(status);
-        Iterable<Script> scripts = scriptDao.findAllByStatus(st);
-        return new Gson().toJson(scripts);
+    public Iterable<Script> showFiltered(@RequestParam String status) {
+        Status st = Status.valueOf(status.toUpperCase());
+        return scriptDao.findAllByStatus(st);
     }
 }
