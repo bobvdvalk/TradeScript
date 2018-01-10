@@ -17,7 +17,6 @@ public class StartStop implements StartStopInterface {
         this.scriptDao = scriptDao;
     }
 
-
     @Override
     public Script start(String filename) throws UnableToStartException {
         logger.info("Starting: "+ filename +" script");
@@ -34,8 +33,12 @@ public class StartStop implements StartStopInterface {
     @Override
     public Script stop(String filename) throws UnableToStopException {
         Script script = scriptDao.findByFilename(filename);
-        script.setStatus(Status.STOPPED);
-        scriptDao.save(script);
+        if(script != null) {
+            script.setStatus(Status.STOPPED);
+            scriptDao.save(script);
+        } else {
+            throw new UnableToStopException();
+        }
         return script;
     }
 }
