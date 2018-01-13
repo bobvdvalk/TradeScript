@@ -7,6 +7,7 @@ import nl.mawoo.wcmscript.WCMScript;
 import nl.mawoo.wcmscript.logger.AbstractScriptLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.helpers.MessageFormatter;
 
 import java.util.UUID;
 
@@ -35,7 +36,11 @@ public class WcmService extends ScriptEventListener {
     private void run() {
         Runnable runnable = () -> {
             ExecutionResult result = new ExecutionResult(UUID.randomUUID());
-            WCMScript wcmScript = new WCMScript(result.getExecutionId());
+            WCMScript wcmScript = new WCMScript(result.getExecutionId(), new LogConfig(new ScriptLoggerImpl(result)));
+            result.initDone();
+            try {
+                wcmScript.eval();
+            }
         };
     }
 
@@ -53,27 +58,27 @@ public class WcmService extends ScriptEventListener {
 
         @Override
         protected String buildMessage(String format, Object parameter) {
-            return null;
+            return MessageFormatter.format(format, parameter).getMessage();
         }
 
         @Override
         protected String buildMessage(String format, Object parameter1, Object parameter2) {
-            return null;
+            return MessageFormatter.format(format, parameter1, parameter2).getMessage();
         }
 
         @Override
         protected String buildMessage(String format, Object[] parameters) {
-            return null;
+            return MessageFormatter.arrayFormat(format, parameters).getMessage();
         }
 
         @Override
         protected String buildMessage(String format, Throwable throwable) {
-            return null;
+            return MessageFormatter.arrayFormat(format, new Object[0], throwable).getMessage();
         }
 
         @Override
-        protected void logMessage(MessageType debug, String msg) {
-
+        protected void logMessage(MessageType type, String msg) {
+            result.add(new ExecutionResult.LogMessage(msg, type.name()));
         }
     }
 }
