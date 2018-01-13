@@ -8,44 +8,55 @@ import nl.mawoo.wcmscript.logger.AbstractScriptLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.helpers.MessageFormatter;
+import org.springframework.stereotype.Service;
 
+import javax.script.ScriptException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
-public class WcmService extends ScriptEventListener {
+@Service
+public class WcmService {
     private final Logger logger = LoggerFactory.getLogger(WcmService.class);
+    private Script script;
 
-    public WcmService(Script script) {
-        super(script);
-    }
-
-    @Override
-    public void update() {
-        Status status = this.script.getStatus();
-        switch (status) {
-            case RUNNING:
-                // start new instance
-                this.run();
-                break;
-            case STOPPED:
-                // stop the instance;
-                this.stop();
-                break;
-        }
-    }
-
-    private void run() {
-        Runnable runnable = () -> {
-            ExecutionResult result = new ExecutionResult(UUID.randomUUID());
-            WCMScript wcmScript = new WCMScript(result.getExecutionId(), new LogConfig(new ScriptLoggerImpl(result)));
-            result.initDone();
-            try {
-                wcmScript.eval();
+    public ExecutionResult run(Script script) {
+        this.script = script;
+        ExecutionResult result = new ExecutionResult(UUID.randomUUID());
+        WCMScript wcmScript = new WCMScript(result.getExecutionId(), new LogConfig(new ScriptLoggerImpl(result)));
+        result.initDone();
+        try {
+            wcmScript.eval(this.openFile());
+        } catch (ScriptException e) {
+            String message = e.getLocalizedMessage();
+            if (message == null) {
+                message = e.getClass().getSimpleName();
             }
-        };
+            result.setError(message);
+        } catch (IOException e) {
+            logger.error("CANNOT START SCRIPT. CAN'T OPEN FILE", e);
+        }
+        result.executionDone();
+        return result;
     }
 
-    private void stop() {
-
+    /**
+     * Open a .trd file
+     *
+     * @return InputStream with the code
+     */
+    private InputStream openFile() {
+        InputStream in = null;
+        try {
+            Path path = Paths.get(script.getPath());
+            in = Files.newInputStream(path);
+        } catch (IOException e) {
+            logger.error("Cannot open: " + script.getFilename(), e);
+        }
+        return in;
     }
 
     private class ScriptLoggerImpl extends AbstractScriptLogger {
