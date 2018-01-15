@@ -1,8 +1,6 @@
 package nl.mawoo.tradescript.service.wcmservice;
 
-import nl.mawoo.tradescript.service.scripts.ScriptEventListener;
 import nl.mawoo.tradescript.service.storage.Script;
-import nl.mawoo.tradescript.service.storage.Status;
 import nl.mawoo.wcmscript.WCMScript;
 import nl.mawoo.wcmscript.logger.AbstractScriptLogger;
 import org.slf4j.Logger;

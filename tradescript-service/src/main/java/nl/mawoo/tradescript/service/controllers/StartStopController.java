@@ -5,6 +5,7 @@ import nl.mawoo.tradescript.service.exceptions.UnableToStopException;
 import nl.mawoo.tradescript.service.scripts.StartStop;
 import nl.mawoo.tradescript.service.storage.Script;
 import nl.mawoo.tradescript.service.storage.ScriptDao;
+import nl.mawoo.tradescript.service.wcmservice.WcmService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,13 @@ public class StartStopController {
 
     @Autowired
     private ScriptDao scriptDao;
+
+    private final WcmService wcmService;
+
+    @Autowired
+    public StartStopController(WcmService wcmService) {
+        this.wcmService = wcmService;
+    }
 
     @RequestMapping("/start")
     @ResponseBody
