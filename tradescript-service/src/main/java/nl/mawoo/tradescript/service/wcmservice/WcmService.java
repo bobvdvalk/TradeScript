@@ -1,5 +1,6 @@
 package nl.mawoo.tradescript.service.wcmservice;
 
+import nl.mawoo.tradescript.service.scripts.ScriptEventListener;
 import nl.mawoo.tradescript.service.storage.Script;
 import nl.mawoo.wcmscript.WCMScript;
 import nl.mawoo.wcmscript.logger.AbstractScriptLogger;
@@ -17,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
-public class WcmService {
+public class WcmService implements ScriptEventListener {
     private final Logger logger = LoggerFactory.getLogger(WcmService.class);
     private Script script;
 
@@ -55,6 +56,16 @@ public class WcmService {
             logger.error("Cannot open: " + script.getFilename(), e);
         }
         return in;
+    }
+
+    @Override
+    public void start(Script script) {
+
+    }
+
+    @Override
+    public void stop(Script script) {
+
     }
 
     private class ScriptLoggerImpl extends AbstractScriptLogger {

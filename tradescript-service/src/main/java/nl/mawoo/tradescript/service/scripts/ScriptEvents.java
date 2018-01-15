@@ -22,7 +22,7 @@ public class ScriptEvents {
     public ScriptEvents(Script script) {
         this.script = script;
         // add listeners
-        subscribers.add(new WcmService(script));
+        subscribers.add(new WcmService());
     }
 
     /**
